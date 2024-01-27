@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>慕课网</title>
+    <link rel="stylesheet" href="../static/css/Index.css">
+    <script src="../static/js/jquery-3.4.1.min.js"></script>
+    <script src="../static/js/Index.js"></script>
+</head>
+<body>
+    <div id="background">
+        <div id="header">
+            <img src="../static/images/YZM01.jpg" alt="" srcset="" id="logo">
+            <label for="search-field" id="search-field-label">搜索:</label><input type="text" value="请输入课程" id="search-field">
+            <input type="button" id="search-button">
+            <a href="" id="login-pan-btn">登录</a>
+        </div>
+        <div id="login-background">
+            <div id="login-page">
+                <div id="login-pan">
+                    <div id="login-pan-title">
+                        登录
+                    </div>
+                    <form id="login-form">
+                        <div id="acc-div">
+                            <label for="account-input" id="account-input-label">账号:</label>
+                            <input type="text" id="account-input">
+                        </div>
+                        <div id="pwd-div">
+                            <label for="password-input" id="password-input-label">密码:</label>
+                            <input type="password" id="password-input">
+                        </div>
+                        <div id="vc-div">
+                            <label for="verify-code-input" id="verify-code-input-label">验证码:</label>
+                            <input type="text" id="verify-code-input">
+                            <img src="../static/images/YZM01.jpg" alt="verify-code-image" id="verify-code-image">
+                        </div>
+                        <div id="option-btn-div">
+                            <input type="button" value="登录" id="login-btn">
+                            <input type="button" value="注册" id="register-btn">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div id="banner"></div>
+    </div>
+</body>
+<script>
+    initial();
+</script>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LoginPage</title>
+    <link rel="stylesheet" href="../static/css/LoginPage.css">
+</head>
+<script src="../static/js/jquery-3.4.1.min.js"></script>
+<script src="../static/js/common.js"></script>
+<script src="../static/js/LoginPage.js"></script>
+<body>
+    <div id="login-feedback">
+        <div id="choose-box">
+            <img src="../static/images/YZM01.jpg" alt="icon" id="choose-box-icon">
+            <span id="login-info">这是一行字</span>
+            <button id="login-confirm">确定</button>
+        </div>
+    </div>
+    <div id="main-login-page">
+        <form>
+            <label for="acc">账号：</label><input type="text" value="请输入账号" id="acc">
+            <label for="pwd">密码：</label><input type="password" value="请输入密码" id="pwd">
+            <input type="button" value="确定" id="login-btn">
+        </form>
+        <img src="../static/images/img02.png" alt="img02">
+    </div>
+</body>
+<script>
+    initial();
+</script>
+</html>

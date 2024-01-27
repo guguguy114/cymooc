@@ -1,0 +1,147 @@
+#header {
+    width: 1000px;
+    height: 50px;
+    background-color: red;
+    display: inline-block;
+    text-align: left;
+}
+
+#background {
+    text-align: center;
+}
+
+#logo {
+    left: 50px;
+    width: 100px;
+    height: 50px;
+    position: relative;
+}
+
+#search-field-label {
+    left: 130px;
+    top: -20px;
+    position: relative;
+}
+
+#search-field {
+    left: 150px;
+    width: 400px;
+    height: 30px;
+    top: -20px;
+    border-radius: 20px;
+    border: 0;
+    position: relative;
+    outline: none;
+    padding-left: 20px;
+}
+
+#search-button {
+    top: -10px;
+    height: 30px;
+    width: 30px;
+    left: 150px;
+    border-radius: 30px;
+    border: 0;
+    outline: none;
+    background-color: aqua;
+    position: relative;
+}
+
+#login-pan-btn {
+    left: 300px;
+    top: -20px;
+    position: relative;
+}
+
+
+
+
+
+
+
+
+#login-background {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    display: inline-block;
+    position: fixed;
+}
+
+#login-page {
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    text-align: center;
+    position: relative;
+}
+
+#login-pan {
+    top: 100px;
+    width: 500px;
+    height: 600px;
+    background-color: white;
+    display: inline-block;
+    float: none;
+    position: relative;
+    vertical-align: center;
+}
+
+#login-form {
+    height: 70%;
+    width: 70%;
+    margin-left: 50px;
+    display: inline-block;
+}
+
+#login-form div {
+    margin-top: 30px;
+    margin-left: 10px;
+}
+
+#acc-div, #pwd-div, #vc-div {
+    float: left;
+}
+
+#login-pan-title {
+    margin-bottom: 80px;
+    margin-top: 70px;
+    font-size: 30px;
+}
+
+#login-form div input {
+    height: 30px;
+    font-size: 15px;
+    padding-left: 10px;
+}
+
+#account-input , #password-input {
+    margin-left: 26px;
+}
+
+#verify-code-input {
+    width: 70px;
+    margin-left: 10px;
+}
+
+#verify-code-image {
+    height: 35px;
+    width: 100px;
+    margin-left: 10px;
+    position: absolute;
+}
+
+#option-btn-div input{
+    width: 200px;
+    height: 40px;
+    margin-top: 20px;
+    margin-right: 50px;
+    float: none;
+}
+
+
+
