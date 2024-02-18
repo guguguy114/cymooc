@@ -4,8 +4,12 @@ import com.cykj.annotation.DBField;
 import com.cykj.annotation.DBTable;
 import com.cykj.util.DBConnectPool;
 import com.cykj.util.DBConnectUtils;
+import com.cykj.util.ServerConsoleUtils;
 
 import java.lang.reflect.Field;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -48,6 +52,15 @@ public class BaseDao {
         }
     }
 
+    /**
+     * Description: 用于执行查询sql语句，优化代码
+     * @param sql 需要执行的sql语句
+     * @param params 执行sql语句中的各个参数
+     * @param pojoClass 创建的pojo类型
+     * @return java.util.List<java.lang.Object>
+     * @author Guguguy
+     * @since 2024/2/4 15:28
+     */
     public List<Object> query(String sql, List<Object> params, Class<?> pojoClass) {
         List<Object> data = new ArrayList<>();
         Connection conn = DBConnectPool.getConn();
@@ -69,6 +82,14 @@ public class BaseDao {
         }
     }
 
+    /**
+     * Description: 根据sql结果，创建pojo实例，填充List
+     * @param rs 执行sql语句后获得的结果集
+     * @param data 需要填充的List
+     * @param pojoClass 需要填充到List里的实例类对象
+     * @author Guguguy
+     * @since 2024/2/4 15:30
+     */
     private void createPojoList(ResultSet rs, List<Object> data, Class<?> pojoClass) {
         try {
             while (rs.next()) {
@@ -90,5 +111,34 @@ public class BaseDao {
         } catch (SQLException | InstantiationException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public boolean insert(String sql, List<Object> params) {
+        Connection conn = DBConnectPool.getConn();
+        PreparedStatement prep = null;
+        try {
+            prep = conn.prepareStatement(sql);
+            for (int i = 0; i < params.size(); i++) {
+                prep.setObject((i + 1), params.get(i));
+            }
+            return prep.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            DBConnectPool.giveBackConn(conn);
+            DBConnectUtils.closeRes(prep, null);
+        }
+    }
+
+    protected String getStringMD5 (String text) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            md.update(text.getBytes());
+            text = new BigInteger(1, md.digest()).toString(16);
+            ServerConsoleUtils.printOut("get text md5 code : " + text);
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+        return text;
     }
 }

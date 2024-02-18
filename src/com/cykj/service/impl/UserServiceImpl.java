@@ -1,9 +1,14 @@
 package com.cykj.service.impl;
 
+import com.alibaba.fastjson2.JSON;
 import com.cykj.dao.IUserDao;
 import com.cykj.dao.Impl.UserDao;
 import com.cykj.net.ResponseDto;
+import com.cykj.pojo.User;
 import com.cykj.service.UserService;
+import com.cykj.util.ServerConsoleUtils;
+
+import java.util.Arrays;
 
 /**
  * Description: TODO
@@ -15,12 +20,20 @@ import com.cykj.service.UserService;
 public class UserServiceImpl implements UserService {
     @Override
     public ResponseDto doLogin(String acc, String pwd) {
-        return null;
+        IUserDao userDao = UserDao.getInstance();
+        ResponseDto responseDto;
+        User user = userDao.doLogin(acc, pwd);
+        if (user != null) {
+            responseDto = new ResponseDto(1, "login successfully", user);
+        }else {
+            responseDto = new ResponseDto(0, "login failed!", null);
+        }
+        return responseDto;
     }
 
     @Override
     public ResponseDto charge(int uid, int moneyToCharge) {
-        IUserDao userDao; userDao = UserDao.getInstance();
+        IUserDao userDao = UserDao.getInstance();
         ResponseDto responseDTO;
         if (userDao.charge(uid, moneyToCharge)){
             responseDTO = new ResponseDto(1, "charge success!", moneyToCharge);
@@ -31,8 +44,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseDto doRegister() {
-        return null;
+    public ResponseDto doRegister(String acc, String pwd) {
+        IUserDao userDao = UserDao.getInstance();
+        ResponseDto responseDto;
+        int code = userDao.doRegister(acc, pwd);
+        if (code == 1) {
+            responseDto = new ResponseDto(1, "register success!", null);
+        } else if (code == 2){
+            responseDto = new ResponseDto(0, "account has existed", null);
+        } else {
+            responseDto = new ResponseDto(0, "register failed!", null);
+        }
+        return responseDto;
     }
 
     @Override

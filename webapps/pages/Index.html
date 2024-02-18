@@ -5,6 +5,7 @@
     <title>慕课网</title>
     <link rel="stylesheet" href="../static/css/Index.css">
     <script src="../static/js/jquery-3.4.1.min.js"></script>
+    <script src="../static/js/common.js"></script>
     <script src="../static/js/Index.js"></script>
 </head>
 <body>
@@ -13,13 +14,27 @@
             <img src="../static/images/YZM01.jpg" alt="" srcset="" id="logo">
             <label for="search-field" id="search-field-label">搜索:</label><input type="text" value="请输入课程" id="search-field">
             <input type="button" id="search-button">
-            <a href="" id="login-pan-btn">登录</a>
+            <button id="login-pan-btn" >登录</button>
+        </div>
+        <div id="banner">
+            <div id="banner-screen">
+                <img src="../static/images/banners/banner01.jpg" alt="banner" id="banner-img">
+                <div id="banner-right-btn" class="arrow-div">
+                    <img src="../static/images/icons/right_arrow.png" alt="arrow" class="arrow-img" id="right-arrow">
+                </div>
+                <div id="banner-left-btn" class="arrow-div">
+                    <img src="../static/images/icons/left_arrow.png" alt="arrow" class="arrow-img" id="left-arrow">
+                </div>
+            </div>
         </div>
         <div id="login-background">
             <div id="login-page">
                 <div id="login-pan">
-                    <div id="login-pan-title">
+                    <div id="login-pan-title" class="pan-title">
                         登录
+                    </div>
+                    <div class="cancel-btn">
+                        <img src="../static/images/icons/cancel.png" alt="cancel">
                     </div>
                     <form id="login-form">
                         <div id="acc-div">
@@ -37,13 +52,58 @@
                         </div>
                         <div id="option-btn-div">
                             <input type="button" value="登录" id="login-btn">
-                            <input type="button" value="注册" id="register-btn">
+                            <input type="button" value="注册" id="to-register-btn">
                         </div>
                     </form>
                 </div>
+                <div id="register-pan">
+                    <div id="register-pan-title" class="pan-title">
+                        注册
+                    </div>
+                    <div class="cancel-btn">
+                        <img src="../static/images/icons/cancel.png" alt="cancel">
+                    </div>
+                    <div id="register-form">
+                        <div id="acc-div-r">
+                            <label for="account-input-r" id="account-input-label-r">
+                                账号:
+                            </label>
+                            <input type="text" id="account-input-r">
+                        </div>
+                        <div id="pwd-div-r">
+                            <label for="password-input-r" id="password-input-label-r">
+                                密码:
+                            </label>
+                            <input type="password" id="password-input-r">
+                        </div>
+                        <div id="pwd-confirm-div-r">
+                            <label for="password-confirm-input-r" id="password-confirm-input-label-r">
+                                确认密码:
+                            </label>
+                            <input type="password" id="password-confirm-input-r">
+                        </div>
+                        <div id="option-btn-div-r">
+                            <input type="button" value="返回登录界面" id="return-to-login-pan-btn">
+                            <input type="button" value="注册" id="register-btn">
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div id="banner"></div>
+        <div id="attention-background">
+            <div id="attention-page">
+                <div id="attention-pan">
+                    <div id="attention-head">
+                        <div id="attention-title">这是标题</div>
+                        <img src="../static/images/icons/cancel.png" alt="cancel" class="attention-cancel-btn">
+                    </div>
+                    <hr>
+                    <div id="attention-context">
+                        这是正文
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 <script>

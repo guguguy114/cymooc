@@ -30,4 +30,16 @@ public class ResponseDto {
     public String toString() {
         return "{code = " + code + " msg = " + msg + " data = " + data + "}";
     }
+
+    public int getCode() {
+        return code;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public Object getData() {
+        return data;
+    }
 }

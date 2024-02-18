@@ -229,15 +229,15 @@ public class VerifyCodeUtils {
         }
     }
 
-    public static void main(String[] args){
-        File dir = new File("./webapps/static/images/verifycodes");
-        int width=200,height=80;
-        String verifyCode = generateVerifyCode(4);
-        File file = new File(dir,verifyCode+".jpg");
-        try {
-            outputImage(width, height, file, verifyCode);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+    /// public static void main(String[] args){
+    ///     File dir = new File("./webapps/static/images/verifycodes");
+    ///     int width=200,height=80;
+    ///     String verifyCode = generateVerifyCode(4);
+    ///     File file = new File(dir, "vc" + ".jpg");
+    ///     try {
+    ///         outputImage(width, height, file, verifyCode);
+    ///     } catch (IOException e) {
+    ///         e.printStackTrace();
+    ///     }
+    /// }
 }

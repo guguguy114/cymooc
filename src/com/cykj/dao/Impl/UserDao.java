@@ -3,19 +3,27 @@
  */
 package com.cykj.dao.Impl;
 
+import com.cykj.annotation.DBField;
 import com.cykj.annotation.DBTable;
 import com.cykj.dao.BaseDao;
 import com.cykj.dao.IUserDao;
 import com.cykj.pojo.User;
 import com.cykj.util.DBConnectPool;
 import com.cykj.util.DBConnectUtils;
+import com.cykj.util.ServerConsoleUtils;
 
+import java.lang.reflect.Field;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Description:
@@ -30,8 +38,8 @@ public class UserDao extends BaseDao implements IUserDao {
     // public static UserDao userDao = new UserDao();
     // 这里是懒汉模式
     public static UserDao userDao;
-    private String tableName;
-    private Class<User> userPojoClass;
+    private final String tableName;
+    private final Class<User> userPojoClass;
     private UserDao(){
         userPojoClass = User.class;
         tableName = userPojoClass.getAnnotation(DBTable.class).value();
@@ -50,10 +58,19 @@ public class UserDao extends BaseDao implements IUserDao {
         // 创建账户polo对象
         // 创建数据库连接等对象，从数据库抓取数据
         // 这里采用预编译方式进行执行sql语句，防止sql语句注入
-        String sql = "select * from " + tableName + " where acc = ? and pwd = ?";
+        String sql = "select * from " + tableName + " where account = ? and password = ?";
         List<Object> params = new ArrayList<>();
         List<Object> dataReturned;
         params.add(acc);
+        // 生成密码md5
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            md.update(pwd.getBytes());
+            pwd = new BigInteger(1, md.digest()).toString(16);
+            ServerConsoleUtils.printOut("get pwd md5 code : " + pwd);
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
         params.add(pwd);
         dataReturned = query(sql, params, User.class);
         if (!dataReturned.isEmpty()) {
@@ -61,6 +78,30 @@ public class UserDao extends BaseDao implements IUserDao {
         } else {
             return null;
         }
+    }
+
+    @Override
+    public int doRegister(String acc, String pwd) {
+        String sql = "select * from " + tableName + " where account = ?";
+        List<Object> params = new ArrayList<>();
+        List<Object> dataReturned;
+        params.add(acc);
+        dataReturned = query(sql, params, User.class);
+        if (dataReturned.isEmpty()) {
+            sql = "insert into " + tableName + " (account, password, nickname) values (?, ?, ?)";
+            pwd = getStringMD5(pwd);
+            Random r = new Random();
+            String nickname = "user_" + getStringMD5(String.valueOf(r.nextInt(100000)));
+            params.add(pwd);
+            params.add(nickname);
+            boolean code = insert(sql, params);
+            if (!code) {
+                return 0;
+            }
+        } else {
+            return 2;
+        }
+        return 1;
     }
 
     /**

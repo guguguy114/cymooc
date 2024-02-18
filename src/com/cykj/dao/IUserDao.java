@@ -14,6 +14,7 @@ import java.util.List;
  */
 public interface IUserDao {
     User doLogin(String acc, String pwd);
+    int doRegister(String acc, String pwd);
     boolean charge(int uid, int moneyToCharge);
     List<Object> getUsers(int start, int pageSize);
     int getUsersCount();
