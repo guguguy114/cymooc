@@ -1,0 +1,37 @@
+#background {
+    width: 100%;
+    height: 730px;
+    text-align: center;
+    position: relative;
+    display: inline-block;
+    background-color: grey;
+}
+
+#change-pan {
+    width: 900px;
+    height: 700px;
+    margin-top: 15px;
+    display: inline-block;
+    background-color: white;
+}
+
+#title {
+    font-size: 50px;
+    margin-top: 20px;
+    position: relative;
+}
+
+#reset-form {
+    width: 800px;
+    height: 400px;
+    position: relative;
+    display: inline-block;
+    background-color: bisque;
+}
+
+
+
+
+
+
+

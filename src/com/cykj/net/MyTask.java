@@ -5,9 +5,6 @@ import com.cykj.servlet.BasicServlet;
 import com.cykj.util.ServerConsoleUtils;
 import com.cykj.util.ServletUtils;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
 /**
  * Description: TODO
  * 任务对象，用于线程池的使用
@@ -54,7 +51,8 @@ public class MyTask extends Thread{
             }
         } catch (RuntimeException e) {
             ServerConsoleUtils.printOut(e.getMessage(),"Server Error" , ServerConsoleUtils.RED);
-            ResponseDto dto = new ResponseDto(404, "File not exist", null);
+            e.printStackTrace();
+            ResponseDto dto = new ResponseDto(404, "UnknownError!", null);
             httpResponse.write("text/html; charset:utf-8", JSON.toJSONBytes(dto));
         }
     }

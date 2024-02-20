@@ -66,4 +66,16 @@ public class UserServiceImpl implements UserService {
         }
         return responseDto;
     }
+
+    @Override
+    public ResponseDto changeInfo(String infoType, String newInfo, String acc) {
+        IUserDao userDao = UserDao.getInstance();
+        ResponseDto responseDto;
+        if (userDao.changeInfo(infoType, newInfo, acc)) {
+            responseDto = new ResponseDto(1, "change successfully!", null);
+        } else {
+            responseDto = new ResponseDto(0, "fail to change info!", null);
+        }
+        return responseDto;
+    }
 }

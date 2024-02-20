@@ -11,6 +11,13 @@ function initial() {
 
     chargeConfirmBtn = $("#charge-confirm-btn")
 
+    $(".cancel-btn").on("click", function () {
+        $("#form-background").css("display", "none")
+        $("#form-input-1").val('')
+        $("#form-input-2").val('')
+        $("#form-input-3").val('')
+    })
+
     $("#attention-cancel-btn").on("click", function () {
         closeAttentionPan()
     })
@@ -77,5 +84,53 @@ function closeAttentionPan () {
     chargeConfirmBtn.css("display", "none")
     chargeNumInput.css("display", "none")
     $("#attention-background").css("display", "none")
+}
 
+function displayFormPan (title = "", label1 = "", label2 = "", label3 = "", btn1 = "", btn2 = "") {
+    let optBtn1 = $("#option-btn-1")
+    let optBtn2 = $("#option-btn-2")
+
+
+    $("#form-title").text(title)
+    if (label1 === "") {
+        $("#form-input-div-1").css("display", "none")
+    }else {
+        $("#form-input-div-1").css("display", "inline-block")
+    }
+    if (label2 === "") {
+        $("#form-input-div-2").css("display", "none")
+    }else {
+        $("#form-input-div-2").css("display", "inline-block")
+    }
+    if (label3 === "") {
+        $("#form-input-div-3").css("display", "none")
+    }else {
+        $("#form-input-div-3").css("display", "inline-block")
+    }
+    if (btn1 === "") {
+        optBtn1.css("display", "none")
+    }else {
+        optBtn1.css("display", "inline-block")
+    }
+    if (btn2 === "") {
+        optBtn2.css("display", "none")
+    }else {
+        optBtn2.css("display", "inline-block")
+    }
+
+    $("#form-input-label-1").text(label1)
+    $("#form-input-label-2").text(label2)
+    $("#form-input-label-3").text(label3)
+
+    optBtn1.val(btn1)
+    optBtn2.val(btn2)
+
+    $("#form-background").css("display", "inline-block")
+    $("#form-pan").css("display", "inline-block")
+}
+
+function closeFormPan () {
+    $("#form-input-1").val()
+    $("#form-input-2").val()
+    $("#form-input-3").val()
 }

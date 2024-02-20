@@ -7,16 +7,10 @@ import com.cykj.annotation.DBTable;
 import com.cykj.dao.BaseDao;
 import com.cykj.dao.IUserDao;
 import com.cykj.pojo.User;
-import com.cykj.util.DBConnectPool;
-import com.cykj.util.DBConnectUtils;
-import com.cykj.util.ServerConsoleUtils;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -63,7 +57,6 @@ public class UserDao extends BaseDao implements IUserDao {
             MessageDigest md = MessageDigest.getInstance("MD5");
             md.update(pwd.getBytes());
             pwd = new BigInteger(1, md.digest()).toString(16);
-            ServerConsoleUtils.printOut("get pwd md5 code : " + pwd);
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }
@@ -141,6 +134,16 @@ public class UserDao extends BaseDao implements IUserDao {
         } else {
             return null;
         }
+    }
+
+    @Override
+    public boolean changeInfo(String type, String info, String acc) {
+        String sql = "update " + tableName + " set " + type + " = ? where account = ?";
+        List<Object> params = new ArrayList<>();
+        params.add(info);
+        params.add(acc);
+        int changeNum = update(sql, params);
+        return changeNum == 1;
     }
 
     public synchronized static UserDao getInstance(){// 这里使用同步锁就是为了解决线程安全问题

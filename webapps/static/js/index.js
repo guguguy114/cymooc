@@ -12,6 +12,8 @@ function initial() {
     const registerBtn = $("#register-btn");
     const returnToLoginPanBtn = $("#return-to-login-pan-btn");
 
+    judgeLoginState()
+
     createAttentionPan($("#background"))
 
     loginPanBtn.click(function () {
@@ -110,7 +112,7 @@ function initial() {
                     console.log(res)
                     switch (res.code) {
                         case 0:
-                            displayAttention("登录失败", "发生未知错误")
+                            displayAttention("登录失败", "密码或账号有误")
                             break;
                         case 1:
                             sessionStorage.setItem("user", JSON.stringify(res.data));
@@ -231,4 +233,25 @@ function updateVerifyCodeImage () {
             alert("server error!")
         }
     })
+}
+
+function judgeLoginState () {
+    let userInfo = JSON.parse(sessionStorage.getItem("user"))
+    let faceImg = $("#face-img");
+    let logoutBtn = $("#logout-div")
+
+    if (userInfo !== null) {
+        logoutBtn.on("click", function () {
+            sessionStorage.clear()
+            window.location.reload(true)
+        })
+        logoutBtn.css("display", "inline-block")
+        faceImg.on("click", function () {
+            window.location.href = "../../pages/home.html"
+        })
+
+        faceImg.attr("src", userInfo.faceImage)
+        faceImg.css("display", "inline-block")
+        $("#login-pan-btn").css("display", "none")
+    }
 }

@@ -51,6 +51,7 @@ function updateUserInfo () {
     faceImg.attr("src", userInfo.faceImage)
     account.text(userInfo.account)
     nickname.text(userInfo.nickname)
-    signupTime.text(userInfo.registerTime)
+    var date = new Date(userInfo.registerTime)
+    signupTime.text(date.toString())
     balance.text(userInfo.balance)
 }

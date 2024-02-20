@@ -15,4 +15,5 @@ public interface IUserDao {
     int doRegister(String acc, String pwd);
     boolean charge(String acc, int moneyToCharge);
     User getUserInfo(String acc);
+    boolean changeInfo(String type, String info, String acc);
 }
