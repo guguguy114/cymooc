@@ -49,6 +49,7 @@ public class GetVerifyCodeServlet extends BasicServlet{
             MessageDigest md = MessageDigest.getInstance("MD5");
             md.update(verifyCode.getBytes());
             verifyCode = new BigInteger(1, md.digest()).toString(16);
+            ServerConsoleUtils.printOut("vc : " + verifyCode);
             File file = new File(dir, verifyCode + ".jpg");
             VerifyCodeUtils.outputImage(width, height, file, vc);
         } catch (NoSuchAlgorithmException | IOException e) {

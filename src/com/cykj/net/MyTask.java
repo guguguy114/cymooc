@@ -34,7 +34,7 @@ public class MyTask extends Thread{
             ServerConsoleUtils.printOut("Transform Complete!", ServerConsoleUtils.GREEN);
         } else if (httpRequest.getModule().equals("/") || httpRequest.getModule().isEmpty()){
             // 根据请求获取访问路径
-            String url = "./webapps/pages/Index.html";
+            String url = "./webapps/pages/index.html";
             // 将文件内容写入fileBytes中
             byte[] fileBytes = StaticResourceHandler.getContentBytes(url);
             // 根据文件类型获取文件类型字符串

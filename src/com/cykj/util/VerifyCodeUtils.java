@@ -17,7 +17,7 @@ import java.util.Random;
 import javax.imageio.ImageIO;
 
 /**
- *
+ * 外部库
  * <p>Title:VerifyCodeUtils </p>
  * <p>Description: 生成图片流核心代码块</p>
  * <p>Company: </p>

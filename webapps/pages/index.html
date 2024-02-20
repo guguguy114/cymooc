@@ -3,29 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <title>慕课网</title>
-    <link rel="stylesheet" href="../static/css/Index.css">
+    <link rel="stylesheet" href="../static/css/index.css">
     <script src="../static/js/jquery-3.4.1.min.js"></script>
+    <script src="../static/js/md5.min.js"></script>
     <script src="../static/js/common.js"></script>
-    <script src="../static/js/Index.js"></script>
+    <script src="../static/js/index.js"></script>
 </head>
 <body>
     <div id="background">
         <div id="header">
-            <img src="../static/images/YZM01.jpg" alt="" srcset="" id="logo">
+            <img src="../static/images/logo.jpg" alt="" srcset="" id="logo">
             <label for="search-field" id="search-field-label">搜索:</label><input type="text" value="请输入课程" id="search-field">
             <input type="button" id="search-button">
             <button id="login-pan-btn" >登录</button>
         </div>
         <div id="banner">
             <div id="banner-screen">
-                <img src="../static/images/banners/banner01.jpg" alt="banner" id="banner-img">
+                <img src="../static/images/banners/banner1.jpg" alt="banner" id="banner-img">
                 <div id="banner-right-btn" class="arrow-div">
                     <img src="../static/images/icons/right_arrow.png" alt="arrow" class="arrow-img" id="right-arrow">
                 </div>
                 <div id="banner-left-btn" class="arrow-div">
                     <img src="../static/images/icons/left_arrow.png" alt="arrow" class="arrow-img" id="left-arrow">
                 </div>
+                <div id="banner-page-points-div">
+                    <ul id="banner-page-points-list">
+
+                    </ul>
+                </div>
             </div>
+        </div>
+        <div id="video-suggest">
+            <span>推荐课程</span>
+            <div id="sort-way-div">排序方式:</div>
+            <div id="sort-way">点赞数</div>
+            <ul id="video-suggest-list">
+
+            </ul>
         </div>
         <div id="login-background">
             <div id="login-page">
@@ -48,7 +62,7 @@
                         <div id="vc-div">
                             <label for="verify-code-input" id="verify-code-input-label">验证码:</label>
                             <input type="text" id="verify-code-input">
-                            <img src="../static/images/YZM01.jpg" alt="verify-code-image" id="verify-code-image">
+                            <img src="../static/images/logo.jpg" alt="verify-code-image" id="verify-code-image">
                         </div>
                         <div id="option-btn-div">
                             <input type="button" value="登录" id="login-btn">
