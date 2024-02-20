@@ -7,13 +7,12 @@ function initial() {
     const searchBtn = $("#search-button");
     const loginPanBtn = $("#login-pan-btn");
     const cancelBtn = $(".cancel-btn");
-    const attentionCancelBtn = $(".attention-cancel-btn");
     const loginBtn = $("#login-btn");
     const toRegisterPanBtn = $("#to-register-btn");
     const registerBtn = $("#register-btn");
     const returnToLoginPanBtn = $("#return-to-login-pan-btn");
 
-
+    createAttentionPan($("#background"))
 
     loginPanBtn.click(function () {
         $("#login-background").css("display", "inline-block")
@@ -29,9 +28,7 @@ function initial() {
         $("#verify-code-input").val('')
     })
 
-    attentionCancelBtn.click(function () {
-        $("#attention-background").css("display", "none")
-    })
+
 
     toRegisterPanBtn.click(function () {
         $("#login-pan").css("display", "none")
@@ -116,7 +113,7 @@ function initial() {
                             displayAttention("登录失败", "发生未知错误")
                             break;
                         case 1:
-                            sessionStorage.setItem("user", JSON.stringify(res));
+                            sessionStorage.setItem("user", JSON.stringify(res.data));
                             window.location.href = "../../pages/home.html"
                             break;
                     }
@@ -197,12 +194,6 @@ function initial() {
     $("#verify-code-image").on("click", function () {
         updateVerifyCodeImage()
     })
-}
-
-function displayAttention (title, text) {
-    $("#attention-background").css("display", "inline-block")
-    $("#attention-title").html(title)
-    $("#attention-context").html(text)
 }
 
 function setBannerImg (page) {

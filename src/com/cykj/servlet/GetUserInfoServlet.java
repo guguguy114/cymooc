@@ -14,13 +14,12 @@ import com.cykj.service.impl.UserServiceImpl;
  * @version 1.0
  * @since 2023/12/24 15:58
  */
-public class GetUsersServlet extends BasicServlet{
+public class GetUserInfoServlet extends BasicServlet{
     @Override
     public void doPost(HttpRequest request, HttpResponse response) {
-        int pageCurr = Integer.parseInt(request.getValue("pageCurr"));
-        int pageSize = Integer.parseInt(request.getValue("pageSize"));
+        String acc = request.getValue("acc");
         UserService userService = new UserServiceImpl();
-        ResponseDto dto = userService.getUsers(pageCurr, pageSize);
+        ResponseDto dto = userService.getUserInfo(acc);
         response.write("text/html; charset:utf-8", JSON.toJSONBytes(dto));
     }
 

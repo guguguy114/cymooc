@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <title>个人信息</title>
     <link rel="stylesheet" href="../static/css/user-info.css">
+    <script src="../static/js/jquery-3.4.1.min.js"></script>
+    <script src="../static/js/common.js"></script>
+    <script src="../static/js/user-info.js"></script>
 </head>
 <body>
     <div id="background">
@@ -15,7 +18,7 @@
         <div id="info-form">
             <div id="account-div" class="form-item-div">
                 <div id="account-label" class="acc-item">
-                    这是账号标签
+                    账号:
                 </div>
                 <div id="account" class="acc-item">
                     这是账号
@@ -23,7 +26,7 @@
             </div>
             <div id="nickname-div" class="form-item-div">
                 <div id="nickname-label" class="pwd-item">
-                    这是昵称标签
+                    昵称:
                 </div>
                 <div id="nickname" class="pwd-item">
                     这是昵称
@@ -31,7 +34,7 @@
             </div>
             <div id="signup-date-div" class="form-item-div">
                 <div id="signup-date-label" class="signup-date-item">
-                    这是注册时间标签
+                    注册时间:
                 </div>
                 <div id="signup-date" class="signup-date-item">
                     这是注册时间
@@ -39,13 +42,17 @@
             </div>
             <div id="balance-div" class="form-item-div">
                 <div id="balance-label" class="balance-item">
-                    这是余额标签
+                    余额:
                 </div>
                 <div id="balance" class="balance-item">
                     这是余额
                 </div>
+                <button id="charge-btn">充值</button>
             </div>
         </div>
     </div>
 </body>
+<script>
+    initial()
+</script>
 </html>

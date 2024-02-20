@@ -130,6 +130,23 @@ public class BaseDao {
         }
     }
 
+    public int update(String sql, List<Object> params) {
+        Connection conn = DBConnectPool.getConn();
+        PreparedStatement prep = null;
+        try {
+            prep = conn.prepareStatement(sql);
+            for (int i = 0; i < params.size(); i++) {
+                prep.setObject((i + 1), params.get(i));
+            }
+            return prep.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            DBConnectPool.giveBackConn(conn);
+            DBConnectUtils.closeRes(prep, null);
+        }
+    }
+
     protected String getStringMD5 (String text) {
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");

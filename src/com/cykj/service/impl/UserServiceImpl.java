@@ -1,14 +1,10 @@
 package com.cykj.service.impl;
 
-import com.alibaba.fastjson2.JSON;
 import com.cykj.dao.IUserDao;
 import com.cykj.dao.Impl.UserDao;
 import com.cykj.net.ResponseDto;
 import com.cykj.pojo.User;
 import com.cykj.service.UserService;
-import com.cykj.util.ServerConsoleUtils;
-
-import java.util.Arrays;
 
 /**
  * Description: TODO
@@ -32,11 +28,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseDto charge(int uid, int moneyToCharge) {
+    public ResponseDto charge(String acc, int chargeNum) {
         IUserDao userDao = UserDao.getInstance();
         ResponseDto responseDTO;
-        if (userDao.charge(uid, moneyToCharge)){
-            responseDTO = new ResponseDto(1, "charge success!", moneyToCharge);
+        if (userDao.charge(acc, chargeNum)){
+            responseDTO = new ResponseDto(1, "charge success!", chargeNum);
         }else {
             responseDTO = new ResponseDto(0, "charge failed!", 0);
         }
@@ -59,7 +55,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseDto getUsers(int pageCurr, int pageSize) {
-        return null;
+    public ResponseDto getUserInfo(String acc) {
+        IUserDao userDao = UserDao.getInstance();
+        ResponseDto responseDto;
+        User user = userDao.getUserInfo(acc);
+        if (user != null) {
+            responseDto = new ResponseDto(1, "get info successfully", user);
+        } else {
+            responseDto = new ResponseDto(0, "fail to get userinfo", null);
+        }
+        return responseDto;
     }
 }

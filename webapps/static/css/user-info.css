@@ -60,3 +60,14 @@
 .balance-item {
     display: inline-block;
 }
+
+#charge-btn {
+    width: 100px;
+    right: 100px;
+    height: 40px;
+    border: none;
+    background-color: aqua;
+    cursor: pointer;
+    position: absolute;
+    display: inline-block;
+}

@@ -11,7 +11,7 @@ import com.cykj.net.ResponseDto;
  */
 public interface UserService {
     ResponseDto doLogin(String acc, String pwd);
-    ResponseDto charge(int uid, int moneyToCharge);
+    ResponseDto charge(String acc, int chargeNum);
     ResponseDto doRegister(String acc, String pwd);
-    ResponseDto getUsers(int pageCurr, int pageSize);
+    ResponseDto getUserInfo(String acc);
 }

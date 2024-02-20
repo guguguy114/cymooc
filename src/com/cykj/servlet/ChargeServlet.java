@@ -18,12 +18,12 @@ public class ChargeServlet extends BasicServlet{
 
     @Override
     public void doPost(HttpRequest request, HttpResponse response){
-        int userID = Integer.parseInt(request.getValue("id"));
-        int moneyToCharge = Integer.parseInt(request.getValue("money"));
+        String acc = request.getValue("acc");
+        int moneyToCharge = Integer.parseInt(request.getValue("num"));
 
         UserServiceImpl userService = new UserServiceImpl();
 
-        ResponseDto responseDTO = userService.charge(userID, moneyToCharge);
+        ResponseDto responseDTO = userService.charge(acc, moneyToCharge);
 
         response.write("text/html; charset:utf-8", JSON.toJSONBytes(responseDTO));
     }

@@ -2,8 +2,6 @@ package com.cykj.dao;
 
 import com.cykj.pojo.User;
 
-import java.util.List;
-
 /**
  * Description: TODO
  * 接口是用于统一代码规范的工具，主要用于规定某一个功能的方法返回值和参数等标准
@@ -15,7 +13,6 @@ import java.util.List;
 public interface IUserDao {
     User doLogin(String acc, String pwd);
     int doRegister(String acc, String pwd);
-    boolean charge(int uid, int moneyToCharge);
-    List<Object> getUsers(int start, int pageSize);
-    int getUsersCount();
+    boolean charge(String acc, int moneyToCharge);
+    User getUserInfo(String acc);
 }

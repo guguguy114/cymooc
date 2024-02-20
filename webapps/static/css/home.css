@@ -14,7 +14,7 @@
     position: relative;
     display: inline-block;
     text-align: center;
-    z-index: 10;
+    z-index: 3;
 }
 
 body {
@@ -85,4 +85,28 @@ body {
     width: 100%;
     position: relative;
     border: none;
+}
+
+
+
+
+
+
+/* 特殊的通知面板设置 */
+
+#charge-num-input {
+    height: 20px;
+    width: 200px;
+    display: inline-block;
+    position: relative;
+    margin-top: 10px;
+    font-size: 20px;
+}
+
+#charge-confirm-btn {
+    width: 100px;
+    height: 30px;
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
 }

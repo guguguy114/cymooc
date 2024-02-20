@@ -1,0 +1,63 @@
+/* 提示界面 */
+
+#attention-background {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    display: none;
+    position: fixed;
+    z-index: 5;
+}
+
+#attention-page {
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    text-align: center;
+    position: relative;
+}
+
+#attention-pan {
+    top: 300px;
+    width: 300px;
+    height: 200px;
+    background-color: white;
+    display: inline-block;
+    float: none;
+    position: relative;
+    vertical-align: center;
+}
+
+#attention-head {
+    width: 300px;
+    height: 20px;
+    margin-top: 10px;
+    text-align: center;
+    position: relative;
+}
+
+.attention-cancel-btn {
+    top: 0;
+    right: 10px;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    cursor: pointer;
+    display: inline-block;
+}
+
+
+
+/* 去除上下按钮 */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none !important;
+    margin: 0;
+}
+input[type="number"] {
+    -moz-appearance: textfield;
+}

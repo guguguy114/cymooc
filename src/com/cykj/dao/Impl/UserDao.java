@@ -3,7 +3,6 @@
  */
 package com.cykj.dao.Impl;
 
-import com.cykj.annotation.DBField;
 import com.cykj.annotation.DBTable;
 import com.cykj.dao.BaseDao;
 import com.cykj.dao.IUserDao;
@@ -12,16 +11,13 @@ import com.cykj.util.DBConnectPool;
 import com.cykj.util.DBConnectUtils;
 import com.cykj.util.ServerConsoleUtils;
 
-import java.lang.reflect.Field;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -107,87 +103,44 @@ public class UserDao extends BaseDao implements IUserDao {
     /**
      * Description:
      * 充值方法
-     * @param userID 进行充值的账户
-     * @param money 需要充值的钱数
+     *
+     * @param acc 进行充值的账户
+     * @param chargeNum  需要充值的钱数
      * @return boolean 是否操作成功
      * @author Guguguy
      * @since 2023/11/29 21:16
      */
     @Override
-    public boolean charge(int userID, int money) {
-        // ServerUtils.printOut("charging!!");
-        Connection conn = DBConnectPool.getConn();
-        if (conn == null){
-            return false;
-        }
-        String sql = "update " + tableName + " set money = money + ? where id = ?";
-        PreparedStatement prep = null;
-        try {
-            prep = conn.prepareStatement(sql);
-            prep.setInt(1, money);
-            prep.setInt(2, userID);
-            // ServerUtils.printOut(String.valueOf(prep.executeUpdate()));
-            return prep.executeUpdate() != 0;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
-            DBConnectPool.giveBackConn(conn);
-            DBConnectUtils.closeRes(prep, null);
-        }
-
-
+    public boolean charge(String acc, int chargeNum) {
+        String sql = "update " + tableName + " set balance = balance + ? where account = ?";
+        List<Object> params = new ArrayList<>();
+        int updateNum;
+        params.add(chargeNum);
+        params.add(acc);
+        updateNum = update(sql, params);
+        return updateNum == 1;
     }
 
     /**
      * Description:
      * 查询全部用户信息方法
+     *
      * @return java.util.List<Object>
      * @author Guguguy
      * @since 2023/12/24 15:52
      */
     @Override
-    public List<Object> getUsers(int start, int pageSize) {
-        // 创建账户polo对象
-        List<Object> users;
+    public User getUserInfo(String acc) {
+        String sql = "select * from " + tableName + " where account = ?";
         List<Object> params = new ArrayList<>();
-        params.add(start);
-        params.add(pageSize);
-        String sql = "select * from " + tableName + " limit ? , ?";
-        users = query(sql, params, User.class);
-        return users;
-    }
-
-    @Override
-    public int getUsersCount() {
-        int res;
-        // 创建数据库连接等对象，从数据库抓取数据
-        Connection connection = DBConnectPool.getConn();
-        if (connection == null){
-            return 0;
+        List<Object> dataReturned;
+        params.add(acc);
+        dataReturned = query(sql, params, User.class);
+        if (!dataReturned.isEmpty()) {
+            return (User) dataReturned.get(0);
+        } else {
+            return null;
         }
-        PreparedStatement preparedStatement = null;
-        // 这里采用预编译方式进行执行sql语句，防止sql语句注入
-        String sql = "select count(*) as count from " + tableName;
-        ResultSet resultSet = null;
-        try {
-            preparedStatement = connection.prepareStatement(sql);
-            resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()){
-                res = resultSet.getInt("count");
-            }else {
-                res = 0;
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
-            DBConnectUtils.closeRes(preparedStatement, resultSet);
-            DBConnectPool.giveBackConn(connection);
-        }
-        return res;
-    }
-
-    public int register(){
-        return 0;
     }
 
     public synchronized static UserDao getInstance(){// 这里使用同步锁就是为了解决线程安全问题
