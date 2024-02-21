@@ -15,6 +15,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -74,6 +75,29 @@ public class BaseDao {
             rs = prep.executeQuery();
             createPojoList(rs, data, pojoClass);
             return data;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            DBConnectPool.giveBackConn(conn);
+            DBConnectUtils.closeRes(prep, rs);
+        }
+    }
+
+    public int queryNum(String sql, List<Object> params) {
+        Connection conn = DBConnectPool.getConn();
+        PreparedStatement prep = null;
+        ResultSet rs = null;
+        try {
+            prep = conn.prepareStatement(sql);
+            for (int i = 0; i < params.size(); i++) {
+                prep.setObject((i + 1), params.get(i));
+            }
+            rs = prep.executeQuery();
+            int length = 0;
+            while (rs.next()) {
+                length++;
+            }
+            return length;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {

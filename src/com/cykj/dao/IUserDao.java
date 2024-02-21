@@ -1,6 +1,9 @@
 package com.cykj.dao;
 
+import com.cykj.pojo.Course;
 import com.cykj.pojo.User;
+
+import java.util.List;
 
 /**
  * Description: TODO

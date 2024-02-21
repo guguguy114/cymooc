@@ -160,18 +160,7 @@ function initial() {
         list.append(listItem)
     }
 
-    // 设置推荐视频
-    for (let i = 1; i <= maxShowVideoNum; i++) {
-        let videoList = $("#video-suggest-list")
-        let videoLi = $("<li class='video-list-item'></li>")
-        let videoDiv = $("<div class='video-div'></div>")
-        let videoImg = $("<img src='../static/images/upload/course-images/default_video_img.jpg' alt='video-img' class='video-img'> <hr>")
-        let videoName = $("<div>this is title</div>")
-        videoDiv.append(videoImg)
-        videoDiv.append(videoName)
-        videoLi.append(videoDiv)
-        videoList.append(videoLi)
-    }
+    getRecommendVideo("like_list")
 
     $("#banner-page-point1").css("background-color", "white")
     $("#banner-right-btn").on("click", function () {
@@ -235,23 +224,58 @@ function updateVerifyCodeImage () {
     })
 }
 
-function judgeLoginState () {
-    let userInfo = JSON.parse(sessionStorage.getItem("user"))
-    let faceImg = $("#face-img");
-    let logoutBtn = $("#logout-div")
+function getRecommendVideo (func) {
+    let recommendVideoNum = 10;
+    $.ajax({
+        url: baseUrl + "getRecommendCourse",
+        method: "post",
+        data: {
+            num: recommendVideoNum,
+            func: func
+        },
+        dataType: "json",
+        success: function (res) {
+            console.log(res.data)
+        },
+        error: function (res) {
+            alert("server error!")
+        }
+    })
+    // 设置推荐视频
+    for (let i = 1; i <= maxShowVideoNum; i++) {
+        let videoList = $("#video-suggest-list")
+        let videoLi = $("<li class='video-list-item'></li>")
+        let videoDiv = $("<div class='video-div'></div>")
+        let videoImg = $("<img src='../static/images/upload/course-images/default_video_img.jpg' alt='video-img' class='video-img'> <hr>")
+        let videoName = $("<div>this is title</div>")
 
-    if (userInfo !== null) {
-        logoutBtn.on("click", function () {
-            sessionStorage.clear()
-            window.location.reload(true)
-        })
-        logoutBtn.css("display", "inline-block")
-        faceImg.on("click", function () {
-            window.location.href = "../../pages/home.html"
+        $(".video-div").on("click", function () {
+            window.location.href = "../../pages/course.html"
         })
 
-        faceImg.attr("src", userInfo.faceImage)
-        faceImg.css("display", "inline-block")
-        $("#login-pan-btn").css("display", "none")
+        videoDiv.append(videoImg)
+        videoDiv.append(videoName)
+        videoLi.append(videoDiv)
+        videoList.append(videoLi)
     }
+}
+
+function getCourseDetail (courseId) {
+    let course = null;
+
+    $.ajax({
+        url: baseUrl + "getCourse",
+        method: "post",
+        data: {
+            id: courseId
+        },
+        dataType: "json",
+        success: function (res) {
+            console.log(res.data)
+        },
+        error: function (res) {
+            alert("server error!")
+        }
+    })
+    return course;
 }

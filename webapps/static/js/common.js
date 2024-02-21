@@ -15,3 +15,28 @@ function displayAttention (title, text) {
     $("#attention-title").html(title)
     $("#attention-context").html(text)
 }
+
+function judgeLoginState () {
+    let userInfo = JSON.parse(sessionStorage.getItem("user"))
+    let faceImg = $("#face-img");
+    let logoutBtn = $("#logout-div")
+
+    if (userInfo !== null) {
+        logoutBtn.on("click", function () {
+            sessionStorage.clear()
+            window.location.reload(true)
+        })
+        logoutBtn.css("display", "inline-block")
+        faceImg.on("click", function () {
+            window.location.href = "../../pages/home.html"
+        })
+
+        faceImg.attr("src", userInfo.faceImage)
+        faceImg.css("display", "inline-block")
+        $("#login-pan-btn").css("display", "none")
+    }
+
+    $("#logo").on("click", function () {
+        window.location.href = baseUrl
+    })
+}

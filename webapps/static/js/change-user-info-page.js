@@ -76,5 +76,60 @@ function initial () {
     })
     $("#reset-nickname-btn").on("click", function () {
         window.parent.displayFormPan("修改昵称", "新昵称", "", "", "确认修改")
+        $(window.parent.document).contents().find("#form-input-1").attr("type", "text")
+
+        $(window.parent.document).contents().find("#option-btn-1").on("click", function () {
+            let userInfo = JSON.parse(sessionStorage.getItem("user"))
+            let nameN = $(window.parent.document).contents().find("#form-input-1").val()
+            let acc = userInfo.account
+
+
+            $(window.parent.document).contents().find("#charge-num-input").css("display", "none")
+            $(window.parent.document).contents().find("#charge-confirm-btn").css("display", "none")
+
+            if (userInfo.nickname === nameN) {
+                window.parent.displayAttention("修改失败", "新昵称与原来一致")
+            } else {
+                $.ajax({
+                    url: baseUrl + "changeInfo",
+                    method: "post",
+                    data: {
+                        type: "nickname",
+                        info: nameN,
+                        acc: acc
+                    },
+                    dataType: "json",
+                    success: function (res) {
+                        if (res.code === 1) {
+                            window.parent.displayAttention("修改成功", "昵称已重置")
+                            $.ajax({
+                                url: baseUrl + "getUserInfo",
+                                method: "post",
+                                data: {acc: userInfo.account},
+                                dataType: "json",
+                                success: function (res) {
+                                    switch (res.code) {
+                                        case 0:
+                                            alert(res.msg)
+                                            break;
+                                        case 1:
+                                            sessionStorage.setItem("user", JSON.stringify(res.data))
+                                            break;
+                                    }
+                                },
+                                error: function (res) {
+                                    alert("server error!")
+                                }
+                            })
+                            window.parent.closeFormPan()
+                        }
+                    },
+                    error: function (res) {
+                        alert("server error!")
+                    }
+                })
+            }
+        })
+
     })
 }

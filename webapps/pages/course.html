@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>课程</title>
+    <link rel="stylesheet" href="../static/css/common.css">
+    <link rel="stylesheet" href="../static/css/course.css">
+    <script src="../static/js/jquery-3.4.1.min.js"></script>
+    <script src="../static/js/common.js"></script>
+    <script src="../static/js/course.js"></script>
+</head>
+<body>
+    <div id="background">
+        <div id="header">
+            <img src="../static/images/logo.jpg" alt="logo" srcset="" id="logo">
+            <label for="search-field" id="search-field-label">搜索:</label>
+            <input type="text" value="请输入课程" id="search-field">
+            <input type="button" id="search-button">
+            <button id="login-pan-btn" >登录</button>
+            <img src="../static/images/upload/face-images/default_face_img.png" alt="face-img" id="face-img">
+            <div id="logout-div">登出</div>
+        </div>
+        <div id="course-part-div">
+            <div id="course-header">
+                <div id="course-title">
+                    这是标题
+                </div>
+            </div>
+            <div id="left-pan">
+                <video src="../static/video/upload/chapter-video/course_1_chapter_1.mp4" id="chapter-video"></video>
+            </div>
+            <div id="right-pan">
+
+            </div>
+            <div id="course-description">
+                这是视频简介
+            </div>
+        </div>
+        <div id="comment-part-div">
+            <div id="leave-comment-div">
+                <div id="write-comment-area">
+                    <label for="comment-input">发表评论:</label>
+                    <input type="text" id="comment-input">
+                    <button id="submit-comment-btn">发表</button>
+                </div>
+            </div>
+            <div id="others-comment-div">
+
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    initial()
+</script>
+</html>

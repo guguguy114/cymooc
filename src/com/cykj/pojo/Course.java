@@ -2,6 +2,9 @@ package com.cykj.pojo;
 
 import com.cykj.annotation.DBField;
 import com.cykj.annotation.DBTable;
+import com.cykj.servlet.BasicServlet;
+
+import java.math.BigDecimal;
 
 
 @DBTable("course")
@@ -13,12 +16,16 @@ public class Course {
   private String courseName;
   @DBField("course_img")
   private String courseImg;
-  @DBField("updated_time")
-  private java.sql.Timestamp updatedTime;
+  @DBField("update_time")
+  private java.sql.Timestamp updateTime;
   @DBField("course_price")
-  private double coursePrice;
+  private BigDecimal coursePrice;
   @DBField("course_description")
   private String courseDescription;
+  @DBField("course_type")
+  private String courseType;
+  @DBField("course_tag")
+  private String courseTag;
 
 
   public long getCourseId() {
@@ -48,20 +55,20 @@ public class Course {
   }
 
 
-  public java.sql.Timestamp getUpdatedTime() {
-    return updatedTime;
+  public java.sql.Timestamp getUpdateTime() {
+    return updateTime;
   }
 
-  public void setUpdatedTime(java.sql.Timestamp updatedTime) {
-    this.updatedTime = updatedTime;
+  public void setUpdateTime(java.sql.Timestamp updateTime) {
+    this.updateTime = updateTime;
   }
 
 
-  public double getCoursePrice() {
+  public BigDecimal getCoursePrice() {
     return coursePrice;
   }
 
-  public void setCoursePrice(double coursePrice) {
+  public void setCoursePrice(BigDecimal coursePrice) {
     this.coursePrice = coursePrice;
   }
 
@@ -74,4 +81,19 @@ public class Course {
     this.courseDescription = courseDescription;
   }
 
+  public String getCourseType() {
+    return courseType;
+  }
+
+  public void setCourseType(String courseType) {
+    this.courseType = courseType;
+  }
+
+  public String getCourseTag() {
+    return courseTag;
+  }
+
+  public void setCourseTag(String courseTag) {
+    this.courseTag = courseTag;
+  }
 }
