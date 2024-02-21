@@ -208,24 +208,62 @@ body {
 #sort-way-div {
     color: black;
     position: absolute;
-    right: 100px;
-    top: 20px;
+    right: 150px;
+    top: 10px;
     font-size: 20px;
 }
 
 #sort-way {
-    font-size: 20px;
-    position: absolute;
+    width: 100px;
+    height: 50px;
+    float: right;
     right: 20px;
-    top: 20px;
+    text-align: center;
+    position: relative;
+}
+
+.current-sort-way {
+    padding-top: 10px;
+    font-size: 20px;
     color: black;
+    display: inline-block;
     cursor: pointer;
+}
+
+#sort-way-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 200px;
+    left: -60px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    margin-top: 10px;
+    z-index: 10;
+}
+
+#sort-way:hover {
+    background-color: rgba(0,0,0,0.3);
+}
+
+#sort-way:hover #sort-way-content{
+    display: block;
+}
+
+.other-sort-way-div {
+    width: 100%;
+    padding-top: 10px;
+    height: 40px;
+    font-size: 20px;
+}
+
+.other-sort-way-div:hover {
+    background-color: rgba(0,0,0,0.4);
 }
 
 #video-suggest-list {
     width: var(--page-width);
     height: 500px;
-    margin-top: 100px;
+    margin-top: 80px;
     padding-left: 0;
     position: absolute;
     background-color: red;
@@ -250,14 +288,31 @@ body {
     margin-right: 15px;
     margin-top: 30px;
     background-color: white;
+    border-radius: 20px;
+    overflow: hidden;
 }
 
 .video-div {
+    border-radius: 50px;
     position: absolute;
 }
 
-.video-img {
+.video-div hr {
+    top: 100px;
+    color: black;
+    position: absolute;
+}
+
+.video-img-div {
     height: 150px;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 20px;
+    position: relative;
+    background-color: grey;
+}
+
+.video-img {
     width: 100%;
     position: relative;
 }

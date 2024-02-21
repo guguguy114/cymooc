@@ -9,7 +9,7 @@ import java.util.*;
 
 /**
  * Description: TODO
- *
+ * 处理各种课程相关的数据库操作
  * @author Guguguy
  * @version 1.0
  * @since 2024/2/21 17:17
@@ -23,6 +23,15 @@ public class CourseDao extends BaseDao implements ICourseDao {
         coursePojoClass = Course.class;
         tableName = coursePojoClass.getAnnotation(DBTable.class).value();
     }
+
+    /**
+     * Description: TODO
+     * @param func 排序的依据
+     * @param num 获取的列表课程个数
+     * @return java.util.List<java.lang.Integer> 返回包含课程id的列表
+     * @author Guguguy
+     * @since 2024/2/21 21:48
+     */
     @Override
     public List<Integer> getRecommendCourse(String func, int num) {
         String sql = "select * from " + tableName;
@@ -32,9 +41,10 @@ public class CourseDao extends BaseDao implements ICourseDao {
         Map<Integer, Integer> courseLikeMap = new IdentityHashMap<>();
         for (Object course : courseList) {
             Course c = (Course) course;
-            sql = "select * from " + func + " where course_id = ? and current_like_state = 1";
+            sql = "select * from " + func + " where course_id = ? and state = 1 limit ?";
             params = new ArrayList<>();
             params.add(c.getCourseId());
+            params.add(num);
             int likeNum = queryNum(sql, params);
             courseLikeMap.put((int)c.getCourseId(), likeNum);
         }
@@ -51,7 +61,15 @@ public class CourseDao extends BaseDao implements ICourseDao {
 
     @Override
     public Course getCourse(int courseId) {
-        return null;
+        String sql = "select * from " + tableName + " where course_id = ? ";
+        List<Object> params = new ArrayList<>();
+        params.add(courseId);
+        List<Object> dataReturn = query(sql, params, coursePojoClass);
+        if (dataReturn.size() == 1) {
+            return (Course) dataReturn.get(0);
+        } else {
+            return null;
+        }
     }
 
     public synchronized static CourseDao getInstance(){// 这里使用同步锁就是为了解决线程安全问题

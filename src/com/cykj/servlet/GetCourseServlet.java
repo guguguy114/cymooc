@@ -4,6 +4,8 @@ import com.alibaba.fastjson2.JSON;
 import com.cykj.net.HttpRequest;
 import com.cykj.net.HttpResponse;
 import com.cykj.net.ResponseDto;
+import com.cykj.service.CourseService;
+import com.cykj.service.impl.CourseServiceImpl;
 
 /**
  * Description: TODO
@@ -16,7 +18,9 @@ public class GetCourseServlet extends BasicServlet{
     @Override
     public void doPost(HttpRequest request, HttpResponse response) {
         int courseId = Integer.parseInt(request.getValue("id"));
-
+        CourseService service = new CourseServiceImpl();
+        ResponseDto dto = service.getCourse(courseId);
+        response.write("text/html; charset:utf-8", JSON.toJSONBytes(dto));
     }
 
     @Override

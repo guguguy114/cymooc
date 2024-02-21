@@ -185,6 +185,31 @@ function initial() {
     $("#verify-code-image").on("click", function () {
         updateVerifyCodeImage()
     })
+
+    $(".current-sort-way").on("mouseenter", function () {
+        $("#sort-way-content").css("display", "block")
+    })
+
+    $("#like").on("click", function () {
+        $(".current-sort-way").html($("#like").html())
+        $("#sort-way-content").css("display", "none")
+        $(".video-list-item").remove()
+        getRecommendVideo("like_list")
+    })
+
+    $("#comment").on("click", function () {
+        $(".current-sort-way").html($("#comment").html())
+        $("#sort-way-content").css("display", "none")
+        $(".video-list-item").remove()
+        getRecommendVideo("comment")
+    })
+
+    $("#collection").on("click", function () {
+        $(".current-sort-way").html($("#collection").html())
+        $("#sort-way-content").css("display", "none")
+        $(".video-list-item").remove()
+        getRecommendVideo("collection")
+    })
 }
 
 function setBannerImg (page) {
@@ -226,6 +251,7 @@ function updateVerifyCodeImage () {
 
 function getRecommendVideo (func) {
     let recommendVideoNum = 10;
+    let data;
     $.ajax({
         url: baseUrl + "getRecommendCourse",
         method: "post",
@@ -235,47 +261,64 @@ function getRecommendVideo (func) {
         },
         dataType: "json",
         success: function (res) {
-            console.log(res.data)
+            data = res.data
+            for (let i = 1; i <= maxShowVideoNum; i++) {
+                let videoList = $("#video-suggest-list")
+                let videoLi = $("<li class='video-list-item'></li>")
+                let videoDiv = $("<div class='video-div'></div>")
+                let imgId = "video-img" + i
+                let videoImgDiv = $("<div class='video-img-div'></div>")
+                let videoImg = $("<img src='../static/images/upload/course-images/default_video_img.jpg' alt='video-img' class='video-img'> <hr>")
+                let titleId = "title" + i
+                let videoName = $("<div>this is title</div>")
+
+                videoName.attr("id", titleId);
+                videoImg.attr("id", imgId);
+
+                if (i <= data.length) {
+                    let course = getCourseDetail(data[i - 1]);
+                    videoName.text(course.courseName)
+                    videoImg.attr("src", course.courseImg)
+                }
+
+                videoDiv.on("click", function () {
+                    window.location.href = "../../pages/course.html"
+                    let currentCourse = getCourseDetail(data[i - 1])
+                    sessionStorage.setItem("current_course", JSON.stringify(currentCourse))
+                })
+
+                videoImgDiv.append(videoImg)
+                videoDiv.append(videoImgDiv)
+                videoDiv.append(videoName)
+                videoLi.append(videoDiv)
+                videoList.append(videoLi)
+            }
         },
         error: function (res) {
             alert("server error!")
         }
     })
+
     // 设置推荐视频
-    for (let i = 1; i <= maxShowVideoNum; i++) {
-        let videoList = $("#video-suggest-list")
-        let videoLi = $("<li class='video-list-item'></li>")
-        let videoDiv = $("<div class='video-div'></div>")
-        let videoImg = $("<img src='../static/images/upload/course-images/default_video_img.jpg' alt='video-img' class='video-img'> <hr>")
-        let videoName = $("<div>this is title</div>")
 
-        $(".video-div").on("click", function () {
-            window.location.href = "../../pages/course.html"
-        })
-
-        videoDiv.append(videoImg)
-        videoDiv.append(videoName)
-        videoLi.append(videoDiv)
-        videoList.append(videoLi)
-    }
 }
 
 function getCourseDetail (courseId) {
     let course = null;
-
     $.ajax({
         url: baseUrl + "getCourse",
         method: "post",
+        async: false,
         data: {
             id: courseId
         },
         dataType: "json",
         success: function (res) {
-            console.log(res.data)
+            course = res.data
         },
         error: function (res) {
             alert("server error!")
         }
     })
-    return course;
+    return course
 }

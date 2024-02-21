@@ -35,11 +35,9 @@ public class CourseServiceImpl implements CourseService {
         ResponseDto responseDto;
         Course course = courseDao.getCourse(id);
         if (course != null) {
-            responseDto = null;
-            //todo
+            responseDto = new ResponseDto(1, "get course successfully!", course);
         } else {
-            responseDto = null;
-            // todo
+            responseDto = new ResponseDto(0, "fail to get course", null);
         }
         return responseDto;
     }

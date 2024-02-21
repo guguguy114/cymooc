@@ -1,5 +1,7 @@
 package com.cykj.net;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -20,7 +22,11 @@ public class HttpRequest {
     private final HashMap<String, String> headerMap;
 
     public HttpRequest(String request){
-        this.request = request;
+        try {
+            this.request = URLDecoder.decode(request, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
         parameterMap = new HashMap<>();
         headerMap = new HashMap<>();
         resolveData();

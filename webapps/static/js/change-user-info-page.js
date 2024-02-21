@@ -81,6 +81,7 @@ function initial () {
         $(window.parent.document).contents().find("#option-btn-1").on("click", function () {
             let userInfo = JSON.parse(sessionStorage.getItem("user"))
             let nameN = $(window.parent.document).contents().find("#form-input-1").val()
+            console.log(nameN)
             let acc = userInfo.account
 
 
