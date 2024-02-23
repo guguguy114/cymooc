@@ -72,6 +72,12 @@ public class CourseDao extends BaseDao implements ICourseDao {
         }
     }
 
+    @Override
+    public List<Character> getCourseChapters(int courseId) {
+        // todo
+        return null;
+    }
+
     public synchronized static CourseDao getInstance(){// 这里使用同步锁就是为了解决线程安全问题
         if (courseDao == null){
             courseDao = new CourseDao();

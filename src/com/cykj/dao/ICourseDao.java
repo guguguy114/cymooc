@@ -14,4 +14,5 @@ import java.util.List;
 public interface ICourseDao {
     List<Integer> getRecommendCourse(String func, int num);
     Course getCourse(int courseId);
+    List<Character> getCourseChapters (int courseId);
 }

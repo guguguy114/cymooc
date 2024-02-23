@@ -12,4 +12,5 @@ import com.cykj.net.ResponseDto;
 public interface CourseService {
     ResponseDto getRecommendCourse(String func, int num);
     ResponseDto getCourse(int id);
+    ResponseDto getCourseChapters(int id);
 }

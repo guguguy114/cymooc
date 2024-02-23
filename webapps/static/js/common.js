@@ -40,3 +40,23 @@ function judgeLoginState () {
         window.location.href = baseUrl
     })
 }
+
+function getChapter (courseId) {
+    let chapterList;
+    $.ajax({
+        url: baseUrl + "getCourseChapters",
+        method: "post",
+        async: false,
+        data: {
+            id: courseId
+        },
+        dataType: "json",
+        success: function (res) {
+            chapterList = res.data
+        },
+        error: function (res) {
+            alert("server error!")
+        }
+    })
+    return chapterList
+}
