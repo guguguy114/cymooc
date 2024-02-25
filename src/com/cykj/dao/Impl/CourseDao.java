@@ -15,17 +15,19 @@ import java.util.*;
  * @since 2024/2/21 17:17
  */
 public class CourseDao extends BaseDao implements ICourseDao {
-    public static CourseDao courseDao;
+    private static CourseDao courseDao;
     private final String tableName;
     private final Class<Course> coursePojoClass;
+    private final Class<Character> characterClass;
 
     private CourseDao () {
         coursePojoClass = Course.class;
+        characterClass = Character.class;
         tableName = coursePojoClass.getAnnotation(DBTable.class).value();
     }
 
     /**
-     * Description: TODO
+     * Description: 获取主页的推荐课程列表
      * @param func 排序的依据
      * @param num 获取的列表课程个数
      * @return java.util.List<java.lang.Integer> 返回包含课程id的列表
@@ -70,12 +72,6 @@ public class CourseDao extends BaseDao implements ICourseDao {
         } else {
             return null;
         }
-    }
-
-    @Override
-    public List<Character> getCourseChapters(int courseId) {
-        // todo
-        return null;
     }
 
     public synchronized static CourseDao getInstance(){// 这里使用同步锁就是为了解决线程安全问题

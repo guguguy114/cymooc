@@ -35,7 +35,8 @@ public class DBConnectPool {
             Connection conn = pool.pop();// 从最后一个取出
             // 从集合中去除并删除
             if (conn == null) {
-                ServerConsoleUtils.printOut("connection run out!", ServerConsoleUtils.GREEN);
+                ServerConsoleUtils.printOut("connection run out! a new connection will be given", ServerConsoleUtils.GREEN);
+                return DBConnectUtils.getConn();
             }
             // return pool.poll();// 从第一个取出
             ServerConsoleUtils.printOut("A connection is out! " + conn, ServerConsoleUtils.GREEN);
