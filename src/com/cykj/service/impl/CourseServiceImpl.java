@@ -41,17 +41,4 @@ public class CourseServiceImpl implements CourseService {
         }
         return responseDto;
     }
-
-    @Override
-    public ResponseDto getCourseChapters(int id) {
-        ICourseDao courseDao = CourseDao.getInstance();
-        ResponseDto responseDto;
-        List<Character> characters = courseDao.getCourseChapters(id);
-        if (!characters.isEmpty()) {
-            responseDto = new ResponseDto(1, "get chapters successfully!", characters);
-        } else {
-            responseDto = new ResponseDto(0, "fail to get chapters!", null);
-        }
-        return responseDto;
-    }
 }

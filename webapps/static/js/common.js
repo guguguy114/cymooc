@@ -41,7 +41,7 @@ function judgeLoginState () {
     })
 }
 
-function getChapter (courseId) {
+function getCourseChapters (courseId) {
     let chapterList;
     $.ajax({
         url: baseUrl + "getCourseChapters",

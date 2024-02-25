@@ -8,9 +8,7 @@ import com.cykj.dao.BaseDao;
 import com.cykj.dao.IUserDao;
 import com.cykj.pojo.User;
 
-import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
-import java.net.URLDecoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -29,7 +27,7 @@ public class UserDao extends BaseDao implements IUserDao {
     // 这里是饿汉模式，在类加载时就创建了一个Dao对象
     // public static UserDao userDao = new UserDao();
     // 这里是懒汉模式
-    public static UserDao userDao;
+    private static UserDao userDao;
     private final String tableName;
     private final Class<User> userPojoClass;
     private UserDao(){

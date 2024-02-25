@@ -19,7 +19,7 @@ public class DBConnectUtils {
      * @since 2023/11/27 18:34
      */
     static Connection getConn(){
-        Connection connection = null;
+        Connection connection;
         try {
             // 为了软件的维护，我们需要建立配置文件来管理不同环境下的不同系统环境，比如数据库在不同的部署平台上密码和路径可能会有所差异
             // 因此我们需要使用配置文件，首先加载配置文件

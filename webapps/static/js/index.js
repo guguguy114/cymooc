@@ -285,6 +285,8 @@ function getRecommendVideo (func) {
                     window.location.href = "../../pages/course.html"
                     let currentCourse = getCourseDetail(data[i - 1])
                     sessionStorage.setItem("current_course", JSON.stringify(currentCourse))
+                    let chapterList = getCourseChapters(currentCourse.courseId)
+                    sessionStorage.setItem("current_chapter", JSON.stringify(chapterList[0]))
                 })
 
                 videoImgDiv.append(videoImg)

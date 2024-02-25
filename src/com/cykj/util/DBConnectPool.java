@@ -12,7 +12,7 @@ import java.util.LinkedList;
  * @since 2023/11/27 18:43
  */
 public class DBConnectPool {
-    private static final int size = 5;// MySQL 默认支持99个连接，可以通过配置文件改变
+    private static final int size = 10;// MySQL 默认支持99个连接，可以通过配置文件改变
 //    private ArrayList<Connection> pool = new ArrayList<>();
     private static final LinkedList<Connection> pool = new LinkedList<>();
 
@@ -35,7 +35,8 @@ public class DBConnectPool {
             Connection conn = pool.pop();// 从最后一个取出
             // 从集合中去除并删除
             if (conn == null) {
-                ServerConsoleUtils.printOut("connection run out!", ServerConsoleUtils.GREEN);
+                ServerConsoleUtils.printOut("connection run out! a new connection will be given", ServerConsoleUtils.GREEN);
+                return DBConnectUtils.getConn();
             }
             // return pool.poll();// 从第一个取出
             ServerConsoleUtils.printOut("A connection is out! " + conn, ServerConsoleUtils.GREEN);
