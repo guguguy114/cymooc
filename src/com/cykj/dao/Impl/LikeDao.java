@@ -54,6 +54,11 @@ public class LikeDao extends BaseDao implements ILikeDao {
         params.add(uid);
         params.add(courseId);
         List<Object> dataReturn = query(sql, params, likePojoClass);
+        if (dataReturn.isEmpty()) {
+            sql = "insert into " + tableName + " (uid, course_id) values (?, ?)";
+            update(sql, params);
+            getCurrentCourseLikeState(uid, courseId);
+        }
         LikeList likeList = (LikeList) dataReturn.get(0);
         if (dataReturn.size() == 1) {
             if (likeList.getState()) {

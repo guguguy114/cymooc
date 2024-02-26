@@ -49,11 +49,11 @@ public class UserServiceImpl implements UserService {
         ResponseDto responseDto;
         int code = userDao.doRegister(acc, pwd);
         if (code == 1) {
-            responseDto = new ResponseDto(1, "register success!", null);
+            responseDto = new ResponseDto(code, "register success!", null);
         } else if (code == 2){
-            responseDto = new ResponseDto(0, "account has existed", null);
+            responseDto = new ResponseDto(code, "account has existed", null);
         } else {
-            responseDto = new ResponseDto(0, "register failed!", null);
+            responseDto = new ResponseDto(code, "register failed!", null);
         }
         return responseDto;
     }

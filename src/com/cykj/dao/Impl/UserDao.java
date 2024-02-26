@@ -83,14 +83,14 @@ public class UserDao extends BaseDao implements IUserDao {
             String nickname = "user_" + getStringMD5(String.valueOf(r.nextInt(100000)));
             params.add(pwd);
             params.add(nickname);
-            boolean code = insert(sql, params);
-            if (!code) {
-                return 0;
+            int code = update(sql, params);
+            if (code == 1) {
+                return 1;
             }
         } else {
             return 2;
         }
-        return 1;
+        return 0;
     }
 
     /**

@@ -1,7 +1,14 @@
 function initial () {
+
+
+
+
     judgeLoginState()
     createAttentionPan($("#background"))
+    setLoginPan()
     getLikeNum()
+    getCollectNum()
+    let collectBtn = $("#collect-btn-div")
     let likeState = getLikeState()
     let likeBtn = $("#like-btn-div")
     if (likeState === 1) {
@@ -50,6 +57,21 @@ function initial () {
         }
     })
 
+    collectBtn.on("mouseover", function () {
+        collectBtn.css("background-color", "rgba(106, 20, 155, 0.5)")
+        collectBtn.css("color", "white")
+    })
+
+    collectBtn.on("mouseout", function () {
+        if (likeState === 1) {
+            collectBtn.css("background-color", "blueviolet")
+            collectBtn.css("color", "white")
+        } else {
+            collectBtn.css("background-color", "white")
+            collectBtn.css("color", "black")
+        }
+    })
+
     likeBtn.on("click", function () {
 
         let user = JSON.parse(sessionStorage.getItem("user"))
@@ -87,6 +109,66 @@ function initial () {
             })
         }
     })
+
+    let collectState = getCollectState();
+
+    if (collectState === 1) {
+        collectBtn.css("background-color", "blueviolet")
+        collectBtn.css("color", "white")
+    } else {
+        collectBtn.css("background-color", "white")
+        collectBtn.css("color", "black")
+    }
+
+    collectBtn.on("click", function () {
+        let user = JSON.parse(sessionStorage.getItem("user"))
+        let uid
+        let course = JSON.parse(sessionStorage.getItem("current_course"))
+        let courseId = course.courseId;
+        if (user === null) {
+            console.log("no login")
+            displayAttention("点赞失败", "请先登录")
+        } else {
+            uid = user.uid
+            $.ajax({
+                url: baseUrl + "collection",
+                method: "post",
+                async: false,
+                data: {
+                    uid: uid,
+                    courseId: courseId
+                },
+                dataType: "json",
+                success: function (res) {
+                    likeState = getCollectState()
+                    getCollectNum()
+                    if (collectState === 1) {
+                        collectBtn.css("background-color", "blueviolet")
+                        collectBtn.css("color", "white")
+                    } else {
+                        collectBtn.css("background-color", "white")
+                        collectBtn.css("color", "black")
+                    }
+                },
+                error: function (res) {
+                    alert("server error!")
+                }
+            })
+        }
+    })
+
+
+    let unlockBtn = $("#unlock-btn").on("click", function () {
+        let user = JSON.parse(sessionStorage.getItem("user"))
+
+        if (user == null) {
+            displayAttention("购买失败", "请先登录")
+        } else {
+
+        }
+    })
+
+
 }
 
 function getLikeState() {
@@ -119,6 +201,34 @@ function getLikeState() {
     return state
 }
 
+function getCollectState () {
+    let user = JSON.parse(sessionStorage.getItem("user"))
+    let course = JSON.parse(sessionStorage.getItem("current_course"))
+    let uid;
+    let courseId = course.courseId
+    let state
+    if (user !== null){
+        uid = user.uid
+        $.ajax({
+            url: baseUrl + "getCurrentCollectState",
+            method: "post",
+            async: false,
+            data: {
+                uid: uid,
+                courseId: courseId
+            },
+            dataType: "json",
+            success: function (res) {
+                state = res.data
+            },
+            error: function (res) {
+                alert("server error!")
+            }
+        })
+    }
+    return state;
+}
+
 function getLikeNum () {
     let course = JSON.parse(sessionStorage.getItem("current_course"))
     let courseId = course.courseId
@@ -131,6 +241,25 @@ function getLikeNum () {
         dataType: "json",
         success: function (res) {
             $("#like-num").text(res.data)
+        },
+        error: function (res) {
+            alert("server error!")
+        }
+    })
+}
+
+function getCollectNum () {
+    let course = JSON.parse(sessionStorage.getItem("current_course"))
+    let courseId = course.courseId
+    $.ajax({
+        url: baseUrl + "getCollectNum",
+        method: "post",
+        data: {
+            courseId: courseId
+        },
+        dataType: "json",
+        success: function (res) {
+            $("#collect-num").text(res.data)
         },
         error: function (res) {
             alert("server error!")

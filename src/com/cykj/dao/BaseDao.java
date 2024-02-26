@@ -137,23 +137,6 @@ public class BaseDao {
         }
     }
 
-    public boolean insert(String sql, List<Object> params) {
-        Connection conn = DBConnectPool.getConn();
-        PreparedStatement prep = null;
-        try {
-            prep = conn.prepareStatement(sql);
-            for (int i = 0; i < params.size(); i++) {
-                prep.setObject((i + 1), params.get(i));
-            }
-            return prep.execute();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
-            DBConnectPool.giveBackConn(conn);
-            DBConnectUtils.closeRes(prep, null);
-        }
-    }
-
     public int update(String sql, List<Object> params) {
         Connection conn = DBConnectPool.getConn();
         PreparedStatement prep = null;

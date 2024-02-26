@@ -18,11 +18,9 @@ public class CourseDao extends BaseDao implements ICourseDao {
     private static CourseDao courseDao;
     private final String tableName;
     private final Class<Course> coursePojoClass;
-    private final Class<Character> characterClass;
 
     private CourseDao () {
         coursePojoClass = Course.class;
-        characterClass = Character.class;
         tableName = coursePojoClass.getAnnotation(DBTable.class).value();
     }
 
