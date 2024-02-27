@@ -46,7 +46,7 @@ function initial () {
                                 $.ajax({
                                     url: baseUrl + "getUserInfo",
                                     method: "post",
-                                    data: {acc: userInfo.account},
+                                    data: {uid: userInfo.uid},
                                     dataType: "json",
                                     success: function (res) {
                                         switch (res.code) {

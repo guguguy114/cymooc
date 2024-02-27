@@ -3,6 +3,8 @@ package com.cykj.pojo;
 import com.cykj.annotation.DBField;
 import com.cykj.annotation.DBTable;
 
+import java.math.BigDecimal;
+
 @DBTable("user")
 public class User {
 
@@ -12,7 +14,7 @@ public class User {
   private String nickname;
   @DBField("face_image")
   private String faceImage;
-  private long balance;
+  private BigDecimal balance;
   @DBField("register_time")
   private java.sql.Timestamp registerTime;
 
@@ -62,11 +64,11 @@ public class User {
   }
 
 
-  public long getBalance() {
+  public BigDecimal getBalance() {
     return balance;
   }
 
-  public void setBalance(long balance) {
+  public void setBalance(BigDecimal balance) {
     this.balance = balance;
   }
 

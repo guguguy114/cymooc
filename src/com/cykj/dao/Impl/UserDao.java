@@ -8,6 +8,7 @@ import com.cykj.dao.BaseDao;
 import com.cykj.dao.IUserDao;
 import com.cykj.pojo.User;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -123,11 +124,11 @@ public class UserDao extends BaseDao implements IUserDao {
      * @since 2023/12/24 15:52
      */
     @Override
-    public User getUserInfo(String acc) {
-        String sql = "select * from " + tableName + " where account = ?";
+    public User getUserInfo(int uid) {
+        String sql = "select * from " + tableName + " where uid = ?";
         List<Object> params = new ArrayList<>();
         List<Object> dataReturned;
-        params.add(acc);
+        params.add(uid);
         dataReturned = query(sql, params, User.class);
         if (!dataReturned.isEmpty()) {
             return (User) dataReturned.get(0);
@@ -144,6 +145,16 @@ public class UserDao extends BaseDao implements IUserDao {
         params.add(acc);
         int changeNum = update(sql, params);
         return changeNum == 1;
+    }
+
+    @Override
+    public boolean setBalance(int uid, BigDecimal newBalance) {
+        String sql = "update " + tableName + " set balance = ? where uid = ?";
+        List<Object> params = new ArrayList<>();
+        params.add(newBalance);
+        params.add(uid);
+        int result = update(sql, params);
+        return result == 1;
     }
 
     public synchronized static UserDao getInstance(){// 这里使用同步锁就是为了解决线程安全问题

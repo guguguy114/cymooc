@@ -23,7 +23,7 @@ function judgeLoginState () {
 
     if (userInfo !== null) {
         logoutBtn.on("click", function () {
-            sessionStorage.clear()
+            sessionStorage.removeItem("user")
             window.location.reload(true)
         })
         logoutBtn.css("display", "inline-block")

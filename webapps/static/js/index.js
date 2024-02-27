@@ -58,10 +58,21 @@ function initial() {
     })
 
 
+    let sortBtn = $(".current-sort-way")
+    let sortContentPan = $("#sort-way-content")
 
-    $(".current-sort-way").on("mouseenter", function () {
-        $("#sort-way-content").css("display", "block")
+
+    $("#sort-way").on("mouseenter", function () {
+        sortContentPan.css("display", "block")
     })
+
+
+
+
+    $("#others-comment-div").on("mouseenter", function () {
+        sortContentPan.css("display", "block")
+    })
+
 
     $("#like").on("click", function () {
         $(".current-sort-way").html($("#like").html())

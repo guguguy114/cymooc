@@ -1,0 +1,81 @@
+#background {
+    width: 100%;
+    height: 730px;
+    text-align: center;
+    position: relative;
+    display: inline-block;
+    background-color: grey;
+}
+
+#header {
+    width: 900px;
+    height: 50px;
+    background-color: white;
+    display: inline-block;
+    font-size: 40px;
+}
+
+#collection-list {
+    width: 900px;
+    background-color: cadetblue;
+    display: inline-block;
+    padding-left: 0;
+    list-style-type: none;
+}
+
+.collection-item {
+    width: 800px;
+    height: 180px;
+    background-color: blueviolet;
+    position: relative;
+    display: inline-block;
+}
+
+
+
+.course-img {
+    width: 200px;
+    height: 150px;
+    border: black solid 1px;
+    float: left;
+    margin-top: 15px;
+    margin-left: 15px;
+    border-radius: 20px;
+    background-color: white;
+}
+
+.course-title {
+    margin-top: 10px;
+    font-size: 40px;
+    float: left;
+    margin-left: 30px;
+}
+
+.collect-time {
+    display: inline-block;
+    position: absolute;
+    bottom: 20px;
+    left: 330px;
+    font-size: 20px;
+}
+
+.collect-time-label {
+    position: absolute;
+    bottom: 20px;
+    left: 230px;
+    font-size: 20px;
+}
+
+.cancel-collection-btn {
+    width: 100px;
+    height: 30px;
+    background-color: white;
+    position: absolute;
+    right: 10px;
+    top: 60px;
+    font-size: 15px;
+    padding-top: 10px;
+    border-radius: 10px;
+    border: black solid 2px;
+}
+

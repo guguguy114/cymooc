@@ -9,4 +9,5 @@ package com.cykj.dao;
  */
 public interface IPurchaseHistoryDao {
     boolean getPurchaseState(int uid, int courseId);
+    int purchaseCourse(int uid, int courseId);
 }

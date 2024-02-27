@@ -11,4 +11,5 @@ import com.cykj.net.ResponseDto;
  */
 public interface PurchaseHistoryService {
     ResponseDto getPurchaseState(int uid, int courseId);
+    ResponseDto purchaseCourse(int uid, int courseId);
 }

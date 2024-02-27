@@ -1,14 +1,10 @@
 package com.cykj.service.impl;
 
-import com.cykj.dao.ICourseDao;
 import com.cykj.dao.IUserDao;
-import com.cykj.dao.Impl.CourseDao;
 import com.cykj.dao.Impl.UserDao;
 import com.cykj.net.ResponseDto;
 import com.cykj.pojo.User;
 import com.cykj.service.UserService;
-
-import java.util.List;
 
 /**
  * Description: TODO
@@ -59,10 +55,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseDto getUserInfo(String acc) {
+    public ResponseDto getUserInfo(int uid) {
         IUserDao userDao = UserDao.getInstance();
         ResponseDto responseDto;
-        User user = userDao.getUserInfo(acc);
+        User user = userDao.getUserInfo(uid);
         if (user != null) {
             responseDto = new ResponseDto(1, "get info successfully", user);
         } else {

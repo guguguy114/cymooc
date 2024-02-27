@@ -70,6 +70,19 @@ public class CollectDao extends BaseDao implements ICollectDao {
         return queryNum(sql, params);
     }
 
+    @Override
+    public List<Collection> getUserCollections(int uid, int num, int currentPage) {
+        String sql = "select * from " + tableName + " where uid = ? and state = 1";
+        List<Object> params = new ArrayList<>();
+        params.add(uid);
+        List<Object> dataReturn = query(sql, params, collectionPojoClass);
+        for (Object o : dataReturn) {
+            System.out.println(((Collection) o).getCourseId());
+            // todo
+        }
+        return null;
+    }
+
     public synchronized static CollectDao getInstance() {
         if (collectDao == null) {
             collectDao = new CollectDao();

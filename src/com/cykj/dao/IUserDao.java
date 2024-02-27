@@ -1,9 +1,8 @@
 package com.cykj.dao;
 
-import com.cykj.pojo.Course;
 import com.cykj.pojo.User;
 
-import java.util.List;
+import java.math.BigDecimal;
 
 /**
  * Description: TODO
@@ -17,6 +16,7 @@ public interface IUserDao {
     User doLogin(String acc, String pwd);
     int doRegister(String acc, String pwd);
     boolean charge(String acc, int moneyToCharge);
-    User getUserInfo(String acc);
+    User getUserInfo(int uid);
     boolean changeInfo(String type, String info, String acc);
+    boolean setBalance(int uid, BigDecimal newBalance);
 }

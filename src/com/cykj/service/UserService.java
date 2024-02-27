@@ -13,6 +13,6 @@ public interface UserService {
     ResponseDto doLogin(String acc, String pwd);
     ResponseDto charge(String acc, int chargeNum);
     ResponseDto doRegister(String acc, String pwd);
-    ResponseDto getUserInfo(String acc);
+    ResponseDto getUserInfo(int uid);
     ResponseDto changeInfo(String infoType, String newInfo, String acc);
 }
