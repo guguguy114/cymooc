@@ -6,8 +6,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Description: TODO
- *
+ * Description:
+ * 标记pojo文件对应属性的数据库名称的注解
  * @author Guguguy
  * @version 1.0
  * @since 2024/1/25 22:19

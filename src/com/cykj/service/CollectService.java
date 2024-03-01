@@ -13,5 +13,5 @@ public interface CollectService {
     ResponseDto getCurrentCourseCollectState(int uid, int courseId);
     ResponseDto changeCurrentCourseCollectState(int uid, int courseId);
     ResponseDto getCourseCollectNum(int courseId);
-    ResponseDto getUserCollections(int uid, int num, int currentPage);
+    ResponseDto getUserCollections(int uid);
 }

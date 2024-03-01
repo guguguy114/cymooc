@@ -12,6 +12,6 @@ import java.util.List;
  * @since 2024/2/21 17:17
  */
 public interface ICourseDao {
-    List<Integer> getRecommendCourse(String func, int num);
+    List<Long> getRecommendCourse(String func, int num);
     Course getCourse(int courseId);
 }

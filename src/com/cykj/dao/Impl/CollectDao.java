@@ -3,14 +3,18 @@ package com.cykj.dao.Impl;
 import com.cykj.annotation.DBTable;
 import com.cykj.dao.BaseDao;
 import com.cykj.dao.ICollectDao;
+import com.cykj.dao.ICourseDao;
 import com.cykj.pojo.Collection;
+import com.cykj.pojo.Course;
 
 import java.util.ArrayList;
+import java.util.IdentityHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
- * Description: TODO
- *
+ * Description:
+ * 处理收藏相关数据库事宜的Dao
  * @author Guguguy
  * @version 1.0
  * @since 2024/2/26 20:31
@@ -71,16 +75,26 @@ public class CollectDao extends BaseDao implements ICollectDao {
     }
 
     @Override
-    public List<Collection> getUserCollections(int uid, int num, int currentPage) {
+    public List<Course> getUserCollections(int uid) {
+        ICourseDao courseDao = CourseDao.getInstance();
         String sql = "select * from " + tableName + " where uid = ? and state = 1";
         List<Object> params = new ArrayList<>();
+        Map<Long, Integer> courseCollectionMap = new IdentityHashMap<>();
         params.add(uid);
         List<Object> dataReturn = query(sql, params, collectionPojoClass);
         for (Object o : dataReturn) {
-            System.out.println(((Collection) o).getCourseId());
+            long courseId = ((Collection) o).getCourseId();
+            int collectionNum = getCourseCollectNum((int) courseId);
+            courseCollectionMap.put(courseId, collectionNum);
             // todo
         }
-        return null;
+        List<Map.Entry<Long, Integer>> list = new ArrayList<>(courseCollectionMap.entrySet());
+        list.sort(((o1, o2) -> o2.getValue().compareTo(o1.getValue())));
+        List<Course> courseList = new ArrayList<>();
+        for (Map.Entry<Long, Integer> longIntegerEntry : list) {
+            courseList.add(courseDao.getCourse(Math.toIntExact(longIntegerEntry.getKey())));
+        }
+        return courseList;
     }
 
     public synchronized static CollectDao getInstance() {

@@ -33,12 +33,12 @@ public class CourseDao extends BaseDao implements ICourseDao {
      * @since 2024/2/21 21:48
      */
     @Override
-    public List<Integer> getRecommendCourse(String func, int num) {
+    public List<Long> getRecommendCourse(String func, int num) {
         String sql = "select * from " + tableName;
         List<Object> params = new ArrayList<>();
         List<Object> courseList = query(sql, params, coursePojoClass);
         // 前面是课程id，后面是点赞数
-        Map<Integer, Integer> courseLikeMap = new IdentityHashMap<>();
+        Map<Long, Integer> courseLikeMap = new IdentityHashMap<>();
         for (Object course : courseList) {
             Course c = (Course) course;
             sql = "select * from " + func + " where course_id = ? and state = 1 limit ?";
@@ -46,14 +46,14 @@ public class CourseDao extends BaseDao implements ICourseDao {
             params.add(c.getCourseId());
             params.add(num);
             int likeNum = queryNum(sql, params);
-            courseLikeMap.put((int)c.getCourseId(), likeNum);
+            courseLikeMap.put(c.getCourseId(), likeNum);
         }
 
-        List<Map.Entry<Integer, Integer>> list = new ArrayList<>(courseLikeMap.entrySet());
+        List<Map.Entry<Long, Integer>> list = new ArrayList<>(courseLikeMap.entrySet());
         list.sort((o1, o2) -> o2.getValue().compareTo(o1.getValue()));
 
-        List<Integer> courseIdList = new ArrayList<>();
-        for (Map.Entry<Integer, Integer> integerIntegerEntry : list) {
+        List<Long> courseIdList = new ArrayList<>();
+        for (Map.Entry<Long, Integer> integerIntegerEntry : list) {
             courseIdList.add(integerIntegerEntry.getKey());
         }
         return courseIdList;

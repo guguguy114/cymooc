@@ -230,3 +230,23 @@ function judgeCoursePurchaseState (uid, courseId) {
     })
     return state;
 }
+
+function getCourseDetail (courseId) {
+    let course = null;
+    $.ajax({
+        url: baseUrl + "getCourse",
+        method: "post",
+        async: false,
+        data: {
+            id: courseId
+        },
+        dataType: "json",
+        success: function (res) {
+            course = res.data
+        },
+        error: function (res) {
+            alert("server error!")
+        }
+    })
+    return course
+}

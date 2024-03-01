@@ -1,6 +1,8 @@
+let userInfo
 
 function initial() {
     createAttentionPan($("#background"))
+    closeAttentionPan()
 
     let attentionPan = $("#attention-pan")
     let chargeNumInput = $("<input type='number' id='charge-num-input'>")
@@ -9,7 +11,7 @@ function initial() {
     attentionPan.append(chargeNumInput)
     attentionPan.append(chargeConfirmBtn)
 
-    chargeConfirmBtn = $("#charge-confirm-btn")
+
 
     $(".cancel-btn").on("click", function () {
         $("#form-background").css("display", "none")
@@ -27,13 +29,24 @@ function initial() {
         window.location.href = baseUrl
     })
 
-    let userInfo = JSON.parse(sessionStorage.getItem("user"))
+    userInfo = JSON.parse(sessionStorage.getItem("user"))
 
 
-    let acc = userInfo.account
 
+
+
+
+
+
+}
+
+function displayChargeInputPage () {
+    displayAttention("充值", "请输入充值数额")
+    let chargeConfirmBtn = $("#charge-confirm-btn")
+    chargeConfirmBtn.off("click")
     chargeConfirmBtn.on("click", function () {
         let num = $("#charge-num-input").val()
+        let acc = userInfo.account
         console.log("acc : " + acc + " " + "num : " + num)
         if (num === "") {
             alert("输入为空请重新输入!")
@@ -55,7 +68,6 @@ function initial() {
                 alert("charge successfully, charge num : " + res.data)
                 closeAttentionPan()
                 balance.html(parseInt(balance.text()) + res.data)
-
             },
             error: function (res) {
                 alert("server error!")
@@ -64,14 +76,7 @@ function initial() {
         console.log("click")
 
     })
-
-
-}
-
-function displayChargeInputPage () {
-    displayAttention("充值", "请输入充值数额")
     let chargeNumInput = $("#charge-num-input")
-    let chargeConfirmBtn = $("#charge-confirm-btn")
     chargeConfirmBtn.css("display", "inline-block")
     chargeNumInput.css("display", "inline-block")
 }
@@ -133,4 +138,16 @@ function closeFormPan () {
     $("#form-input-1").val()
     $("#form-input-2").val()
     $("#form-input-3").val()
+}
+
+function displayConfirmPan (title, text, func) {
+    closeAttentionPan()
+    let confirmBtn = $("#charge-confirm-btn")
+    confirmBtn.off("click")
+    confirmBtn.on("click", function () {
+        func()
+        closeAttentionPan()
+    })
+    confirmBtn.css("display", "inline-block")
+    displayAttention(title, text)
 }

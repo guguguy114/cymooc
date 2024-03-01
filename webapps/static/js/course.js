@@ -11,6 +11,7 @@ function initial () {
     let lockBackground = $("#lock-state-screen")
     let user = JSON.parse(sessionStorage.getItem("user"));
     let courseInfo = JSON.parse(sessionStorage.getItem("current_course"))
+    console.log(courseInfo)
     if (user !== null){
         let purchaseState = judgeCoursePurchaseState(user.uid, courseInfo.courseId);
         if (purchaseState) {
@@ -76,7 +77,7 @@ function initial () {
     })
 
     collectBtn.on("mouseout", function () {
-        if (likeState === 1) {
+        if (collectState === 1) {
             collectBtn.css("background-color", "blueviolet")
             collectBtn.css("color", "white")
         } else {
@@ -153,7 +154,7 @@ function initial () {
                 },
                 dataType: "json",
                 success: function (res) {
-                    likeState = getCollectState()
+                    collectState = getCollectState()
                     getCollectNum()
                     if (collectState === 1) {
                         collectBtn.css("background-color", "blueviolet")

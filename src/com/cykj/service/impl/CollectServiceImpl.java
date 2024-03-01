@@ -4,6 +4,7 @@ import com.cykj.dao.ICollectDao;
 import com.cykj.dao.Impl.CollectDao;
 import com.cykj.net.ResponseDto;
 import com.cykj.pojo.Collection;
+import com.cykj.pojo.Course;
 import com.cykj.service.CollectService;
 
 import java.util.List;
@@ -56,10 +57,10 @@ public class CollectServiceImpl implements CollectService {
     }
 
     @Override
-    public ResponseDto getUserCollections(int uid, int num, int currentPage) {
+    public ResponseDto getUserCollections(int uid) {
         ICollectDao collectDao = CollectDao.getInstance();
         ResponseDto dto;
-        List<Collection> dataReturn = collectDao.getUserCollections(uid, num, currentPage);
+        List<Course> dataReturn = collectDao.getUserCollections(uid);
         if (!dataReturn.isEmpty()) {
             dto = new ResponseDto(1, "get collection list successfully", dataReturn);
         } else {

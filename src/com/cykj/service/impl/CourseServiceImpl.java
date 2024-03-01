@@ -20,7 +20,7 @@ public class CourseServiceImpl implements CourseService {
     public ResponseDto getRecommendCourse(String func, int num) {
         ICourseDao courseDao = CourseDao.getInstance();
         ResponseDto responseDto;
-        List<Integer> courseIdList = courseDao.getRecommendCourse(func, num);
+        List<Long> courseIdList = courseDao.getRecommendCourse(func, num);
         if (courseIdList != null) {
             responseDto = new ResponseDto(1, "get recommend video successfully!", courseIdList);
         } else {

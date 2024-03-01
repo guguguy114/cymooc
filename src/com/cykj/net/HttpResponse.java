@@ -7,8 +7,8 @@ import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
 
 /**
- * Description: TODO
- *
+ * Description:
+ * http响应报文框架
  * @author Guguguy
  * @version 1.0
  * @since 2024/1/28 0:50
@@ -21,7 +21,7 @@ public class HttpResponse {
     }
 
     /**
-     * Description: TODO
+     * Description:
      * 向对方进行写入流
      * @param mimeType 传入数据类型
      * @param data 传入数据

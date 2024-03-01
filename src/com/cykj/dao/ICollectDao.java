@@ -1,6 +1,7 @@
 package com.cykj.dao;
 
 import com.cykj.pojo.Collection;
+import com.cykj.pojo.Course;
 
 import java.util.List;
 
@@ -15,5 +16,5 @@ public interface ICollectDao {
     int getCurrentCourseCollectState(int uid, int courseId);
     boolean changeCurrentCourseCollectState(int uid, int courseId);
     int getCourseCollectNum(int courseId);
-    List<Collection> getUserCollections(int uid, int num, int currentPage);
+    List<Course> getUserCollections(int uid);
 }

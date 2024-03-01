@@ -18,10 +18,8 @@ public class GetUserCollectionsServlet extends BasicServlet{
     @Override
     public void doPost(HttpRequest request, HttpResponse response) {
         int uid = Integer.parseInt(request.getValue("uid"));
-        int num = Integer.parseInt(request.getValue("num"));
-        int currentPage = Integer.parseInt(request.getValue("currentPage"));
         CollectService service = new CollectServiceImpl();
-        ResponseDto dto = service.getUserCollections(uid, num, currentPage);
+        ResponseDto dto = service.getUserCollections(uid);
         response.write("text/html; charset:utf-8", JSON.toJSONBytes(dto));
     }
 
