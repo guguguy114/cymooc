@@ -25,12 +25,12 @@ public class DBConnectPool {
 
     /**
      * Description: TODO
-     * 取出连接，将连接从集合中取出并删除
+     * 取出连接，将连接从集合中取出并删除，这里需要同步锁，否则会出现大量报错
      * @return java.sql.Connection
      * @author Guguguy
      * @since 2023/11/28 21:27
      */
-    public static Connection getConn() {
+    public synchronized static Connection getConn() {
         if (!pool.isEmpty()){
             Connection conn = pool.pop();// 从最后一个取出
             // 从集合中去除并删除
@@ -46,6 +46,8 @@ public class DBConnectPool {
             return DBConnectUtils.getConn();
         }
     }
+
+
     /**
      * Description: TODO
      * 归还连接，将连接重新添加进集合里
@@ -53,8 +55,7 @@ public class DBConnectPool {
      * @author Guguguy
      * @since 2023/11/28 21:27
      */
-
-    public static void giveBackConn(Connection conn) {
+    public synchronized static void giveBackConn(Connection conn) {
         if (pool.size() < size){
             pool.add(conn);
             ServerConsoleUtils.printOut("A connection is back! " + conn, ServerConsoleUtils.GREEN);

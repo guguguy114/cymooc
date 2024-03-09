@@ -56,11 +56,7 @@ function switchPages (page, courseList) {
             let imgSrc = course.courseImg
             itemImg.attr("src", imgSrc)
             itemImg.on("click", function () {
-                parent.location.href = "../../pages/course.html"
-                let currentCourse = getCourseDetail(courseId)
-                sessionStorage.setItem("current_course", JSON.stringify(currentCourse))
-                let chapterList = getCourseChapters(currentCourse.courseId)
-                sessionStorage.setItem("current_chapter", JSON.stringify(chapterList[0]))
+                toCoursePage(courseId, parent)
             })
 
             let courseTitle = $("<div class='course-title'></div>")
@@ -68,11 +64,7 @@ function switchPages (page, courseList) {
             courseTitle.text(courseTitleText)
 
             courseTitle.on("click", function () {
-                parent.location.href = "../../pages/course.html"
-                let currentCourse = getCourseDetail(courseId)
-                sessionStorage.setItem("current_course", JSON.stringify(currentCourse))
-                let chapterList = getCourseChapters(currentCourse.courseId)
-                sessionStorage.setItem("current_chapter", JSON.stringify(chapterList[0]))
+                toCoursePage(courseId, parent)
             })
 
             let collectTimeLabel = $("<div class='collect-time-label'>收藏时间:</div>")

@@ -20,9 +20,9 @@ public class LikeDao extends BaseDao implements ILikeDao {
     private final String tableName;
     private final Class<LikeList> likePojoClass;
 
-    public LikeDao() {
-        this.likePojoClass = LikeList.class;
-        this.tableName = likePojoClass.getAnnotation(DBTable.class).value();
+    private LikeDao() {
+        likePojoClass = LikeList.class;
+        tableName = likePojoClass.getAnnotation(DBTable.class).value();
     }
 
     @Override

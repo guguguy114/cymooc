@@ -1,4 +1,5 @@
-
+let commentNumInOnePage = 2;
+let currentCommentPage = 1;
 
 function initial () {
 
@@ -172,7 +173,7 @@ function initial () {
     })
 
 
-    let unlockBtn = $("#unlock-btn").on("click", function () {
+    $("#unlock-btn").on("click", function () {
         let user = JSON.parse(sessionStorage.getItem("user"))
 
         if (user == null) {
@@ -182,7 +183,7 @@ function initial () {
         }
     })
 
-
+    switchCommentPage(currentCommentPage)
 }
 
 function getLikeState() {
@@ -310,4 +311,213 @@ function purchaseCourse () {
             alert("server error!")
         }
     })
+}
+
+function switchCommentPage (page) {
+    let courseInfo = JSON.parse(sessionStorage.getItem("current_course"))
+    let commentList = getCourseComment(courseInfo.courseId, commentNumInOnePage, page)
+
+    console.log(commentList)
+    let list = $("#comment-list")
+    list.empty()
+
+    if (commentList === undefined) {
+        $("#comment-page-btn-div").empty()
+        return
+    }
+
+    for (let i = 0; i <= commentList.length - 1; i++) {
+        let comment = commentList[i]
+        if (comment !== undefined){
+            let uid = comment.uid
+            let userInfo = getUserInfo(uid)
+
+            let item = $("<li class='comment-item'></li>")
+
+            let commentImg = $("<img class=\"comment-img\" src=\"../static/images/upload/face-images/default_face_img.png\" alt=\"user-img\">")
+            let imgSrc = userInfo.faceImage
+            commentImg.attr("src", imgSrc)
+
+            let commentBody = $("<div class='comment-body'></div>")
+            let courseTitleText = comment.commentBody
+            commentBody.text(courseTitleText)
+
+
+            let commentTime = $("<div class='comment-submit-time'></div>")
+            let collectTimeS = new Date(comment.commentTime)
+            commentTime.text(collectTimeS.toString())
+
+            let userName = $("<div class='user-name'></div>")
+            userName.text(userInfo.nickname)
+
+
+            item.append(commentImg)
+            item.append(commentBody)
+            item.append(commentTime)
+            item.append(userName)
+            list.append(item)
+        }
+    }
+
+    let totalCommentNum
+    let totalPage
+
+    $.ajax({
+        url: baseUrl + "getCourseTotalCommentNum",
+        method: "post",
+        async: false,
+        data: {
+            courseId: courseInfo.courseId
+        },
+        dataType: "json",
+        success: function (res) {
+            console.log(res)
+            totalCommentNum = res.data
+        },
+        error: function (res) {
+            alert("server error!")
+        }
+    })
+
+    totalPage = Math.ceil(totalCommentNum / commentNumInOnePage)
+
+
+    // 内容生成完成，开始生成下标
+    let point1 = $("#point")
+    $(".num-btn").remove()
+    let nextPageBtn = $("#next-page-btn")
+    let lastPageBtn = $("#last-page-btn")
+    if (totalPage <= 4){
+        point1.remove()
+        for (let i = 1; i <= totalPage; i++) {
+            addNumBtn(i, nextPageBtn)
+            if (currentCommentPage === i) {
+                $("#num-btn-" + i).attr("disabled", true)
+            } else {
+                $("#num-btn-" + i).attr("disabled", false)
+            }
+        }
+    } else {
+        point1.css("display", "none")
+        let key = 2;
+        let count = 0;
+        for (let i = 1; i <= totalPage; i++) {
+            if (currentCommentPage === 1 || currentCommentPage === 2) {
+                if (currentCommentPage === 2) {
+                    key = 3
+                }
+                if (count !== key) {
+                    addNumBtn(i, nextPageBtn)
+                    count++;
+                } else {
+                    nextPageBtn.before(point1)
+                    point1.css("display", "inline-block")
+                    count = 0
+                    key = 1
+                    i = totalPage - 1
+                }
+            } else if (currentCommentPage === totalPage || currentCommentPage === totalPage - 1) {
+                if (i === 1) {
+                    key = 1
+                }
+                if (count !== key) {
+                    addNumBtn(i, nextPageBtn)
+                    count++
+                } else {
+                    nextPageBtn.before(point1)
+                    point1.css("display", "inline-block")
+                    count = 0
+                    if (currentCommentPage === totalPage) {
+                        key = 2
+                        i = totalPage - 2
+                    } else {
+                        key = 3
+                        i = totalPage - 3
+                    }
+
+                }
+            } else {
+                let stage = 1;
+                let point2 = point1.clone()
+                if (i === 1) {
+                    key = 1
+                    count = 0
+                } else if (i === totalPage) {
+                    key = 1
+                    count = 0
+                } else {
+                    key = 3
+                    count = 0
+                }
+                if (count !== key) {
+                    addNumBtn(i, nextPageBtn)
+                    count++
+                } else {
+                    if (stage === 1) {
+                        nextPageBtn.before(point1)
+                        point1.css("display", "inline-block")
+                        i = currentCommentPage - 2
+                        stage++;
+                    } else if (stage === 2) {
+                        nextPageBtn.before(point2)
+                        point2.css("display", "inline-block")
+                        i = totalPage - 1
+                        stage++
+                    }
+                }
+            }
+
+
+
+            if (currentCommentPage === i) {
+                $("#num-btn-" + i).attr("disabled", true)
+            } else {
+                $("#num-btn-" + i).attr("disabled", false)
+            }
+        }
+    }
+
+    nextPageBtn.off("click")
+    nextPageBtn.on("click", function () {
+        if (currentCommentPage !== totalPage){
+            currentCommentPage++;
+            switchCommentPage(currentCommentPage)
+        } else {
+
+        }
+    })
+
+    lastPageBtn.off("click")
+    lastPageBtn.on("click", function () {
+        if (currentCommentPage !== 1) {
+            currentCommentPage--
+            switchCommentPage(currentCommentPage)
+        } else {
+
+        }
+    })
+
+    if (currentCommentPage !== totalPage) {
+        nextPageBtn.attr("disabled", false)
+    } else {
+        nextPageBtn.attr("disabled", true)
+    }
+
+    if (currentCommentPage !== 1) {
+        lastPageBtn.attr("disabled", false)
+    } else {
+        lastPageBtn.attr("disabled", true)
+    }
+
+}
+
+function addNumBtn (num, rightBtn) {
+    let numBtn = $("<button id=\"\" class=\"num-btn\"></button>")
+    numBtn.attr("id", "num-btn-" + num)
+    numBtn.text(num)
+    numBtn.on("click", function () {
+        currentCommentPage = parseInt(numBtn.text())
+        switchCommentPage(currentCommentPage)
+    })
+    rightBtn.before(numBtn)
 }

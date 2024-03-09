@@ -24,25 +24,9 @@ function initial () {
 function updateUserInfo () {
     let userInfo = JSON.parse(sessionStorage.getItem("user"))
 
-    $.ajax({
-        url: baseUrl + "getUserInfo",
-        method: "post",
-        data: {uid: userInfo.uid},
-        dataType: "json",
-        success: function (res) {
-            switch (res.code) {
-                case 0:
-                    alert(res.msg)
-                    break;
-                case 1:
-                    sessionStorage.setItem("user", JSON.stringify(res.data))
-                    break;
-            }
-        },
-        error: function (res) {
-            alert("server error!")
-        }
-    })
+    userInfo = getUserInfo(userInfo.uid)
+
+    sessionStorage.setItem("user", JSON.stringify(userInfo))
 
     userInfo = JSON.parse(sessionStorage.getItem("user"))
 
@@ -51,7 +35,7 @@ function updateUserInfo () {
     faceImg.attr("src", userInfo.faceImage)
     account.text(userInfo.account)
     nickname.text(userInfo.nickname)
-    var date = new Date(userInfo.registerTime)
+    let date = new Date(userInfo.registerTime)
     signupTime.text(date.toString())
     balance.text(userInfo.balance)
 }

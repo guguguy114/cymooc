@@ -133,4 +133,9 @@ function initial () {
         })
 
     })
+
+
+    $("#reset-face-img-btn").on("click", function () {
+        let data = new FormData($("#file-input")[0])
+    })
 }

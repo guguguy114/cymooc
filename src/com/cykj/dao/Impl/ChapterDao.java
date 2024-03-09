@@ -20,9 +20,9 @@ public class ChapterDao extends BaseDao implements IChapterDao {
     private final String tableName;
     private final Class<Chapter> chapterClass;
 
-    public ChapterDao() {
+    private ChapterDao() {
         chapterClass = Chapter.class;
-        this.tableName = chapterClass.getAnnotation(DBTable.class).value();
+        tableName = chapterClass.getAnnotation(DBTable.class).value();
     }
 
     /**

@@ -250,3 +250,59 @@ function getCourseDetail (courseId) {
     })
     return course
 }
+
+function toCoursePage (courseId, targetDocument) {
+    targetDocument.location.href = "../../pages/course.html"
+    let currentCourse = getCourseDetail(courseId)
+    sessionStorage.setItem("current_course", JSON.stringify(currentCourse))
+    let chapterList = getCourseChapters(currentCourse.courseId)
+    sessionStorage.setItem("current_chapter", JSON.stringify(chapterList[0]))
+}
+
+function getCourseComment (courseId, limitNum, page) {
+    let commentList
+    $.ajax({
+        url: baseUrl + "getCourseComments",
+        method: "post",
+        async: false,
+        data: {
+            courseId: courseId,
+            lim: limitNum,
+            page: page
+        },
+        dataType: "json",
+        success: function (res) {
+            commentList = res.data
+        },
+        error: function (res) {
+            alert("server error!")
+        }
+    })
+    return commentList
+}
+
+function getUserInfo(uid) {
+    let userInfo;
+    $.ajax({
+        url: baseUrl + "getUserInfo",
+        method: "post",
+        async: false,
+        data: {uid: uid},
+        dataType: "json",
+        success: function (res) {
+            switch (res.code) {
+                case 0:
+                    alert(res.msg)
+                    break;
+                case 1:
+                    userInfo = res.data
+                    break;
+            }
+        },
+        error: function (res) {
+            alert("server error!")
+        }
+    })
+    return userInfo;
+}
+
