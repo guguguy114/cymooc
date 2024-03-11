@@ -15,4 +15,5 @@ public interface UserService {
     ResponseDto doRegister(String acc, String pwd);
     ResponseDto getUserInfo(int uid);
     ResponseDto changeInfo(String infoType, String newInfo, String acc);
+    ResponseDto uploadFaceImage(int uid, String imageData);
 }

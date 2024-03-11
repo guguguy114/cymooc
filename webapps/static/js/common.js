@@ -75,13 +75,17 @@ function setLoginPan () {
         updateVerifyCodeImage()
     })
 
-    cancelBtn.click(function () {
+    function cancel () {
         $("#login-background").css("display", "none")
         $("#login-pan").css("display", "inline-block")
         $("#register-pan").css("display", "none")
         $("#account-input").val('')
         $("#password-input").val('')
         $("#verify-code-input").val('')
+    }
+
+    cancelBtn.click(function () {
+        cancel()
     })
 
 
@@ -174,7 +178,8 @@ function setLoginPan () {
                             break;
                         case 1:
                             sessionStorage.setItem("user", JSON.stringify(res.data));
-                            window.location.href = "../../pages/home.html"
+                            cancel()
+                            location.reload(true)
                             break;
                     }
                 },

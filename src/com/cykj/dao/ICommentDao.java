@@ -14,4 +14,6 @@ import java.util.List;
 public interface ICommentDao {
     List<Comment> getCourseComment(int courseId, int limitNum, int page);
     int getCourseTotalCommentNum(int courseId);
+    boolean submitComment(int courseId, int uid, String comment);
+    boolean deleteComment(int courseId, int uid, int commentId);
 }

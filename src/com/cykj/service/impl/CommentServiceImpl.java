@@ -35,4 +35,30 @@ public class CommentServiceImpl implements CommentService {
         int num = commentDao.getCourseTotalCommentNum(courseId);
         return new ResponseDto(1, "success get comment num", num);
     }
+
+    @Override
+    public ResponseDto submitComment(int courseId, int uid, String comment) {
+        ICommentDao commentDao = CommentDao.getInstance();
+        ResponseDto dto;
+        boolean code = commentDao.submitComment(courseId, uid, comment);
+        if (code) {
+            dto = new ResponseDto(1, "submit comment successfully", null);
+        } else {
+            dto = new ResponseDto(0, "submit failed", null);
+        }
+        return dto;
+    }
+
+    @Override
+    public ResponseDto deleteComment(int courseId, int uid, int commentId) {
+        ICommentDao commentDao = CommentDao.getInstance();
+        ResponseDto dto;
+        boolean code = commentDao.deleteComment(courseId, uid, commentId);
+        if (code) {
+            dto = new ResponseDto(1, "delete comment successfully", null);
+        } else {
+            dto = new ResponseDto(0, "delete failed", null);
+        }
+        return dto;
+    }
 }

@@ -19,4 +19,5 @@ public interface IUserDao {
     User getUserInfo(int uid);
     boolean changeInfo(String type, String info, String acc);
     boolean setBalance(int uid, BigDecimal newBalance);
+    boolean uploadFaceImage(int uid, String imageData);
 }

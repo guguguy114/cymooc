@@ -8,11 +8,16 @@ import com.cykj.dao.BaseDao;
 import com.cykj.dao.IUserDao;
 import com.cykj.pojo.User;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.Random;
 
@@ -155,6 +160,26 @@ public class UserDao extends BaseDao implements IUserDao {
         params.add(uid);
         int result = update(sql, params);
         return result == 1;
+    }
+
+    @Override
+    public boolean uploadFaceImage(int uid, String imageData) {
+        byte[] decodeData = Base64.getDecoder().decode(imageData);
+        String fileName = "user_face_" + getUserInfo(uid).getUid();
+        String path = "./webapps/static/images/upload/face-images/" + fileName + ".png";
+        try (FileOutputStream fos = new FileOutputStream(path)) {
+            fos.write(decodeData);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        String sql = "update " + tableName + " set face_image = ? where uid = ?";
+        String faceImg = "../static/images/upload/face-images/" + fileName + ".png";
+        List<Object> params = new ArrayList<>();
+        params.add(faceImg);
+        params.add(uid);
+        int changeNum = update(sql, params);
+        return changeNum == 1;
     }
 
     public synchronized static UserDao getInstance(){// 这里使用同步锁就是为了解决线程安全问题

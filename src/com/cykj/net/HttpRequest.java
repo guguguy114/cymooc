@@ -23,6 +23,7 @@ public class HttpRequest {
 
     public HttpRequest(String request){
         try {
+            // 将前端url编码字符转换为正常字符(UTF-9)
             this.request = URLDecoder.decode(request, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);
@@ -33,14 +34,14 @@ public class HttpRequest {
     }
 
     /**
-     * Description: TODO
+     * Description:
      * 用于处理传入客户端请求的方法
      * @author Guguguy
      * @since 2023/11/22 13:30
      */
     private void resolveData() {
         Scanner sc = new Scanner(request).useDelimiter("\\r\\n");
-        ArrayList<String> bowserInfoPart = new ArrayList<>();
+         ArrayList<String> bowserInfoPart = new ArrayList<>();
 
 
         while (sc.hasNext()) {

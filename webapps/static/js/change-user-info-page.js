@@ -135,7 +135,26 @@ function initial () {
     })
 
 
-    $("#reset-face-img-btn").on("click", function () {
-        let data = new FormData($("#file-input")[0])
+    $("#file-input").on("change", function () {
+        let read = new FileReader()
+        read.readAsDataURL($("#file-input")[0].files[0])
+        read.onload = function (result) {
+            let s = read.result
+            s = encodeURI(s);
+            let userInfo = JSON.parse(sessionStorage.getItem("user"))
+            $.ajax({
+                url: baseUrl + "uploadFaceImage",
+                method: "post",
+                data: {
+                    uid: userInfo.uid,
+                    data: s
+                },
+                dataType: "json",
+                success: function (res) {
+                    console.log(res)
+                }
+            })
+        }
+        console.log("change")
     })
 }

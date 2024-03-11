@@ -79,5 +79,17 @@ public class UserServiceImpl implements UserService {
         return responseDto;
     }
 
+    @Override
+    public ResponseDto uploadFaceImage(int uid, String imageData) {
+        IUserDao userDao = UserDao.getInstance();
+        ResponseDto dto;
+        if (userDao.uploadFaceImage(uid, imageData)) {
+            dto = new ResponseDto(1, "upload face image success", null);
+        } else {
+            dto = new ResponseDto(0, "fail to upload face image", null);
+        }
+        return dto;
+    }
+
 
 }

@@ -1,7 +1,5 @@
 package com.cykj.net;
 
-import com.cykj.util.ServerConsoleUtils;
-
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
@@ -44,8 +42,8 @@ public class Tomcat {
                         sc.register(selector, SelectionKey.OP_READ);
                     }else if (key.isReadable()) {
                         sc = (SocketChannel) key.channel();
-                        sc.configureBlocking(false);
-                        ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
+                        // sc.configureBlocking(false);
+                        ByteBuffer byteBuffer = ByteBuffer.allocate(2048);
                         int length = sc.read(byteBuffer);
                         if (length == -1) {
                             key.cancel();
@@ -53,7 +51,22 @@ public class Tomcat {
                             break;
                         } else {
                             String message = new String(byteBuffer.array(), 0, length);
-                            HttpRequest httpRequest = new HttpRequest(message);
+
+                            while (length >= 2048) {
+                                byteBuffer.clear();
+
+                                length = sc.read(byteBuffer);
+
+                                message += new String(byteBuffer.array(), 0, length);
+                                System.out.println("read = " + length);
+                            }
+                            String req = message;
+
+//                            req = URLDecoder.decode(req, "UTF-8");
+                            System.out.println("req=" + req);
+//                             System.out.println(req);
+
+                            HttpRequest httpRequest = new HttpRequest(req);
                             HttpResponse httpResponse = new HttpResponse(sc);
                             MyTask task = new MyTask(httpRequest, httpResponse);
                             threadPool.execute(task);

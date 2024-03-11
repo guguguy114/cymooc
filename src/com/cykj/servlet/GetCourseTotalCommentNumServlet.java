@@ -14,7 +14,7 @@ import com.cykj.service.impl.CommentServiceImpl;
  * @version 1.0
  * @since 2024/3/9 23:11
  */
-public class GetCourseTotalCommentNum extends BasicServlet{
+public class GetCourseTotalCommentNumServlet extends BasicServlet{
     @Override
     public void doPost(HttpRequest request, HttpResponse response) {
         int courseId = Integer.parseInt(request.getValue("courseId"));

@@ -52,6 +52,28 @@ public class CommentDao extends BaseDao implements ICommentDao {
         return queryNum(sql, params);
     }
 
+    @Override
+    public boolean submitComment(int courseId, int uid, String comment) {
+        String sql = "insert into " + tableName + " (course_id, uid, comment_body) values (?, ?, ?)";
+        List<Object> params = new ArrayList<>();
+        params.add(courseId);
+        params.add(uid);
+        params.add(comment);
+        int code = update(sql, params);
+        return code == 1;
+    }
+
+    @Override
+    public boolean deleteComment(int courseId, int uid, int commentId) {
+        String sql = "update " + tableName + " set state = 0 where course_id = ? and uid = ? and comment_id = ?";
+        List<Object> params = new ArrayList<>();
+        params.add(commentId);
+        params.add(uid);
+        params.add(commentId);
+        int code = update(sql, params);
+        return code == 1;
+    }
+
     public synchronized static CommentDao getInstance() {
         if (commentDao == null) {
             commentDao = new CommentDao();

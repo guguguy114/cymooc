@@ -12,4 +12,6 @@ import com.cykj.net.ResponseDto;
 public interface CommentService {
     ResponseDto getCourseComment(int courseId, int limitNum, int page);
     ResponseDto getCourseTotalCommentNum(int courseId);
+    ResponseDto submitComment(int courseId, int uid, String comment);
+    ResponseDto deleteComment(int courseId, int uid, int commentId);
 }

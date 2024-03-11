@@ -2,10 +2,11 @@ package com.cykj.net;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Description: TODO
@@ -60,5 +61,18 @@ public class StaticResourceHandler {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static Map<String, String> getUploadDataDetail(String data) {
+        Map<String, String> resMap = new HashMap<>();
+        String[] dataRes = data.split(";");
+        String dataType = dataRes[0].split(":")[1];
+        String dataCode = dataRes[1].split(",")[0];
+        String dataS = dataRes[1].split(",")[1];
+        resMap.put("dataType", dataType);
+        resMap.put("dataCode", dataCode);
+        resMap.put("data", dataS);
+        System.out.println(dataS);
+        return resMap;
     }
 }

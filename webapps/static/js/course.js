@@ -12,7 +12,6 @@ function initial () {
     let lockBackground = $("#lock-state-screen")
     let user = JSON.parse(sessionStorage.getItem("user"));
     let courseInfo = JSON.parse(sessionStorage.getItem("current_course"))
-    console.log(courseInfo)
     if (user !== null){
         let purchaseState = judgeCoursePurchaseState(user.uid, courseInfo.courseId);
         if (purchaseState) {
@@ -184,6 +183,38 @@ function initial () {
     })
 
     switchCommentPage(currentCommentPage)
+
+    $("#submit-comment-btn").on("click", function () {
+        let commentString = $("#comment-input").val()
+
+        if (user === null) {
+            displayAttention("错误", "请先登录")
+        } else {
+            if (commentString === "") {
+                console.log("empty")
+            } else {
+                console.log(commentString)
+                $.ajax({
+                    url: baseUrl + "submitComment",
+                    method: "post",
+                    dataType: "json",
+                    data: {
+                        comment: commentString,
+                        uid: user.uid,
+                        courseId: courseInfo.courseId
+                    },
+                    success: function (res) {
+                        $("#comment-input").val("")
+                        currentCommentPage = 1
+                        switchCommentPage(currentCommentPage)
+                    },
+                    error: function () {
+                        alert("server error!")
+                    }
+                })
+            }
+        }
+    })
 }
 
 function getLikeState() {
@@ -351,6 +382,40 @@ function switchCommentPage (page) {
             userName.text(userInfo.nickname)
 
 
+            let currentUser = JSON.parse(sessionStorage.getItem("user"))
+            if (currentUser !== null){
+                if (uid === currentUser.uid) {
+                    let deleteBtn = $("<div class='delete-comment-btn'></div>")
+                    let deleteIcon = $("<img alt='delete-icon' class='delete-icon' src='../static/images/icons/cancel.png'>")
+                    deleteBtn.on("click", function () {
+                        console.log("click")
+                        $.ajax({
+                            url: baseUrl + "deleteComment",
+                            method: "post",
+                            dataType: "json",
+                            data: {
+                                courseId: courseInfo.courseId,
+                                uid: currentUser.uid,
+                                commentId: comment.commentId
+                            },
+                            success: function (res) {
+                                if (res.code === 1){
+                                    displayAttention("删除评论", "删除成功")
+                                } else {
+                                    displayAttention("删除评论", "删除失败")
+                                }
+                            },
+                            error: function () {
+                                alert("server error!")
+                            }
+                        })
+                    })
+                    deleteBtn.append(deleteIcon)
+                    item.append(deleteBtn)
+                }
+            }
+
+
             item.append(commentImg)
             item.append(commentBody)
             item.append(commentTime)
@@ -371,7 +436,6 @@ function switchCommentPage (page) {
         },
         dataType: "json",
         success: function (res) {
-            console.log(res)
             totalCommentNum = res.data
         },
         error: function (res) {
