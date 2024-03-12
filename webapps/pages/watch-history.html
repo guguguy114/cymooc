@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../static/css/watch-history.css">
+    <script src="../static/js/jquery-3.4.1.min.js"></script>
+    <script src="../static/js/common.js"></script>
+    <script src="../static/js/watch-history.js"></script>
+</head>
+<body>
+    <div id="background">
+        <div id="title">
+            历史播放记录
+        </div>
+        <ul id="history-list">
+            <li class="history-item">
+                <img src="../static/images/upload/face-images/default_face_img.png" alt="course_img" class="course-img">
+                <div class="course-title">这是视频标题</div>
+                <div class="chapter-label">观看至章节:</div>
+                <div class="chapter-name">这是章节名称</div>
+                <div class="watch-time-label">观看时间:</div>
+                <div class="watch-time">yyyy-mm-dd</div>
+            </li>
+        </ul>
+        <div id="page-btn-div">
+            <button id="last-page-btn" class="page-btn">上一页</button>
+            <button id="1" class="num-btn">1</button>
+            <button id="2" class="num-btn">2</button>
+            <div id="point">...</div>
+            <button id="3" class="num-btn">3</button>
+            <button id="4" class="num-btn">4</button>
+            <button id="next-page-btn" class="page-btn">下一页</button>
+        </div>
+    </div>
+</body>
+<script>
+    initial()
+</script>
+</html>

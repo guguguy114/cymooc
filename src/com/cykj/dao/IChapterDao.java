@@ -13,4 +13,5 @@ import java.util.List;
  */
 public interface IChapterDao {
     List<Chapter> getCourseChapters (int courseId);
+    Chapter getCourseChapter(int chapterId);
 }

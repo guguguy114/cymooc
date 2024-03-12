@@ -28,4 +28,17 @@ public class ChapterServiceImpl implements ChapterService {
         }
         return responseDto;
     }
+
+    @Override
+    public ResponseDto getCourseChapter(int chapterId) {
+        IChapterDao chapterDao = ChapterDao.getInstance();
+        ResponseDto dto;
+        Chapter chapter = chapterDao.getCourseChapter(chapterId);
+        if (chapter != null) {
+            dto = new ResponseDto(1, "get chapter successfully", chapter);
+        } else {
+            dto = new ResponseDto(0, "get chapter failed", null);
+        }
+        return dto;
+    }
 }

@@ -50,6 +50,19 @@ public class ChapterDao extends BaseDao implements IChapterDao {
         return chapters;
     }
 
+    @Override
+    public Chapter getCourseChapter(int chapterId) {
+        String sql = "select * from " + tableName + " where chapter_id = ?";
+        List<Object> params = new ArrayList<>();
+        params.add(chapterId);
+        List<Object> dataReturn = query(sql, params, chapterClass);
+        if (dataReturn.size() == 1) {
+            return (Chapter) dataReturn.get(0);
+        } else {
+            return null;
+        }
+    }
+
     public synchronized static ChapterDao getInstance(){// 这里使用同步锁就是为了解决线程安全问题
         if (chapterDao == null){
             chapterDao = new ChapterDao();

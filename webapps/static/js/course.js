@@ -40,7 +40,6 @@ function initial () {
     $("#course-description").text(courseInfo.courseDescription)
     for (i = 0; i <= chapterList.length - 1; i++) {
         let chapter = chapterList[i]
-        console.log(chapter)
         let chapterDivList = $("#chapter-list")
         let chapterLi = $("<li class='chapter-item'></li>")
         let chapterDiv = $("<div class='chapter-div'></div>")
@@ -93,7 +92,6 @@ function initial () {
         let course = JSON.parse(sessionStorage.getItem("current_course"))
         let courseId = course.courseId;
         if (user === null) {
-            console.log("no login")
             displayAttention("点赞失败", "请先登录")
         } else {
             uid = user.uid
@@ -140,7 +138,6 @@ function initial () {
         let course = JSON.parse(sessionStorage.getItem("current_course"))
         let courseId = course.courseId;
         if (user === null) {
-            console.log("no login")
             displayAttention("收藏失败", "请先登录")
         } else {
             uid = user.uid
@@ -191,9 +188,8 @@ function initial () {
             displayAttention("错误", "请先登录")
         } else {
             if (commentString === "") {
-                console.log("empty")
+                displayAttention("评论失败", "不能发送空评论")
             } else {
-                console.log(commentString)
                 $.ajax({
                     url: baseUrl + "submitComment",
                     method: "post",
@@ -215,7 +211,42 @@ function initial () {
             }
         }
     })
+
+
+    user = JSON.parse(sessionStorage.getItem("user"))
+    courseInfo = JSON.parse(sessionStorage.getItem("current_course"))
+    let chapterInfo = JSON.parse(sessionStorage.getItem("current_chapter"))
+    if (user !== null && courseInfo !== null && chapterInfo !== null) {
+        let uid = user.uid
+        let courseId = courseInfo.courseId
+        let chapterId = chapterInfo.chapterId
+        if (judgeCoursePurchaseState(uid, courseId) === 1){
+            console.log("uid:" + user.uid + " courseId:" + chapterInfo.courseId + " chapterId:" + chapterInfo.chapterId)
+            $.ajax({
+                url: baseUrl + "addWatchHistory",
+                method: "post",
+                data: {
+                    uid: uid,
+                    courseId: courseId,
+                    chapterId: chapterId
+                },
+                dataType: "json",
+                success: function (res) {
+                    console.log(res)
+                },
+                error: function (res) {
+                    alert("server error!")
+                }
+            })
+        }
+    }
+
 }
+
+
+
+
+
 
 function getLikeState() {
     let user = JSON.parse(sessionStorage.getItem("user"))
@@ -242,7 +273,6 @@ function getLikeState() {
             }
         })
     } else {
-        console.log("no login")
     }
     return state
 }
@@ -348,7 +378,6 @@ function switchCommentPage (page) {
     let courseInfo = JSON.parse(sessionStorage.getItem("current_course"))
     let commentList = getCourseComment(courseInfo.courseId, commentNumInOnePage, page)
 
-    console.log(commentList)
     let list = $("#comment-list")
     list.empty()
 
@@ -388,7 +417,6 @@ function switchCommentPage (page) {
                     let deleteBtn = $("<div class='delete-comment-btn'></div>")
                     let deleteIcon = $("<img alt='delete-icon' class='delete-icon' src='../static/images/icons/cancel.png'>")
                     deleteBtn.on("click", function () {
-                        console.log("click")
                         $.ajax({
                             url: baseUrl + "deleteComment",
                             method: "post",
@@ -584,4 +612,10 @@ function addNumBtn (num, rightBtn) {
         switchCommentPage(currentCommentPage)
     })
     rightBtn.before(numBtn)
+}
+
+function addWatchHistory (uid, courseId, chapterId) {
+    if (true) {
+
+    }
 }

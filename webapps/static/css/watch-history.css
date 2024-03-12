@@ -1,0 +1,121 @@
+body {
+    text-align: center;
+}
+
+#background {
+    width: 980px;
+    height: 730px;
+    background-color: grey;
+    display: inline-block;
+}
+
+#title {
+    display: inline-block;
+    background-color: #f9f9f9;
+    font-size: 40px;
+    margin-top: 20px;
+    position: relative;
+}
+
+#history-list {
+    width: 900px;
+    list-style-type: none;
+    padding-left: 0;
+    background-color: darkkhaki;
+    position: relative;
+    display: inline-block;
+}
+
+.history-item {
+    width: 800px;
+    height: 180px;
+    background-color: blueviolet;
+    position: relative;
+    display: inline-block;
+}
+
+
+.course-img {
+    width: 200px;
+    height: 150px;
+    border: black solid 1px;
+    float: left;
+    margin-top: 15px;
+    margin-left: 15px;
+    border-radius: 20px;
+    background-color: white;
+    cursor: pointer;
+}
+
+.course-title {
+    margin-top: 10px;
+    font-size: 40px;
+    float: left;
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+.chapter-label {
+    top: 80px;
+    font-size: 20px;
+    left: 240px;
+    position: absolute;
+}
+
+.chapter-name {
+    top: 80px;
+    left: 360px;
+    font-size: 20px;
+    position: absolute;
+}
+
+.watch-time {
+    display: inline-block;
+    position: absolute;
+    bottom: 20px;
+    left: 330px;
+    font-size: 20px;
+}
+
+.watch-time-label {
+    position: absolute;
+    bottom: 20px;
+    left: 240px;
+    font-size: 20px;
+}
+
+
+
+
+
+/* 页面按钮 */
+
+#comment-page-btn-div {
+    bottom: 20px;
+    left: 350px;
+    position: fixed;
+    text-align: center;
+    display: inline-block;
+}
+
+.page-btn {
+    font-size: 20px;
+    position: relative;
+    display: inline-block;
+    height: 30px;
+    cursor: pointer;
+}
+
+.num-btn {
+    font-size: 20px;
+    display: inline-block;
+    height: 30px;
+    position: relative;
+    cursor: pointer;
+    margin-right: 4px;
+    bottom: 3px;
+}
+
+#point {
+    display: inline-block;
+}

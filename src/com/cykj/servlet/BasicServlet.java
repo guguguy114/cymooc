@@ -1,7 +1,9 @@
 package com.cykj.servlet;
 
+import com.alibaba.fastjson2.JSON;
 import com.cykj.net.HttpRequest;
 import com.cykj.net.HttpResponse;
+import com.cykj.net.ResponseDto;
 
 /**
  * Description:
@@ -19,5 +21,8 @@ public abstract class BasicServlet {
         }else if (request.getType().equals("GET")){
             doGet(request, response);
         }
+    }
+    protected void writeDto(HttpResponse response, ResponseDto dto) {
+        response.write("text/html; charset:utf-8", JSON.toJSONBytes(dto));
     }
 }

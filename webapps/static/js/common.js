@@ -237,7 +237,7 @@ function judgeCoursePurchaseState (uid, courseId) {
 }
 
 function getCourseDetail (courseId) {
-    let course = null;
+    let course
     $.ajax({
         url: baseUrl + "getCourse",
         method: "post",
@@ -256,12 +256,12 @@ function getCourseDetail (courseId) {
     return course
 }
 
-function toCoursePage (courseId, targetDocument) {
+function toCoursePage (courseId, targetDocument, chapter = 1) {
     targetDocument.location.href = "../../pages/course.html"
     let currentCourse = getCourseDetail(courseId)
     sessionStorage.setItem("current_course", JSON.stringify(currentCourse))
     let chapterList = getCourseChapters(currentCourse.courseId)
-    sessionStorage.setItem("current_chapter", JSON.stringify(chapterList[0]))
+    sessionStorage.setItem("current_chapter", JSON.stringify(chapterList[chapter - 1]))
 }
 
 function getCourseComment (courseId, limitNum, page) {
@@ -284,6 +284,48 @@ function getCourseComment (courseId, limitNum, page) {
         }
     })
     return commentList
+}
+
+function getWatchHistoryList(uid, limitNum, page) {
+    let watchHistoryList
+    $.ajax({
+        url: baseUrl + "getUserWatchHistory",
+        method: "post",
+        async: false,
+        data: {
+            uid: uid,
+            lim: limitNum,
+            page: page
+        },
+        dataType: "json",
+        success: function (res) {
+            watchHistoryList = res.data
+        },
+        error: function (res) {
+            alert("server error!")
+        }
+    })
+    return watchHistoryList
+}
+
+function getCourseChapter(chapterId) {
+    let chapter
+    $.ajax({
+        url: baseUrl + "getCourseChapter",
+        method: "post",
+        async: false,
+        data: {
+            chapterId: chapterId
+        },
+        dataType: "json",
+        success: function (res) {
+            chapter = res.data
+        },
+        error: function (res) {
+            alert("server error!")
+        }
+    })
+    return chapter
 }
 
 function getUserInfo(uid) {

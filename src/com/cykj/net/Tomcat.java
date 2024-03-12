@@ -58,12 +58,12 @@ public class Tomcat {
                                 length = sc.read(byteBuffer);
 
                                 message += new String(byteBuffer.array(), 0, length);
-                                System.out.println("read = " + length);
+//                                System.out.println("read = " + length);
                             }
                             String req = message;
 
 //                            req = URLDecoder.decode(req, "UTF-8");
-                            System.out.println("req=" + req);
+//                            System.out.println("req=" + req);
 //                             System.out.println(req);
 
                             HttpRequest httpRequest = new HttpRequest(req);

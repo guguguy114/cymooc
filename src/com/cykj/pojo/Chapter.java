@@ -15,7 +15,16 @@ public class Chapter {
   private String chapterVideo;
   @DBField("chapter_name")
   private String chapterName;
+  @DBField("chapter_order")
+  private long chapterOrder;
 
+  public long getChapterOrder() {
+    return chapterOrder;
+  }
+
+  public void setChapterOrder(long chapterOrder) {
+    this.chapterOrder = chapterOrder;
+  }
 
   public long getChapterId() {
     return chapterId;

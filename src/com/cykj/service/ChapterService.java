@@ -11,4 +11,5 @@ import com.cykj.net.ResponseDto;
  */
 public interface ChapterService {
     ResponseDto getCourseChapters(int id);
+    ResponseDto getCourseChapter(int chapterId);
 }
