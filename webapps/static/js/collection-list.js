@@ -1,16 +1,16 @@
-let itemNumInOnePage = 3;
-let currentPage = 1;
+let properties = {
+    currentPage : 1,
+    limitNum : 3
+}
 
 let uid;
 
-
-
 function initial() {
+    addPageBtn($("#background"))
     let user = JSON.parse(sessionStorage.getItem("user"));
     if (user !== null) {
         uid = user.uid
-        let currentPageCollections = getUserCollections(uid)
-        switchPages(currentPage, currentPageCollections)
+        switchPages(properties.currentPage)
     }
 }
 
@@ -34,7 +34,8 @@ function getUserCollections (uid) {
     return collections
 }
 
-function switchPages (page, courseList) {
+function switchPages (page) {
+    let courseList = getUserCollections(uid)
     let list = $("#collection-list")
     list.empty()
 
@@ -43,8 +44,8 @@ function switchPages (page, courseList) {
         return
     }
 
-    let start = (page - 1) * itemNumInOnePage
-    let end = (start + itemNumInOnePage) - 1
+    let start = (page - 1) * properties.limitNum
+    let end = (start + properties.limitNum) - 1
     for (let i = start; i <= end; i++) {
         let course = courseList[i]
         if (course !== undefined){
@@ -114,144 +115,7 @@ function switchPages (page, courseList) {
         }
     }
 
-    let point1 = $("#point")
-
-    // 内容生成完成，开始生成下标
-    $(".num-btn").remove()
-    let nextPageBtn = $("#next-page-btn")
-    let lastPageBtn = $("#last-page-btn")
-    let totalPage = Math.ceil(courseList.length / itemNumInOnePage)
-    if (totalPage <= 4){
-        point1.remove()
-        for (let i = 1; i <= totalPage; i++) {
-            addNumBtn(i, nextPageBtn)
-            if (currentPage === i) {
-                $("#num-btn-" + i).attr("disabled", true)
-            } else {
-                $("#num-btn-" + i).attr("disabled", false)
-            }
-        }
-    } else {
-        point1.css("display", "none")
-        let key = 2;
-        let count = 0;
-        for (let i = 1; i <= totalPage; i++) {
-            if (currentPage === 1 || currentPage === 2) {
-                if (currentPage === 2) {
-                    key = 3
-                }
-                if (count !== key) {
-                    addNumBtn(i, nextPageBtn)
-                    count++;
-                } else {
-                    nextPageBtn.before(point1)
-                    point1.css("display", "inline-block")
-                    count = 0
-                    key = 1
-                    i = totalPage - 1
-                }
-            } else if (currentPage === totalPage || currentPage === totalPage - 1) {
-                if (i === 1) {
-                    key = 1
-                }
-                if (count !== key) {
-                    addNumBtn(i, nextPageBtn)
-                    count++
-                } else {
-                    nextPageBtn.before(point1)
-                    point1.css("display", "inline-block")
-                    count = 0
-                    if (currentPage === totalPage) {
-                        key = 2
-                        i = totalPage - 2
-                    } else {
-                        key = 3
-                        i = totalPage - 3
-                    }
-
-                }
-            } else {
-                let stage = 1;
-                let point2 = point1.clone()
-                if (i === 1) {
-                    key = 1
-                    count = 0
-                } else if (i === totalPage) {
-                    key = 1
-                    count = 0
-                } else {
-                    key = 3
-                    count = 0
-                }
-                if (count !== key) {
-                    addNumBtn(i, nextPageBtn)
-                    count++
-                } else {
-                    if (stage === 1) {
-                        nextPageBtn.before(point1)
-                        point1.css("display", "inline-block")
-                        i = currentPage - 2
-                        stage++;
-                    } else if (stage === 2) {
-                        nextPageBtn.before(point2)
-                        point2.css("display", "inline-block")
-                        i = totalPage - 1
-                        stage++
-                    }
-                }
-            }
-
-
-
-            if (currentPage === i) {
-                $("#num-btn-" + i).attr("disabled", true)
-            } else {
-                $("#num-btn-" + i).attr("disabled", false)
-            }
-        }
-    }
-
-    nextPageBtn.off("click")
-    nextPageBtn.on("click", function () {
-        if (currentPage !== totalPage){
-            currentPage++;
-            switchPages(currentPage, getUserCollections(uid))
-        } else {
-
-        }
-    })
-
-    lastPageBtn.off("click")
-    lastPageBtn.on("click", function () {
-        if (currentPage !== 1) {
-            currentPage--
-            switchPages(currentPage, getUserCollections(uid))
-        } else {
-
-        }
-    })
-
-    if (currentPage !== totalPage) {
-        nextPageBtn.attr("disabled", false)
-    } else {
-        nextPageBtn.attr("disabled", true)
-    }
-
-    if (currentPage !== 1) {
-        lastPageBtn.attr("disabled", false)
-    } else {
-        lastPageBtn.attr("disabled", true)
-    }
+    setPageBtn(courseList.length, properties, switchPages)
 
 }
 
-function addNumBtn (num, rightBtn) {
-    let numBtn = $("<button id=\"\" class=\"num-btn\"></button>")
-    numBtn.attr("id", "num-btn-" + num)
-    numBtn.text(num)
-    numBtn.on("click", function () {
-        currentPage = parseInt(numBtn.text())
-        switchPages(currentPage, getUserCollections(uid))
-    })
-    rightBtn.before(numBtn)
-}

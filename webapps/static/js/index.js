@@ -4,9 +4,7 @@ let tik = 1; // 初始tik
 let maxBannerNum = 5; // 最大轮播图数量
 let maxShowVideoNum = 10;// 最大展示推荐视频数量
 function initial() {
-    judgeLoginState()
-    createAttentionPan($("#background"))
-    setLoginPan()
+    setHeader($("#background"))
 
     // 设置横幅播放
     setInterval(function () {
@@ -35,8 +33,10 @@ function initial() {
         list.append(listItem)
     }
 
+    // 设置推荐视频
     getRecommendVideo("like_list")
 
+    // 设置轮播图的按钮
     $("#banner-page-point1").css("background-color", "white")
     $("#banner-right-btn").on("click", function () {
         if (currentBannerPage === 5) {

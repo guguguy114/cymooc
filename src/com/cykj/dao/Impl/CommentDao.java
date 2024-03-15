@@ -46,7 +46,7 @@ public class CommentDao extends BaseDao implements ICommentDao {
 
     @Override
     public int getCourseTotalCommentNum(int courseId) {
-        String sql = "select * from " + tableName + " where course_id = ?";
+        String sql = "select * from " + tableName + " where course_id = ? and state = 1";
         List<Object> params = new ArrayList<>();
         params.add(courseId);
         return queryNum(sql, params);
@@ -67,7 +67,7 @@ public class CommentDao extends BaseDao implements ICommentDao {
     public boolean deleteComment(int courseId, int uid, int commentId) {
         String sql = "update " + tableName + " set state = 0 where course_id = ? and uid = ? and comment_id = ?";
         List<Object> params = new ArrayList<>();
-        params.add(commentId);
+        params.add(courseId);
         params.add(uid);
         params.add(commentId);
         int code = update(sql, params);

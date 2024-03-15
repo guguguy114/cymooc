@@ -62,7 +62,6 @@ function getCourseChapters (courseId) {
 }
 
 function setLoginPan () {
-    const searchBtn = $("#search-button");
     const loginPanBtn = $("#login-pan-btn");
     const cancelBtn = $(".cancel-btn");
     const loginBtn = $("#login-btn");
@@ -353,3 +352,256 @@ function getUserInfo(uid) {
     return userInfo;
 }
 
+function setSearchFunc() {
+    $("#search-button").on("click", function () {
+        let searchWord = $("#search-field").val()
+        console.log("val:" + searchWord)
+        if (searchWord === "") {
+            console.log("no values")
+            displayAttention("搜索失败", "请输入搜索词")
+        } else {
+            console.log("search")
+            window.location.href = "../pages/search-page.html"
+        }
+    })
+}
+
+function createHeader(background) {
+    let backgroundElem = background;
+
+    let header = $("<div id='header'></div>")
+
+    let logo = $("<img src=\"../static/images/logo.jpg\" alt=\"logo\" srcset=\"\" id=\"logo\">")
+    let searchLabel = $("<label for=\"search-field\" id=\"search-field-label\">搜索:</label>")
+    let searchInput = $("<input type=\"text\" placeholder=\"请输入课程\" id=\"search-field\">")
+    let searchBtn = $("<input type=\"button\" id=\"search-button\">")
+    let loginBtn = $("<button id=\"login-pan-btn\" >登录</button>")
+    let faceImg = $("<img src=\"../static/images/upload/face-images/default_face_img.png\" alt=\"face-img\" id=\"face-img\">")
+    let logoutBtn = $("<div id=\"logout-div\">登出</div>")
+
+    header.append(logo)
+    header.append(searchLabel)
+    header.append(searchInput)
+    header.append(searchBtn)
+    header.append(loginBtn)
+    header.append(faceImg)
+    header.append(logoutBtn)
+
+    backgroundElem.prepend(header)
+    console.log("create complete")
+}
+
+function setHeader(background) {
+    createHeader(background)
+    judgeLoginState()
+    createAttentionPan(background)
+    setLoginPan()
+    setSearchFunc()
+    console.log("setting")
+}
+
+
+
+
+
+
+
+
+
+/**
+ * Description: 负责添加页面的切换按钮部分的方法
+ * @return void
+ * @author Guguguy
+ * @since 2024/3/15 15:05
+ * @param itemTotalNum 所有的元素数量，包含当前展示的和未展示的元素总数量
+ * @param properties 页面某元素所需的参数对象，它应该包含两个分别命名为currentPage和limitNum的属性
+ * @param switchPageFunc 切换页面所需的方法
+ */
+function setPageBtn (itemTotalNum, properties, switchPageFunc) {
+
+    let totalPage = Math.ceil(itemTotalNum / properties.limitNum)
+
+
+    // 内容生成完成，开始生成下标
+    let point1 = $("#point-1")
+    let point2 = $("#point-2")
+    $(".num-btn").remove()
+    let nextPageBtn = $("#next-page-btn")
+    let lastPageBtn = $("#last-page-btn")
+    if (totalPage <= 4){
+        point1.remove()
+        point2.remove()
+        for (let i = 1; i <= totalPage; i++) {
+            addNumBtn(i, nextPageBtn, properties, switchPageFunc)
+            if (properties.currentPage === i) {
+                $("#num-btn-" + i).attr("disabled", true)
+            } else {
+                $("#num-btn-" + i).attr("disabled", false)
+            }
+        }
+    } else {
+        point1.css("display", "none")
+        point2.css("display", "none")
+        let key = 2;
+        let count = 0;
+        let stage = 0;
+        let countState = 0;
+        for (let i = 1; i <= totalPage; i++) {
+            if (properties.currentPage === 1 || properties.currentPage === 2 || properties.currentPage === 3) {
+                if (properties.currentPage === 2) {
+                    key = 3
+                }
+                if (properties.currentPage === 3) {{
+                    key = 4
+                }}
+                if (count !== key) {
+                    addNumBtn(i, nextPageBtn, properties, switchPageFunc)
+                    count++;
+                } else {
+                    nextPageBtn.before(point1)
+                    point1.css("display", "inline-block")
+                    count = 0
+                    key = 1
+                    i = totalPage - 1
+                }
+            } else if (properties.currentPage === totalPage || properties.currentPage === totalPage - 1 || properties.currentPage === totalPage - 2) {
+                if (i === 1) {
+                    key = 1
+                }
+                if (count !== key) {
+                    addNumBtn(i, nextPageBtn, properties, switchPageFunc)
+                    count++
+                } else {
+                    nextPageBtn.before(point1)
+                    point1.css("display", "inline-block")
+                    count = 0
+                    if (properties.currentPage === totalPage) {
+                        key = 2
+                        i = totalPage - 2
+                    } else if (properties.currentPage === totalPage - 1){
+                        key = 3
+                        i = totalPage - 3
+                    } else {
+                        key = 4
+                        i = totalPage - 4
+                    }
+
+                }
+            } else {
+                if (stage === 0) {
+                    stage = 1
+                }
+                if (i === 1) {
+                    key = 1
+                    count = 0
+                } else if (i === totalPage) {
+                    key = 1
+                    count = 0
+                } else {
+                    key = 3
+                    if (countState === 0){
+                        count = 0
+                        countState = 1
+                    }
+                }
+                if (count !== key) {
+                    addNumBtn(i, nextPageBtn, properties, switchPageFunc)
+                    count++
+                    console.log("key : " + key + " count : " + count + " stage : " + stage)
+                    if (count === key){
+                        if (stage === 1) {
+                            nextPageBtn.before(point1)
+                            point1.css("display", "inline-block")
+                            i = properties.currentPage - 2
+                            stage++;
+                        } else if (stage === 2) {
+                            nextPageBtn.before(point2)
+                            point2.css("display", "inline-block")
+                            i = totalPage - 1
+                            stage++
+                        }
+                    }
+                }
+            }
+
+
+            // 处于当前页面时按钮置灰
+            if (properties.currentPage === i) {
+                $("#num-btn-" + i).attr("disabled", true)
+            } else {
+                $("#num-btn-" + i).attr("disabled", false)
+            }
+        }
+    }
+
+    nextPageBtn.off("click")
+    nextPageBtn.on("click", function () {
+        if (properties.currentPage !== totalPage){
+            properties.currentPage++;
+            switchPageFunc(properties.currentPage)
+        } else {
+
+        }
+    })
+
+    lastPageBtn.off("click")
+    lastPageBtn.on("click", function () {
+        if (properties.currentPage !== 1) {
+            properties.currentPage--
+            switchPageFunc(properties.currentPage)
+        } else {
+
+        }
+    })
+
+    if (properties.currentPage !== totalPage) {
+        nextPageBtn.attr("disabled", false)
+    } else {
+        nextPageBtn.attr("disabled", true)
+    }
+
+    if (properties.currentPage !== 1) {
+        lastPageBtn.attr("disabled", false)
+    } else {
+        lastPageBtn.attr("disabled", true)
+    }
+}
+
+
+/**
+ * Description: 一个负责添加页面按钮的方法
+ * @return void
+ * @author Guguguy
+ * @since 2024/3/15 16:34
+ * @param num 页面按钮上的数字
+ * @param rightBtn 最右端的页面按钮，因为需要将其他的数字按钮从它前面插入
+ * @param properties 需要进行分页的页面参数对象，它应该包含命名为currentPage的参数
+ * @param switchPage 所依赖的切换页面方法
+ */
+function addNumBtn (num, rightBtn, properties, switchPage) {
+    let numBtn = $("<button id=\"\" class=\"num-btn\"></button>")
+    numBtn.attr("id", "num-btn-" + num)
+    numBtn.text(num)
+    numBtn.on("click", function () {
+        properties.currentPage = parseInt(numBtn.text())
+        switchPage(properties.currentPage)
+    })
+    rightBtn.before(numBtn)
+}
+
+function addPageBtn (fatherElem) {
+    console.log("add")
+    console.log(fatherElem)
+    let item = $("<div id=\"page-btn-div\">" +
+                    "<button id=\"last-page-btn\" class=\"page-btn\">上一页</button>" +
+                    "<button id=\"1\" class=\"num-btn\">1</button>" +
+                    "<button id=\"2\" class=\"num-btn\">2</button>" +
+                    "<div id=\"point-1\">...</div>" +
+                    "<div id=\"point-2\">...</div>" +
+                    "<button id=\"3\" class=\"num-btn\">3</button>" +
+                    "<button id=\"4\" class=\"num-btn\">4</button>" +
+                    "<button id=\"next-page-btn\" class=\"page-btn\">下一页</button>" +
+                "</div>")
+    console.log(item)
+    fatherElem.append(item)
+}

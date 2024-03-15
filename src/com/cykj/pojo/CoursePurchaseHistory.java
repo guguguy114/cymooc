@@ -4,6 +4,8 @@ package com.cykj.pojo;
 import com.cykj.annotation.DBField;
 import com.cykj.annotation.DBTable;
 
+import java.math.BigDecimal;
+
 @DBTable("course_purchase_history")
 public class CoursePurchaseHistory {
 
@@ -11,10 +13,10 @@ public class CoursePurchaseHistory {
   private long purchaseId;
   @DBField("course_id")
   private long courseId;
-  @DBField("uid")
   private long uid;
   @DBField("purchase_time")
   private java.sql.Timestamp purchaseTime;
+  private BigDecimal cost;
 
 
   public long getPurchaseId() {
@@ -50,6 +52,15 @@ public class CoursePurchaseHistory {
 
   public void setPurchaseTime(java.sql.Timestamp purchaseTime) {
     this.purchaseTime = purchaseTime;
+  }
+
+
+  public BigDecimal getCost() {
+    return cost;
+  }
+
+  public void setCost(BigDecimal cost) {
+    this.cost = cost;
   }
 
 }

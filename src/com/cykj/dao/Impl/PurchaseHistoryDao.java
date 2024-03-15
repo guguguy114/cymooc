@@ -74,6 +74,30 @@ public class PurchaseHistoryDao extends BaseDao implements IPurchaseHistoryDao {
         }
     }
 
+    @Override
+    public List<CoursePurchaseHistory> getPurchaseHistories(int uid, int limitNum, int page) {
+        int startNum = (page - 1) * limitNum;
+        String sql = "select * from " + tableName + " where uid = ? order by purchase_time desc limit ?, ?";
+        List<Object> params = new ArrayList<>();
+        params.add(uid);
+        params.add(startNum);
+        params.add(limitNum);
+        List<CoursePurchaseHistory> historyList = new ArrayList<>();
+        List<Object> dataReturn = query(sql, params, historyPojoClass);
+        for (Object o : dataReturn) {
+            historyList.add((CoursePurchaseHistory) o);
+        }
+        return historyList;
+    }
+
+    @Override
+    public int getPurchaseHistoryNum(int uid) {
+        String sql = "select * from " + tableName + " where uid = ?";
+        List<Object> params = new ArrayList<>();
+        params.add(uid);
+        return queryNum(sql, params);
+    }
+
     public synchronized static PurchaseHistoryDao getInstance() {
         if (purchaseHistoryDao == null) {
             purchaseHistoryDao = new PurchaseHistoryDao();

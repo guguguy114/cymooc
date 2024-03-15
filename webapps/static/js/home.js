@@ -47,7 +47,6 @@ function displayChargeInputPage () {
     chargeConfirmBtn.on("click", function () {
         let num = $("#charge-num-input").val()
         let acc = userInfo.account
-        console.log("acc : " + acc + " " + "num : " + num)
         if (num === "") {
             alert("输入为空请重新输入!")
             return
@@ -63,7 +62,6 @@ function displayChargeInputPage () {
             success: function (res) {
                 let iframe = $("#right-frame")
                 let balance = iframe.contents().find("#balance")
-                console.log(res)
                 iframe[0].contentWindow.updateUserInfo()
                 alert("charge successfully, charge num : " + res.data)
                 closeAttentionPan()
@@ -73,8 +71,6 @@ function displayChargeInputPage () {
                 alert("server error!")
             }
         })
-        console.log("click")
-
     })
     let chargeNumInput = $("#charge-num-input")
     chargeConfirmBtn.css("display", "inline-block")
@@ -84,7 +80,6 @@ function displayChargeInputPage () {
 function closeAttentionPan () {
     let chargeNumInput = $("#charge-num-input")
     let chargeConfirmBtn = $("#charge-confirm-btn")
-    console.log("click")
     chargeNumInput.val('')
     chargeConfirmBtn.css("display", "none")
     chargeNumInput.css("display", "none")

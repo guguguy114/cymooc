@@ -85,34 +85,3 @@
 
 
 
-/* 页面按钮 */
-
-#comment-page-btn-div {
-    bottom: 20px;
-    left: 350px;
-    position: fixed;
-    text-align: center;
-    display: inline-block;
-}
-
-.page-btn {
-    font-size: 20px;
-    position: relative;
-    display: inline-block;
-    height: 30px;
-    cursor: pointer;
-}
-
-.num-btn {
-    font-size: 20px;
-    display: inline-block;
-    height: 30px;
-    position: relative;
-    cursor: pointer;
-    margin-right: 4px;
-    bottom: 3px;
-}
-
-#point {
-    display: inline-block;
-}

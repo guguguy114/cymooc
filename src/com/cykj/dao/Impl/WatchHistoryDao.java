@@ -28,6 +28,10 @@ public class WatchHistoryDao extends BaseDao implements IWatchHistoryDao {
 
     @Override
     public boolean addWatchHistory(int uid, int courseId, int chapterId) {
+        WatchHistory history = getNearestWatchHistory(uid);
+        if (history.getChapterId() == chapterId) {
+            return false;
+        }
         String sql = "insert into " + tableName + " (uid, course_id, chapter_id) values (?, ?, ?)";
         List<Object> params = new ArrayList<>();
         params.add(uid);
@@ -63,6 +67,15 @@ public class WatchHistoryDao extends BaseDao implements IWatchHistoryDao {
         } else {
             return historyList;
         }
+    }
+
+    @Override
+    public WatchHistory getNearestWatchHistory(int uid) {
+        String sql = "SELECT * FROM " + tableName + " WHERE uid = ? ORDER BY watch_time DESC LIMIT 1";
+        List<Object> params = new ArrayList<>();
+        params.add(uid);
+        List<Object> dataReturn = query(sql, params, watchHistoryPojoClass);
+        return (WatchHistory) dataReturn.get(0);
     }
 
     public synchronized static WatchHistoryDao getInstance() {

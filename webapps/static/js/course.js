@@ -1,11 +1,12 @@
-let commentNumInOnePage = 2;
-let currentCommentPage = 1;
+let properties = {
+    currentPage : 1,
+    limitNum : 2
+
+}
 
 function initial () {
-
-    judgeLoginState()
-    createAttentionPan($("#background"))
-    setLoginPan()
+    addPageBtn($("#comment-part-div"))
+    setHeader($("#background"))
     getLikeNum()
     getCollectNum()
 
@@ -179,7 +180,7 @@ function initial () {
         }
     })
 
-    switchCommentPage(currentCommentPage)
+    switchCommentPage(properties.currentPage)
 
     $("#submit-comment-btn").on("click", function () {
         let commentString = $("#comment-input").val()
@@ -201,8 +202,11 @@ function initial () {
                     },
                     success: function (res) {
                         $("#comment-input").val("")
-                        currentCommentPage = 1
-                        switchCommentPage(currentCommentPage)
+                        properties.currentPage = 1
+                        $("#page-btn-div").remove()
+                        addPageBtn($("#comment-part-div"))
+                        switchCommentPage(properties.currentPage)
+                        displayAttention("发表评论", "发表评论成功")
                     },
                     error: function () {
                         alert("server error!")
@@ -221,7 +225,6 @@ function initial () {
         let courseId = courseInfo.courseId
         let chapterId = chapterInfo.chapterId
         if (judgeCoursePurchaseState(uid, courseId) === 1){
-            console.log("uid:" + user.uid + " courseId:" + chapterInfo.courseId + " chapterId:" + chapterInfo.chapterId)
             $.ajax({
                 url: baseUrl + "addWatchHistory",
                 method: "post",
@@ -232,7 +235,6 @@ function initial () {
                 },
                 dataType: "json",
                 success: function (res) {
-                    console.log(res)
                 },
                 error: function (res) {
                     alert("server error!")
@@ -376,13 +378,13 @@ function purchaseCourse () {
 
 function switchCommentPage (page) {
     let courseInfo = JSON.parse(sessionStorage.getItem("current_course"))
-    let commentList = getCourseComment(courseInfo.courseId, commentNumInOnePage, page)
+    let commentList = getCourseComment(courseInfo.courseId, properties.limitNum, page)
 
     let list = $("#comment-list")
     list.empty()
 
     if (commentList === undefined) {
-        $("#comment-page-btn-div").empty()
+        $("#page-btn-div").empty()
         return
     }
 
@@ -429,6 +431,7 @@ function switchCommentPage (page) {
                             success: function (res) {
                                 if (res.code === 1){
                                     displayAttention("删除评论", "删除成功")
+                                    switchCommentPage(page)
                                 } else {
                                     displayAttention("删除评论", "删除失败")
                                 }
@@ -453,7 +456,6 @@ function switchCommentPage (page) {
     }
 
     let totalCommentNum
-    let totalPage
 
     $.ajax({
         url: baseUrl + "getCourseTotalCommentNum",
@@ -471,151 +473,5 @@ function switchCommentPage (page) {
         }
     })
 
-    totalPage = Math.ceil(totalCommentNum / commentNumInOnePage)
-
-
-    // 内容生成完成，开始生成下标
-    let point1 = $("#point")
-    $(".num-btn").remove()
-    let nextPageBtn = $("#next-page-btn")
-    let lastPageBtn = $("#last-page-btn")
-    if (totalPage <= 4){
-        point1.remove()
-        for (let i = 1; i <= totalPage; i++) {
-            addNumBtn(i, nextPageBtn)
-            if (currentCommentPage === i) {
-                $("#num-btn-" + i).attr("disabled", true)
-            } else {
-                $("#num-btn-" + i).attr("disabled", false)
-            }
-        }
-    } else {
-        point1.css("display", "none")
-        let key = 2;
-        let count = 0;
-        for (let i = 1; i <= totalPage; i++) {
-            if (currentCommentPage === 1 || currentCommentPage === 2) {
-                if (currentCommentPage === 2) {
-                    key = 3
-                }
-                if (count !== key) {
-                    addNumBtn(i, nextPageBtn)
-                    count++;
-                } else {
-                    nextPageBtn.before(point1)
-                    point1.css("display", "inline-block")
-                    count = 0
-                    key = 1
-                    i = totalPage - 1
-                }
-            } else if (currentCommentPage === totalPage || currentCommentPage === totalPage - 1) {
-                if (i === 1) {
-                    key = 1
-                }
-                if (count !== key) {
-                    addNumBtn(i, nextPageBtn)
-                    count++
-                } else {
-                    nextPageBtn.before(point1)
-                    point1.css("display", "inline-block")
-                    count = 0
-                    if (currentCommentPage === totalPage) {
-                        key = 2
-                        i = totalPage - 2
-                    } else {
-                        key = 3
-                        i = totalPage - 3
-                    }
-
-                }
-            } else {
-                let stage = 1;
-                let point2 = point1.clone()
-                if (i === 1) {
-                    key = 1
-                    count = 0
-                } else if (i === totalPage) {
-                    key = 1
-                    count = 0
-                } else {
-                    key = 3
-                    count = 0
-                }
-                if (count !== key) {
-                    addNumBtn(i, nextPageBtn)
-                    count++
-                } else {
-                    if (stage === 1) {
-                        nextPageBtn.before(point1)
-                        point1.css("display", "inline-block")
-                        i = currentCommentPage - 2
-                        stage++;
-                    } else if (stage === 2) {
-                        nextPageBtn.before(point2)
-                        point2.css("display", "inline-block")
-                        i = totalPage - 1
-                        stage++
-                    }
-                }
-            }
-
-
-
-            if (currentCommentPage === i) {
-                $("#num-btn-" + i).attr("disabled", true)
-            } else {
-                $("#num-btn-" + i).attr("disabled", false)
-            }
-        }
-    }
-
-    nextPageBtn.off("click")
-    nextPageBtn.on("click", function () {
-        if (currentCommentPage !== totalPage){
-            currentCommentPage++;
-            switchCommentPage(currentCommentPage)
-        } else {
-
-        }
-    })
-
-    lastPageBtn.off("click")
-    lastPageBtn.on("click", function () {
-        if (currentCommentPage !== 1) {
-            currentCommentPage--
-            switchCommentPage(currentCommentPage)
-        } else {
-
-        }
-    })
-
-    if (currentCommentPage !== totalPage) {
-        nextPageBtn.attr("disabled", false)
-    } else {
-        nextPageBtn.attr("disabled", true)
-    }
-
-    if (currentCommentPage !== 1) {
-        lastPageBtn.attr("disabled", false)
-    } else {
-        lastPageBtn.attr("disabled", true)
-    }
-
-}
-
-function addNumBtn (num, rightBtn) {
-    let numBtn = $("<button id=\"\" class=\"num-btn\"></button>")
-    numBtn.attr("id", "num-btn-" + num)
-    numBtn.text(num)
-    numBtn.on("click", function () {
-        currentCommentPage = parseInt(numBtn.text())
-        switchCommentPage(currentCommentPage)
-    })
-    rightBtn.before(numBtn)
-}
-
-function addWatchHistory (uid, courseId, chapterId) {
-    if (true) {
-
-    }
+    setPageBtn(totalCommentNum, properties, switchCommentPage)
 }

@@ -1,5 +1,9 @@
 package com.cykj.dao;
 
+import com.cykj.pojo.CoursePurchaseHistory;
+
+import java.util.List;
+
 /**
  * Description: TODO
  *
@@ -10,4 +14,6 @@ package com.cykj.dao;
 public interface IPurchaseHistoryDao {
     boolean getPurchaseState(int uid, int courseId);
     int purchaseCourse(int uid, int courseId);
+    List<CoursePurchaseHistory> getPurchaseHistories(int uid, int limitNum, int page);
+    int getPurchaseHistoryNum(int uid);
 }

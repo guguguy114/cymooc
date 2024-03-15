@@ -1,0 +1,3 @@
+function initial () {
+    setHeader($("#background"))
+}

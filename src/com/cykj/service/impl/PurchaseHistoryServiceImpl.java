@@ -3,7 +3,10 @@ package com.cykj.service.impl;
 import com.cykj.dao.IPurchaseHistoryDao;
 import com.cykj.dao.Impl.PurchaseHistoryDao;
 import com.cykj.net.ResponseDto;
+import com.cykj.pojo.CoursePurchaseHistory;
 import com.cykj.service.PurchaseHistoryService;
+
+import java.util.List;
 
 /**
  * Description: TODO
@@ -48,5 +51,25 @@ public class PurchaseHistoryServiceImpl implements PurchaseHistoryService {
                 dto = new ResponseDto(0, "dao wrong", 0);
         }
         return dto;
+    }
+
+    @Override
+    public ResponseDto getPurchaseHistories(int uid, int limitNum, int page) {
+        ResponseDto dto;
+        IPurchaseHistoryDao purchaseHistoryDao = PurchaseHistoryDao.getInstance();
+        List<CoursePurchaseHistory> historyList = purchaseHistoryDao.getPurchaseHistories(uid, limitNum, page);
+        if (historyList != null) {
+            dto = new ResponseDto(1, "get purchase history successfully", historyList);
+        } else {
+            dto =  new ResponseDto(0, "get purchase history failed", null);
+        }
+        return dto;
+    }
+
+    @Override
+    public ResponseDto getPurchaseHistoryNum(int uid) {
+        IPurchaseHistoryDao purchaseHistoryDao = PurchaseHistoryDao.getInstance();
+        int num = purchaseHistoryDao.getPurchaseHistoryNum(uid);
+        return new ResponseDto(1, "get history num successfully", num);
     }
 }
