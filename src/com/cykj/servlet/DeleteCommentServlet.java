@@ -1,6 +1,7 @@
 package com.cykj.servlet;
 
 import com.alibaba.fastjson2.JSON;
+import com.cykj.annotation.Servlet;
 import com.cykj.net.HttpRequest;
 import com.cykj.net.HttpResponse;
 import com.cykj.net.ResponseDto;
@@ -16,6 +17,7 @@ import javax.swing.*;
  * @version 1.0
  * @since 2024/3/11 22:22
  */
+@Servlet("/deleteComment")
 public class DeleteCommentServlet extends BasicServlet{
     @Override
     public void doPost(HttpRequest request, HttpResponse response) {

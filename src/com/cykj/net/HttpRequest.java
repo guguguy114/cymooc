@@ -20,6 +20,7 @@ public class HttpRequest {
     private String protocol;
     private final HashMap<String, String> parameterMap;
     private final HashMap<String, String> headerMap;
+    private String requestBody;
 
     public HttpRequest(String request){
         try {
@@ -40,50 +41,44 @@ public class HttpRequest {
      * @since 2023/11/22 13:30
      */
     private void resolveData() {
-        Scanner sc = new Scanner(request).useDelimiter("\\r\\n");
-         ArrayList<String> bowserInfoPart = new ArrayList<>();
-
-
-        while (sc.hasNext()) {
-            bowserInfoPart.add(sc.next());
-        }
-        String[] apart;
-        apart = bowserInfoPart.get(0).split(" ");
+        String[] bowserInfoPart = request.split("\r\n");
+        String requestLine = bowserInfoPart[0];
+        String[] apart = requestLine.split(" ");
         type = apart[0];
         module = apart[1];
         protocol = apart[2].replace("\r", "");
-        if (module.contains(".")){
-            for (int i = 1; i <= bowserInfoPart.size() - 1; i++) {
-                if (!bowserInfoPart.get(i).isEmpty()) {
-                    apart = bowserInfoPart.get(i).split(":", 2);
-                    parameterMap.put(apart[0], apart[1].trim());
-                }
+
+        for (int i = 1; i <= bowserInfoPart.length - 1; i++) {
+            String[] split = bowserInfoPart[i].split(": ");
+            if (split.length >= 2) {
+                parameterMap.put(split[0], split[1]);
             }
-        }else {
-            for (int i = 1; i <= bowserInfoPart.size() - 1; i++) {
-                if (i == bowserInfoPart.size() - 1 && !bowserInfoPart.get(i).isEmpty()) {
-                    apart = bowserInfoPart.get(i).split("&");
-                    for (int j = 0; j <= apart.length - 1; j++) {
-                        String[] dataApart = apart[j].split("=", 2);
-                        headerMap.put(dataApart[0], dataApart[1]);
-                    }
-                }else {
-                    if (!bowserInfoPart.get(i).isEmpty()) {
-                        apart = bowserInfoPart.get(i).split(":", 2);
-                        parameterMap.put(apart[0], apart[1].trim());
-                    }
-                }
-            }
-            if (module.contains("?")){
-                String[] moduleApart = module.split("\\?");
-                module = moduleApart[0];
-                apart = moduleApart[1].split("&");
-                for (int j = 0; j <= apart.length - 1; j++) {
-                    String[] dataApart = apart[j].split("=", 2);
+        }
+
+        String[] split = request.split("\r\n\r\n");
+        if(split.length == 2) {
+            requestBody = split[1]; // 得到请求体
+            String[] split1 = split[1].split("&");
+            for (int j = 0; j <= split1.length - 1; j++) {
+                String[] dataApart = split1[j].split("=", 2);
+                if(dataApart.length >= 2) {
                     headerMap.put(dataApart[0], dataApart[1]);
                 }
             }
         }
+
+        if (module.contains("?")){
+            String[] moduleApart = module.split("\\?");
+            module = moduleApart[0];
+            String[] split1 = moduleApart[1].split("&");
+            for (int j = 0; j <= split1.length - 1; j++) {
+                String[] dataApart = split1[j].split("=", 2);
+                headerMap.put(dataApart[0], dataApart[1]);
+            }
+        }
+
+
+
     }
 
     @Override
@@ -112,5 +107,16 @@ public class HttpRequest {
 
     public String getValue(String key){
         return headerMap.get(key);
+    }
+    public String getHeadValue(String key){
+        return parameterMap.get(key);
+    }
+
+    public String getRequestBody() {
+        return requestBody;
+    }
+
+    public void setRequestBody(String requestBody) {
+        this.requestBody = requestBody;
     }
 }

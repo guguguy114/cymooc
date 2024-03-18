@@ -1,6 +1,7 @@
 package com.cykj.servlet;
 
 import com.alibaba.fastjson2.JSON;
+import com.cykj.annotation.Servlet;
 import com.cykj.net.HttpRequest;
 import com.cykj.net.HttpResponse;
 import com.cykj.net.ResponseDto;
@@ -13,6 +14,7 @@ import com.cykj.service.impl.UserServiceImpl;
  * @version 1.0
  * @since 2023/12/20 20:10
  */
+@Servlet("/doLogin")
 public class DoLoginServlet extends BasicServlet{
     @Override
     public void doGet(HttpRequest request, HttpResponse response){

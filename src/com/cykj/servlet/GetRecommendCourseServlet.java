@@ -1,6 +1,7 @@
 package com.cykj.servlet;
 
 import com.alibaba.fastjson2.JSON;
+import com.cykj.annotation.Servlet;
 import com.cykj.net.HttpRequest;
 import com.cykj.net.HttpResponse;
 import com.cykj.net.ResponseDto;
@@ -14,6 +15,7 @@ import com.cykj.service.impl.CourseServiceImpl;
  * @version 1.0
  * @since 2024/2/21 17:00
  */
+@Servlet("/getRecommendCourse")
 public class GetRecommendCourseServlet extends BasicServlet{
     @Override
     public void doPost(HttpRequest request, HttpResponse response) {

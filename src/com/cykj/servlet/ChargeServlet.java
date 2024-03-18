@@ -1,6 +1,7 @@
 package com.cykj.servlet;
 
 import com.alibaba.fastjson2.JSON;
+import com.cykj.annotation.Servlet;
 import com.cykj.net.HttpRequest;
 import com.cykj.net.HttpResponse;
 import com.cykj.net.ResponseDto;
@@ -14,6 +15,7 @@ import com.cykj.service.impl.UserServiceImpl;
  * @since 2023/12/20 20:25
  * @see BasicServlet
  */
+@Servlet("/charge")
 public class ChargeServlet extends BasicServlet{
 
     @Override

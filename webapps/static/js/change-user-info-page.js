@@ -151,7 +151,7 @@ function initial () {
                 },
                 dataType: "json",
                 success: function (res) {
-                    console.log(res)
+                    window.parent.displayAttention("上传头像", "上传头像成功")
                 }
             })
         }

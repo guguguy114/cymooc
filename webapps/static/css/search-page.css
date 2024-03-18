@@ -311,3 +311,113 @@ body {
     position: relative;
     margin-top: 5px;
 }
+
+.label {
+    position: relative;
+    float: left;
+    margin-top: 15px;
+    margin-left: 20px;
+    font-size: 15px;
+}
+
+.sort-btn {
+    width: 70px;
+    height: 30px;
+    font-size: 15px;
+    margin-top: 10px;
+    position: relative;
+    border-radius: 10px;
+    border: 2px solid grey;
+    cursor: pointer;
+    float: left;
+    margin-left: 20px;
+}
+
+
+
+
+
+
+
+
+/* 搜索结果部分 */
+#search-result-list {
+    width: var(--page-width);
+    list-style-type: none;
+    padding-left: 0;
+    background-color: darkkhaki;
+    position: relative;
+    display: inline-block;
+}
+
+.result-item {
+    width: 1000px;
+    height: 180px;
+    background-color: blueviolet;
+    position: relative;
+    display: inline-block;
+}
+
+
+.course-img {
+    width: 200px;
+    height: 150px;
+    border: black solid 1px;
+    float: left;
+    margin-top: 15px;
+    margin-left: 15px;
+    border-radius: 20px;
+    background-color: white;
+    cursor: pointer;
+}
+
+.course-title {
+    margin-top: 10px;
+    font-size: 40px;
+    float: left;
+    margin-left: 200px;
+    cursor: pointer;
+}
+
+.type-label {
+    top: 80px;
+    font-size: 20px;
+    left: 240px;
+    position: absolute;
+}
+
+.type {
+    top: 80px;
+    left: 300px;
+    font-size: 20px;
+    position: absolute;
+}
+
+.tag-label {
+    top: 80px;
+    font-size: 20px;
+    left: 440px;
+    position: absolute;
+}
+
+.tag {
+    top: 80px;
+    left: 500px;
+    font-size: 20px;
+    position: absolute;
+}
+
+.update-time {
+    display: inline-block;
+    position: absolute;
+    bottom: 20px;
+    left: 350px;
+    font-size: 20px;
+}
+
+.update-time-label {
+    position: absolute;
+    bottom: 20px;
+    left: 240px;
+    font-size: 20px;
+}

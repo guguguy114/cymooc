@@ -72,6 +72,33 @@ public class CourseDao extends BaseDao implements ICourseDao {
         }
     }
 
+    @Override
+    public List<Course> search(String searchWord, int page, int limitNum, String sortMode) {
+        int startNum = (page - 1) * limitNum;
+        String orderS = " where course_name like ? order by " + " (SELECT COUNT("+ sortMode +".course_id) num FROM " + sortMode + " WHERE " + sortMode + ".course_id = course.course_id and " + sortMode +".state = 1) desc";
+        String sql = "select * from " + tableName + orderS + " limit ?, ?";
+        List<Object> params = new ArrayList<>();
+        searchWord = "%" + searchWord + "%";
+        params.add(searchWord);
+        params.add(startNum);
+        params.add(limitNum);
+        List<Course> courses = new ArrayList<>();
+        List<Object> dataReturn = query(sql, params, coursePojoClass);
+        for (Object o : dataReturn) {
+            courses.add((Course) o);
+        }
+        return courses;
+    }
+
+    @Override
+    public int getSearchNum(String searchWord) {
+        String sql = "select * from " + tableName + " where course_name like ?";
+        searchWord = "%" + searchWord + "%";
+        List<Object> params = new ArrayList<>();
+        params.add(searchWord);
+        return queryNum(sql, params);
+    }
+
     public synchronized static CourseDao getInstance(){// 这里使用同步锁就是为了解决线程安全问题
         if (courseDao == null){
             courseDao = new CourseDao();

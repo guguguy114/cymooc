@@ -5,7 +5,6 @@ function createAttentionPan (background) {
     let attentionPan = $("<div id=\"attention-background\"><div id=\"attention-page\"><div id=\"attention-pan\"><div id=\"attention-head\"><div id=\"attention-title\">这是标题</div><img src=\"../static/images/icons/cancel.png\" alt=\"cancel\" class='attention-cancel-btn' id='attention-cancel-btn'></div><hr><div id=\"attention-context\">这是正文</div></div></div></div>")
     background.append(attentionPan);
     $(".attention-cancel-btn").on("click", function () {
-        console.log("click")
         $("#attention-background").css("display", "none")
     })
 }
@@ -119,7 +118,6 @@ function setLoginPan () {
                 },
                 dataType: "json",
                 success: function (res) {
-                    console.log(res)
                     switch (res.code) {
                         case 0:
                             displayAttention("注册失败", "发生未知错误");
@@ -152,7 +150,6 @@ function setLoginPan () {
         $("#account-input").val('')
         $("#password-input").val('')
         $("#verify-code-input").val('')
-        // console.log('clear')
     })
 
     loginBtn.click(function () {
@@ -161,7 +158,6 @@ function setLoginPan () {
         let vcPut = $("#verify-code-input").val().toUpperCase();
 
         vcPut = md5(vcPut);
-        console.log("vc : " + vcPut)
 
         if (vcPut === vc) {
             $.ajax({
@@ -170,7 +166,6 @@ function setLoginPan () {
                 data: {acc: acc, pwd: pwd},
                 dataType: "json",
                 success: function (res) {
-                    console.log(res)
                     switch (res.code) {
                         case 0:
                             displayAttention("登录失败", "密码或账号有误")
@@ -360,7 +355,13 @@ function setSearchFunc() {
             console.log("no values")
             displayAttention("搜索失败", "请输入搜索词")
         } else {
-            console.log("search")
+            let searchOption = {
+                searchWord: searchWord,
+                sortMode: "play-num",
+                sortType: "",
+                sortTag: ""
+            }
+            sessionStorage.setItem("search_option", JSON.stringify(searchOption))
             window.location.href = "../pages/search-page.html"
         }
     })
@@ -397,7 +398,6 @@ function setHeader(background) {
     createAttentionPan(background)
     setLoginPan()
     setSearchFunc()
-    console.log("setting")
 }
 
 
@@ -590,8 +590,6 @@ function addNumBtn (num, rightBtn, properties, switchPage) {
 }
 
 function addPageBtn (fatherElem) {
-    console.log("add")
-    console.log(fatherElem)
     let item = $("<div id=\"page-btn-div\">" +
                     "<button id=\"last-page-btn\" class=\"page-btn\">上一页</button>" +
                     "<button id=\"1\" class=\"num-btn\">1</button>" +
@@ -602,6 +600,48 @@ function addPageBtn (fatherElem) {
                     "<button id=\"4\" class=\"num-btn\">4</button>" +
                     "<button id=\"next-page-btn\" class=\"page-btn\">下一页</button>" +
                 "</div>")
-    console.log(item)
     fatherElem.append(item)
+}
+
+function getSearchList(searchWord, page, limitNum, sortMode) {
+    $.ajax({
+        url: baseUrl + "search",
+        method: "post",
+        dataType: "json",
+        async: false,
+        data: {
+            searchWord: searchWord,
+            page: page,
+            lim: limitNum,
+            sortMode: sortMode,
+        },
+        success: function (res) {
+            if (res.data !== null) {
+                sessionStorage.setItem("search_result", JSON.stringify(res.data))
+            }
+        },
+        error: function () {
+            alert("server error!")
+        }
+    })
+}
+
+function getSearchNum(searchWord) {
+    let num
+    $.ajax({
+        url: baseUrl + "getSearchNum",
+        method: "post",
+        dataType: "json",
+        async: false,
+        data: {
+            searchWord: searchWord
+        },
+        success: function (res) {
+            num = res.data
+        },
+        error: function () {
+            alert("server error!")
+        }
+    })
+    return num
 }

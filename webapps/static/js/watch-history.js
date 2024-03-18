@@ -88,6 +88,5 @@ function switchWatchHistoryPage (page) {
 
     // 生成数字页标
     setPageBtn(totalWatchHistoryNum, properties, switchWatchHistoryPage)
-
 }
 

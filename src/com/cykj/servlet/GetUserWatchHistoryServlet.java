@@ -1,5 +1,6 @@
 package com.cykj.servlet;
 
+import com.cykj.annotation.Servlet;
 import com.cykj.net.HttpRequest;
 import com.cykj.net.HttpResponse;
 import com.cykj.net.ResponseDto;
@@ -13,6 +14,7 @@ import com.cykj.service.impl.WatchHistoryServiceImpl;
  * @version 1.0
  * @since 2024/3/12 23:00
  */
+@Servlet("/getUserWatchHistory")
 public class GetUserWatchHistoryServlet extends BasicServlet{
     @Override
     public void doPost(HttpRequest request, HttpResponse response) {

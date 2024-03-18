@@ -41,4 +41,26 @@ public class CourseServiceImpl implements CourseService {
         }
         return responseDto;
     }
+
+    @Override
+    public ResponseDto search(String searchWord, int page, int limitNum, String sortMode) {
+        ICourseDao courseDao = CourseDao.getInstance();
+        List<Course> courses = courseDao.search(searchWord, page, limitNum, sortMode);
+        ResponseDto dto;
+        if (!courses.isEmpty()) {
+            dto = new ResponseDto(1, "search successfully", courses);
+        } else {
+            dto = new ResponseDto(0, "no search result", null);
+        }
+        return dto;
+    }
+
+    @Override
+    public ResponseDto getSearchNum(String searchWord) {
+        ICourseDao courseDao = CourseDao.getInstance();
+        int num = courseDao.getSearchNum(searchWord);
+        ResponseDto dto;
+        dto = new ResponseDto(1, "get seach num successfully", num);
+        return dto;
+    }
 }

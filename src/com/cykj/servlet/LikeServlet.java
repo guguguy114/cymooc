@@ -1,6 +1,7 @@
 package com.cykj.servlet;
 
 import com.alibaba.fastjson2.JSON;
+import com.cykj.annotation.Servlet;
 import com.cykj.net.HttpRequest;
 import com.cykj.net.HttpResponse;
 import com.cykj.net.ResponseDto;
@@ -14,6 +15,7 @@ import com.cykj.service.impl.LikeServiceImpl;
  * @version 1.0
  * @since 2024/2/23 23:43
  */
+@Servlet("/like")
 public class LikeServlet extends BasicServlet{
     @Override
     public void doPost(HttpRequest request, HttpResponse response) {

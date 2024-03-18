@@ -1,6 +1,7 @@
 package com.cykj.servlet;
 
 import com.alibaba.fastjson2.JSON;
+import com.cykj.annotation.Servlet;
 import com.cykj.net.HttpRequest;
 import com.cykj.net.HttpResponse;
 import com.cykj.net.ResponseDto;
@@ -14,6 +15,7 @@ import com.cykj.service.impl.PurchaseHistoryServiceImpl;
  * @version 1.0
  * @since 2024/2/27 12:31
  */
+@Servlet("/purchaseCourse")
 public class PurchaseCourseServlet extends BasicServlet{
     @Override
     public void doPost(HttpRequest request, HttpResponse response) {

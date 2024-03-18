@@ -42,8 +42,8 @@ public class Tomcat {
                         sc.register(selector, SelectionKey.OP_READ);
                     }else if (key.isReadable()) {
                         sc = (SocketChannel) key.channel();
-                        // sc.configureBlocking(false);
                         ByteBuffer byteBuffer = ByteBuffer.allocate(2048);
+                        byteBuffer.clear();
                         int length = sc.read(byteBuffer);
                         if (length == -1) {
                             key.cancel();
@@ -51,21 +51,16 @@ public class Tomcat {
                             break;
                         } else {
                             String message = new String(byteBuffer.array(), 0, length);
-
-                            while (length >= 2048) {
-                                byteBuffer.clear();
-
-                                length = sc.read(byteBuffer);
-
-                                message += new String(byteBuffer.array(), 0, length);
-//                                System.out.println("read = " + length);
+                            HttpRequest myHttpRequest = new HttpRequest(message);
+                            if(myHttpRequest.getHeadValue("Content-Length") != null) {
+                                int allLen = Integer.parseInt(myHttpRequest.getHeadValue("Content-Length") );
+                                do {
+                                    byteBuffer.clear();
+                                    length = sc.read(byteBuffer);
+                                    message += new String(byteBuffer.array(), 0, length);
+                                } while (length > 0);
                             }
                             String req = message;
-
-//                            req = URLDecoder.decode(req, "UTF-8");
-//                            System.out.println("req=" + req);
-//                             System.out.println(req);
-
                             HttpRequest httpRequest = new HttpRequest(req);
                             HttpResponse httpResponse = new HttpResponse(sc);
                             MyTask task = new MyTask(httpRequest, httpResponse);

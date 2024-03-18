@@ -1,6 +1,7 @@
 package com.cykj.servlet;
 
 import com.alibaba.fastjson2.JSON;
+import com.cykj.annotation.Servlet;
 import com.cykj.net.HttpRequest;
 import com.cykj.net.HttpResponse;
 import com.cykj.net.ResponseDto;
@@ -14,6 +15,7 @@ import com.cykj.service.impl.UserServiceImpl;
  * @version 1.0
  * @since 2023/12/24 15:58
  */
+@Servlet("/getUserInfo")
 public class GetUserInfoServlet extends BasicServlet{
     @Override
     public void doPost(HttpRequest request, HttpResponse response) {
