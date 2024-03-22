@@ -54,9 +54,11 @@ public class Tomcat {
                             HttpRequest myHttpRequest = new HttpRequest(message);
                             if(myHttpRequest.getHeadValue("Content-Length") != null) {
                                 int allLen = Integer.parseInt(myHttpRequest.getHeadValue("Content-Length") );
+                                int sumLen = 0;
                                 do {
                                     byteBuffer.clear();
                                     length = sc.read(byteBuffer);
+                                    sumLen += length;
                                     message += new String(byteBuffer.array(), 0, length);
                                 } while (length > 0);
                             }

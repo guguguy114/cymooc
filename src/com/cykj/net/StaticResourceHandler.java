@@ -75,4 +75,19 @@ public class StaticResourceHandler {
         System.out.println(dataS);
         return resMap;
     }
+
+    /**
+     * 转义正则特殊字符 （$()*+.[]?\^{},|）
+     */
+    public static String escapeExprSpecialWord(String keyword) {
+        if (!keyword.isEmpty()) {
+            String[] fbsArr = { "\\", "$", "(", ")", "*", "+", ".", "[", "]", "?", "^", "{", "}", "|" };
+            for (String key : fbsArr) {
+                if (keyword.contains(key)) {
+                    keyword = keyword.replace(key, ("\\" + "\\") + key);
+                }
+            }
+        }
+        return keyword;
+    }
 }

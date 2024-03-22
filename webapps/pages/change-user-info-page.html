@@ -15,18 +15,20 @@
             <div id="title">信息修改</div>
             <div id="reset-form">
                 <div id="reset-pwd-div">
-                    <button id="reset-pwd-btn">
+                    <button id="reset-pwd-btn" class="change-btn">
                         修改密码
                     </button>
                 </div>
                 <div id="reset-nickname-div">
-                    <button id="reset-nickname-btn">
+                    <button id="reset-nickname-btn" class="change-btn">
                         修改昵称
                     </button>
                 </div>
-                <div id="reset-face-img-div">
-                    <input type="file" id="file-input" value="上传头像">
-                </div>
+
+                <label for="file-input" id="file-input-label" class="change-btn">
+                    上传头像
+                </label>
+                <input type="file" id="file-input" class="change-btn" name="file-input" accept="">
             </div>
         </div>
     </div>

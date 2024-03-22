@@ -1,6 +1,6 @@
 let properties = {
     currentPage : 1,
-    limitNum : 2
+    limitNum : 3
 }
 
 function initial() {
@@ -38,8 +38,7 @@ function switchWatchHistoryPage (page) {
             })
 
             let courseTitle = $("<div class=\"course-title\">这是视频标题</div>")
-            let courseTitleText = courseInfo.courseName
-            courseTitle.text(courseTitleText)
+            setTitle(courseTitle, courseInfo.courseName)
             courseTitle.on("click", function () {
                 toCoursePage(courseId, parent, chapterOrder)
             })
@@ -69,6 +68,8 @@ function switchWatchHistoryPage (page) {
     }
 
     let totalWatchHistoryNum
+
+
 
     $.ajax({
         url: baseUrl + "getWatchHistoryNum",

@@ -4,7 +4,6 @@
     text-align: center;
     position: relative;
     display: inline-block;
-    background-color: grey;
 }
 
 #change-pan {
@@ -12,7 +11,6 @@
     height: 700px;
     margin-top: 15px;
     display: inline-block;
-    background-color: white;
 }
 
 #title {
@@ -22,11 +20,36 @@
 }
 
 #reset-form {
-    width: 800px;
+    width: 300px;
     height: 400px;
+    margin-top: 20px;
     position: relative;
     display: inline-block;
-    background-color: bisque;
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.1);
+}
+
+#file-input {
+    opacity: 0;
+    display: none;
+}
+
+#file-input-label {
+    padding-top: 10px;
+    height: 35px;
+    position: relative;
+}
+
+.change-btn {
+    display: inline-block;
+    width: 200px;
+    height: 50px;
+    margin-top: 20px;
+    background-color: rgba(255, 127, 80, 0.5);
+    border-radius: 20px;
+    border: #c4613d solid 2px;
+    font-size: 15px;
 }
 
 

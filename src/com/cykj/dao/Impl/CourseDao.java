@@ -3,6 +3,7 @@ package com.cykj.dao.Impl;
 import com.cykj.annotation.DBTable;
 import com.cykj.dao.BaseDao;
 import com.cykj.dao.ICourseDao;
+import com.cykj.net.StaticResourceHandler;
 import com.cykj.pojo.Course;
 
 import java.util.*;
@@ -73,30 +74,119 @@ public class CourseDao extends BaseDao implements ICourseDao {
     }
 
     @Override
-    public List<Course> search(String searchWord, int page, int limitNum, String sortMode) {
+    public List<Course> search(String searchWord, int page, int limitNum, String sortMode, String[] types, String[] tags) {
         int startNum = (page - 1) * limitNum;
-        String orderS = " where course_name like ? order by " + " (SELECT COUNT("+ sortMode +".course_id) num FROM " + sortMode + " WHERE " + sortMode + ".course_id = course.course_id and " + sortMode +".state = 1) desc";
-        String sql = "select * from " + tableName + orderS + " limit ?, ?";
         List<Object> params = new ArrayList<>();
-        searchWord = "%" + searchWord + "%";
+
         params.add(searchWord);
+
+        String typesSql = " and course_type regexp '(";
+        if (types.length == 1) {
+            typesSql += types[0];
+        } else {
+            for (int i = 0; i <= types.length - 1; i++) {
+                if (i == 0) {
+                    typesSql += types[i];
+                } else {
+                    typesSql += "|" + types[i];
+                }
+            }
+        }
+
+        typesSql += ")'";
+
+
+        String tagSql = " and course_tag regexp '(";
+
+
+        for (int i = 0; i <= tags.length - 1; i++) {
+            if (tags.length == 1 || i == 0) {
+                String tag = tags[0];
+                tagSql += StaticResourceHandler.escapeExprSpecialWord(tag);
+            } else {
+                String tag = tags[i];
+                tagSql += "|" + StaticResourceHandler.escapeExprSpecialWord(tag);
+            }
+        }
+
+        tagSql += ")'";
+
+        String sql = "select * from " + tableName + " where course_name regexp ? " + typesSql + tagSql + " order by  (SELECT COUNT(" + sortMode + ".course_id) FROM " + sortMode + " WHERE " + sortMode + ".course_id = course.course_id and " + sortMode + ".state = 1) desc limit ?, ?";
+
+        if(sortMode.equals("update-time")) {
+            sql = "select * from " + tableName + " where course_name regexp ? " + typesSql + tagSql + " order by update_time desc limit ?, ?";
+        }
+
+
         params.add(startNum);
         params.add(limitNum);
+
         List<Course> courses = new ArrayList<>();
         List<Object> dataReturn = query(sql, params, coursePojoClass);
         for (Object o : dataReturn) {
             courses.add((Course) o);
         }
-        return courses;
+        if (courses.isEmpty()) {
+            return null;
+        } else {
+            return courses;
+        }
     }
 
     @Override
-    public int getSearchNum(String searchWord) {
-        String sql = "select * from " + tableName + " where course_name like ?";
-        searchWord = "%" + searchWord + "%";
+    public int getSearchNum(String searchWord, String[] types, String[] tags) {
         List<Object> params = new ArrayList<>();
         params.add(searchWord);
+
+        String typesSql = " course_type regexp '(";
+        if (types.length == 1) {
+            typesSql += types[0];
+        } else {
+            for (int i = 0; i <= types.length - 1; i++) {
+                if (i == 0) {
+                    typesSql += types[i];
+                } else {
+                    typesSql += "|" + types[i];
+                }
+            }
+        }
+
+        typesSql += ")'";
+
+
+        String tagSql = " and course_tag regexp '(";
+
+
+        for (int i = 0; i <= tags.length - 1; i++) {
+            if (tags.length == 1 || i == 0) {
+                String tag = tags[0];
+                tagSql += StaticResourceHandler.escapeExprSpecialWord(tag);
+            } else {
+                String tag = tags[i];
+                tagSql += "|" + StaticResourceHandler.escapeExprSpecialWord(tag);
+            }
+        }
+
+        tagSql += ")'";
+
+
+        String sql = "select * from " + tableName + " where " + typesSql + tagSql + " and course_name regexp ?";
         return queryNum(sql, params);
+    }
+
+    @Override
+    public Set<String> getSearchResultTags(String searchWord) {
+        String sql = "select * from " + tableName + " where course_name regexp ?";
+        List<Object> params = new ArrayList<>();
+        params.add(searchWord);
+        List<Object> dataReturn = query(sql, params, coursePojoClass);
+        Set<String> tagList = new HashSet<>();
+        for (Object o : dataReturn) {
+            Course course = ((Course) o);
+            String[] tags = course.getCourseTag().split(",");
+            tagList.addAll(Arrays.asList(tags));
+        }
+        return tagList;
     }
 
     public synchronized static CourseDao getInstance(){// 这里使用同步锁就是为了解决线程安全问题

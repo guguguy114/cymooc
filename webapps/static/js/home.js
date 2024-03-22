@@ -65,7 +65,6 @@ function displayChargeInputPage () {
                 iframe[0].contentWindow.updateUserInfo()
                 alert("charge successfully, charge num : " + res.data)
                 closeAttentionPan()
-                balance.html(parseInt(balance.text()) + res.data)
             },
             error: function (res) {
                 alert("server error!")

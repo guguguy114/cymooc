@@ -375,7 +375,7 @@ function createHeader(background) {
     let logo = $("<img src=\"../static/images/logo.jpg\" alt=\"logo\" srcset=\"\" id=\"logo\">")
     let searchLabel = $("<label for=\"search-field\" id=\"search-field-label\">搜索:</label>")
     let searchInput = $("<input type=\"text\" placeholder=\"请输入课程\" id=\"search-field\">")
-    let searchBtn = $("<input type=\"button\" id=\"search-button\">")
+    let searchBtn = $("<input type='button' id='search-button' value='搜索'>")
     let loginBtn = $("<button id=\"login-pan-btn\" >登录</button>")
     let faceImg = $("<img src=\"../static/images/upload/face-images/default_face_img.png\" alt=\"face-img\" id=\"face-img\">")
     let logoutBtn = $("<div id=\"logout-div\">登出</div>")
@@ -603,7 +603,7 @@ function addPageBtn (fatherElem) {
     fatherElem.append(item)
 }
 
-function getSearchList(searchWord, page, limitNum, sortMode) {
+function getSearchList(searchWord, page, limitNum, sortMode, type, tag) {
     $.ajax({
         url: baseUrl + "search",
         method: "post",
@@ -614,11 +614,11 @@ function getSearchList(searchWord, page, limitNum, sortMode) {
             page: page,
             lim: limitNum,
             sortMode: sortMode,
+            type: type,
+            tag: tag
         },
         success: function (res) {
-            if (res.data !== null) {
-                sessionStorage.setItem("search_result", JSON.stringify(res.data))
-            }
+            sessionStorage.setItem("search_result", JSON.stringify(res.data))
         },
         error: function () {
             alert("server error!")
@@ -626,7 +626,7 @@ function getSearchList(searchWord, page, limitNum, sortMode) {
     })
 }
 
-function getSearchNum(searchWord) {
+function getSearchNum(searchWord, type, tag) {
     let num
     $.ajax({
         url: baseUrl + "getSearchNum",
@@ -634,12 +634,126 @@ function getSearchNum(searchWord) {
         dataType: "json",
         async: false,
         data: {
-            searchWord: searchWord
+            searchWord: searchWord,
+            type: type,
+            tag: tag
         },
         success: function (res) {
             num = res.data
         },
         error: function () {
+            alert("server error!")
+        }
+    })
+    return num
+}
+
+function getSearchResultTags (searchWord) {
+    let tagSet;
+    $.ajax({
+        url: baseUrl + "getSearchResultTags",
+        method: "post",
+        dataType: "json",
+        async: false,
+        data: {
+            searchWord: searchWord
+        },
+        success: function (res) {
+            tagSet = new Set(res.data)
+        },
+        error: function () {
+            alert("server error")
+        }
+    })
+    return tagSet;
+}
+
+function setTitle(titleElem, title) {
+    if (title.length <= 15) {
+        titleElem.text(title)
+    } else {
+        titleElem.text(title.slice(0, 14) + "...")
+    }
+}
+
+function getCollectNum (course) {
+    let num
+    let courseId = course.courseId
+    $.ajax({
+        url: baseUrl + "getCollectNum",
+        method: "post",
+        data: {
+            courseId: courseId
+        },
+        async: false,
+        dataType: "json",
+        success: function (res) {
+            num = res.data
+        },
+        error: function (res) {
+            alert("server error!")
+        }
+    })
+    return num
+}
+
+function getLikeNum (course) {
+    let num
+    let courseId = course.courseId
+    $.ajax({
+        url: baseUrl + "getLikeNum",
+        method: "post",
+        async: false,
+        data: {
+            courseId: courseId
+        },
+        dataType: "json",
+        success: function (res) {
+            num = res.data
+        },
+        error: function (res) {
+            alert("server error!")
+        }
+    })
+    return num
+}
+
+function getCoursePlayNum(course) {
+    let num
+    let courseId = course.courseId
+    $.ajax({
+        url: baseUrl + "getPlayNum",
+        method: "post",
+        async: false,
+        data: {
+            courseId: courseId
+        },
+        dataType: "json",
+        success: function (res) {
+            num = res.data
+        },
+        error: function (res) {
+            alert("server error!")
+        }
+    })
+    return num
+}
+
+function getCommentNum(course) {
+    let num
+    let courseId = course.courseId
+    $.ajax({
+        url: baseUrl + "getCourseTotalCommentNum",
+        method: "post",
+        async: false,
+        data: {
+            courseId: courseId
+        },
+        dataType: "json",
+        success: function (res) {
+            num = res.data
+        },
+        error: function (res) {
             alert("server error!")
         }
     })

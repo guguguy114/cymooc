@@ -11,28 +11,31 @@
     <script src="../static/js/search-page.js"></script>
 </head>
 <body>
+    <div id="background-img"></div>
     <div id="background">
         <div id="tag-part">
             <div id="type-tag-div">
                 <div id="type-sort-label" class="label">类型：</div>
-                <button id="front-side-type-btn" class="sort-btn">
-                    前端
-                </button>
-                <button id="back-side-type-btn" class="sort-btn">
-                    后端
-                </button>
+                <button id="front-side-type-btn" class="sort-btn">前端</button>
+                <button id="back-side-type-btn" class="sort-btn">后端</button>
             </div>
             <div id="tag-div">
                 <div id="tag-sort-label" class="label">tag：</div>
             </div>
             <div id="sort-div">
-                <div id="sort-label" class="label">分类依据：</div>
+                <div id="sort-label" class="label">排序依据：</div>
                 <button id="play-num" class="sort-btn">播放数</button>
                 <button id="collect-num" class="sort-btn">收藏数</button>
                 <button id="comment-num" class="sort-btn">评论数</button>
+                <button id="update-time" class="sort-btn">发布时间</button>
             </div>
         </div>
         <ul id="search-result-list">
+            <li id="error-item" class="result-item">
+                <div id="error-title">
+                    没有搜索结果
+                </div>
+            </li>
             <li class="result-item">
                 <img src="../static/images/upload/face-images/default_face_img.png" alt="course_img" class="course-img">
                 <div class="course-title">这是视频标题</div>

@@ -7,12 +7,14 @@ let properties = {
 function initial () {
     addPageBtn($("#comment-part-div"))
     setHeader($("#background"))
-    getLikeNum()
-    getCollectNum()
+
+
 
     let lockBackground = $("#lock-state-screen")
     let user = JSON.parse(sessionStorage.getItem("user"));
     let courseInfo = JSON.parse(sessionStorage.getItem("current_course"))
+    $("#like-num").text(getLikeNum(courseInfo))
+    $("#collect-num").text(getCollectNum(courseInfo))
     if (user !== null){
         let purchaseState = judgeCoursePurchaseState(user.uid, courseInfo.courseId);
         if (purchaseState) {
@@ -39,6 +41,7 @@ function initial () {
     $("#video-source").attr("src", currentChapter.chapterVideo)
     $("#course-title").text(courseInfo.courseName)
     $("#course-description").text(courseInfo.courseDescription)
+    $("#price").text(courseInfo.coursePrice)
     for (i = 0; i <= chapterList.length - 1; i++) {
         let chapter = chapterList[i]
         let chapterDivList = $("#chapter-list")
@@ -107,7 +110,7 @@ function initial () {
                 dataType: "json",
                 success: function (res) {
                     likeState = getLikeState()
-                    getLikeNum()
+                    $("#like-num").text(getLikeNum(course))
                     if (likeState === 1) {
                         likeBtn.css("background-color", "blueviolet")
                         likeBtn.css("color", "white")
@@ -153,7 +156,7 @@ function initial () {
                 dataType: "json",
                 success: function (res) {
                     collectState = getCollectState()
-                    getCollectNum()
+                    $("#collect-num").text(getCollectNum(course))
                     if (collectState === 1) {
                         collectBtn.css("background-color", "blueviolet")
                         collectBtn.css("color", "white")
@@ -307,43 +310,7 @@ function getCollectState () {
     return state;
 }
 
-function getLikeNum () {
-    let course = JSON.parse(sessionStorage.getItem("current_course"))
-    let courseId = course.courseId
-    $.ajax({
-        url: baseUrl + "getLikeNum",
-        method: "post",
-        data: {
-            courseId: courseId
-        },
-        dataType: "json",
-        success: function (res) {
-            $("#like-num").text(res.data)
-        },
-        error: function (res) {
-            alert("server error!")
-        }
-    })
-}
 
-function getCollectNum () {
-    let course = JSON.parse(sessionStorage.getItem("current_course"))
-    let courseId = course.courseId
-    $.ajax({
-        url: baseUrl + "getCollectNum",
-        method: "post",
-        data: {
-            courseId: courseId
-        },
-        dataType: "json",
-        success: function (res) {
-            $("#collect-num").text(res.data)
-        },
-        error: function (res) {
-            alert("server error!")
-        }
-    })
-}
 
 function purchaseCourse () {
     let course = JSON.parse(sessionStorage.getItem("current_course"))

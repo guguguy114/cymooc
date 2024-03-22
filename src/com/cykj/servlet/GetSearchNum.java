@@ -19,8 +19,10 @@ public class GetSearchNum extends BasicServlet{
     @Override
     public void doPost(HttpRequest request, HttpResponse response) {
         String searchWord = request.getValue("searchWord");
+        String[] types = request.getValue("type").split(",");
+        String[] tags = request.getValue("tag").split(",");
         CourseService service = new CourseServiceImpl();
-        ResponseDto dto = service.getSearchNum(searchWord);
+        ResponseDto dto = service.getSearchNum(searchWord, types, tags);
         writeDto(response, dto);
     }
 

@@ -6,6 +6,9 @@ import com.cykj.net.HttpResponse;
 import com.cykj.net.ResponseDto;
 import com.cykj.service.CourseService;
 import com.cykj.service.impl.CourseServiceImpl;
+import com.cykj.util.ServerConsoleUtils;
+
+import java.util.Arrays;
 
 /**
  * Description: TODO
@@ -22,6 +25,8 @@ public class SearchServlet extends BasicServlet {
         int page = Integer.parseInt(request.getValue("page"));
         int limit = Integer.parseInt(request.getValue("lim"));
         String sortMode = request.getValue("sortMode");
+        String[] types = request.getValue("type").split(",");
+        String[] tags = request.getValue("tag").split(",");
         switch (sortMode) {
             case "collect-num":
                 sortMode = "collection";
@@ -29,13 +34,16 @@ public class SearchServlet extends BasicServlet {
             case "comment-num":
                 sortMode = "comment";
                 break;
+            case "update-time":
+                sortMode = "update-time";
+                break;
             case "play-num":
             default:
                 sortMode = "watch_history";
                 break;
         }
         CourseService service = new CourseServiceImpl();
-        ResponseDto dto = service.search(searchWord, page, limit, sortMode);
+        ResponseDto dto = service.search(searchWord, page, limit, sortMode, types, tags);
         writeDto(response, dto);
     }
 

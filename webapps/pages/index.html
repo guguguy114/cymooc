@@ -11,6 +11,8 @@
     <script src="../static/js/common.js"></script>
 </head>
 <body>
+    <div id="background-img"></div>
+    <div id="header-background"></div>
     <div id="background">
         <div id="banner">
             <div id="banner-screen">
@@ -45,65 +47,66 @@
 
             </ul>
         </div>
-        <div id="login-background">
-            <div id="login-page">
-                <div id="login-pan">
-                    <div id="login-pan-title" class="pan-title">
-                        登录
-                    </div>
-                    <div class="cancel-btn">
-                        <img src="../static/images/icons/cancel.png" alt="cancel">
-                    </div>
-                    <form id="login-form">
-                        <div id="acc-div">
-                            <label for="account-input" id="account-input-label">账号:</label>
-                            <input type="text" id="account-input">
-                        </div>
-                        <div id="pwd-div">
-                            <label for="password-input" id="password-input-label">密码:</label>
-                            <input type="password" id="password-input">
-                        </div>
-                        <div id="vc-div">
-                            <label for="verify-code-input" id="verify-code-input-label">验证码:</label>
-                            <input type="text" id="verify-code-input">
-                            <img src="../static/images/logo.jpg" alt="verify-code-image" id="verify-code-image">
-                        </div>
-                        <div id="option-btn-div">
-                            <input type="button" value="登录" id="login-btn">
-                            <input type="button" value="注册" id="to-register-btn">
-                        </div>
-                    </form>
+
+    </div>
+    <div id="login-background">
+        <div id="login-page">
+            <div id="login-pan">
+                <div id="login-pan-title" class="pan-title">
+                    登录
                 </div>
-                <div id="register-pan">
-                    <div id="register-pan-title" class="pan-title">
-                        注册
+                <div class="cancel-btn">
+                    <img src="../static/images/icons/cancel.png" alt="cancel">
+                </div>
+                <form id="login-form">
+                    <div id="acc-div">
+                        <label for="account-input" id="account-input-label">账号:</label>
+                        <input type="text" id="account-input">
                     </div>
-                    <div class="cancel-btn">
-                        <img src="../static/images/icons/cancel.png" alt="cancel">
+                    <div id="pwd-div">
+                        <label for="password-input" id="password-input-label">密码:</label>
+                        <input type="password" id="password-input">
                     </div>
-                    <div id="register-form">
-                        <div id="acc-div-r">
-                            <label for="account-input-r" id="account-input-label-r">
-                                账号:
-                            </label>
-                            <input type="text" id="account-input-r">
-                        </div>
-                        <div id="pwd-div-r">
-                            <label for="password-input-r" id="password-input-label-r">
-                                密码:
-                            </label>
-                            <input type="password" id="password-input-r">
-                        </div>
-                        <div id="pwd-confirm-div-r">
-                            <label for="password-confirm-input-r" id="password-confirm-input-label-r">
-                                确认密码:
-                            </label>
-                            <input type="password" id="password-confirm-input-r">
-                        </div>
-                        <div id="option-btn-div-r">
-                            <input type="button" value="返回登录界面" id="return-to-login-pan-btn">
-                            <input type="button" value="注册" id="register-btn">
-                        </div>
+                    <div id="vc-div">
+                        <label for="verify-code-input" id="verify-code-input-label">验证码:</label>
+                        <input type="text" id="verify-code-input">
+                        <img src="../static/images/logo.jpg" alt="verify-code-image" id="verify-code-image">
+                    </div>
+                    <div id="option-btn-div">
+                        <input type="button" value="登录" id="login-btn">
+                        <input type="button" value="注册" id="to-register-btn">
+                    </div>
+                </form>
+            </div>
+            <div id="register-pan">
+                <div id="register-pan-title" class="pan-title">
+                    注册
+                </div>
+                <div class="cancel-btn">
+                    <img src="../static/images/icons/cancel.png" alt="cancel">
+                </div>
+                <div id="register-form">
+                    <div id="acc-div-r">
+                        <label for="account-input-r" id="account-input-label-r">
+                            账号:
+                        </label>
+                        <input type="text" id="account-input-r">
+                    </div>
+                    <div id="pwd-div-r">
+                        <label for="password-input-r" id="password-input-label-r">
+                            密码:
+                        </label>
+                        <input type="password" id="password-input-r">
+                    </div>
+                    <div id="pwd-confirm-div-r">
+                        <label for="password-confirm-input-r" id="password-confirm-input-label-r">
+                            确认密码:
+                        </label>
+                        <input type="password" id="password-confirm-input-r">
+                    </div>
+                    <div id="option-btn-div-r">
+                        <input type="button" value="返回登录界面" id="return-to-login-pan-btn">
+                        <input type="button" value="注册" id="register-btn">
                     </div>
                 </div>
             </div>

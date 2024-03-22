@@ -78,6 +78,14 @@ public class WatchHistoryDao extends BaseDao implements IWatchHistoryDao {
         return (WatchHistory) dataReturn.get(0);
     }
 
+    @Override
+    public int getCoursePlayNum(int courseId) {
+        String sql = "select * from " + tableName + " where course_id = ? ";
+        List<Object> params = new ArrayList<>();
+        params.add(courseId);
+        return queryNum(sql, params);
+    }
+
     public synchronized static WatchHistoryDao getInstance() {
         if (watchHistoryDao == null) {
             watchHistoryDao = new WatchHistoryDao();

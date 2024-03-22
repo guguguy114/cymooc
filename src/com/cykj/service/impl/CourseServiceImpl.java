@@ -7,6 +7,7 @@ import com.cykj.pojo.Course;
 import com.cykj.service.CourseService;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Description: TODO
@@ -43,11 +44,11 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public ResponseDto search(String searchWord, int page, int limitNum, String sortMode) {
+    public ResponseDto search(String searchWord, int page, int limitNum, String sortMode, String[] types, String[] tags) {
         ICourseDao courseDao = CourseDao.getInstance();
-        List<Course> courses = courseDao.search(searchWord, page, limitNum, sortMode);
+        List<Course> courses = courseDao.search(searchWord, page, limitNum, sortMode, types, tags);
         ResponseDto dto;
-        if (!courses.isEmpty()) {
+        if (!(courses == null)) {
             dto = new ResponseDto(1, "search successfully", courses);
         } else {
             dto = new ResponseDto(0, "no search result", null);
@@ -56,11 +57,24 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public ResponseDto getSearchNum(String searchWord) {
+    public ResponseDto getSearchNum(String searchWord, String[] types, String[] tags) {
         ICourseDao courseDao = CourseDao.getInstance();
-        int num = courseDao.getSearchNum(searchWord);
+        int num = courseDao.getSearchNum(searchWord, types, tags);
         ResponseDto dto;
-        dto = new ResponseDto(1, "get seach num successfully", num);
+        dto = new ResponseDto(1, "get search num successfully", num);
+        return dto;
+    }
+
+    @Override
+    public ResponseDto getSearchResultTags(String searchWord) {
+        ICourseDao courseDao = CourseDao.getInstance();
+        Set<String> tags = courseDao.getSearchResultTags(searchWord);
+        ResponseDto dto;
+        if (tags.isEmpty()) {
+            dto = new ResponseDto(1, "no tags", null);
+        } else {
+            dto = new ResponseDto(1, "successfully get course tags", tags);
+        }
         return dto;
     }
 }

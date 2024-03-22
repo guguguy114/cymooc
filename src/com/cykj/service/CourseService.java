@@ -12,6 +12,7 @@ import com.cykj.net.ResponseDto;
 public interface CourseService {
     ResponseDto getRecommendCourse(String func, int num);
     ResponseDto getCourse(int id);
-    ResponseDto search(String searchWord, int page, int limitNum, String sortMode);
-    ResponseDto getSearchNum(String searchWord);
+    ResponseDto search(String searchWord, int page, int limitNum, String sortMode, String[] types, String[] tags);
+    ResponseDto getSearchNum(String searchWord, String[] types, String[] tags);
+    ResponseDto getSearchResultTags(String searchWord);
 }

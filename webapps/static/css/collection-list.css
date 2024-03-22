@@ -1,32 +1,37 @@
-#background {
+ #background {
     width: 100%;
     height: 730px;
     text-align: center;
     position: relative;
     display: inline-block;
-    background-color: grey;
 }
 
 #header {
     width: 900px;
     height: 50px;
-    background-color: white;
+    margin-top: 10px;
     display: inline-block;
     font-size: 40px;
 }
 
 #collection-list {
     width: 900px;
-    background-color: cadetblue;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.1);
     display: inline-block;
+    border-radius: 20px;
     padding-left: 0;
     list-style-type: none;
 }
 
 .collection-item {
-    width: 800px;
+    width: 850px;
     height: 180px;
-    background-color: blueviolet;
+    margin-top: 5px;
+    background-color: rgba(255, 127, 80, 0.75);
+    border-radius: 20px;
     position: relative;
     display: inline-block;
 }
@@ -71,14 +76,14 @@
 .cancel-collection-btn {
     width: 100px;
     height: 30px;
-    background-color: white;
+    background-color: rgba(252, 168, 143, 0.75);
     position: absolute;
     right: 10px;
     top: 60px;
     font-size: 15px;
     padding-top: 10px;
-    border-radius: 10px;
-    border: black solid 2px;
+    border-radius: 20px;
+    border: rgba(124, 73, 47, 0.5) solid 2px;
     cursor: pointer;
 }
 

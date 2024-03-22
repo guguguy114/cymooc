@@ -11,6 +11,7 @@
     <script src="../static/js/course.js"></script>
 </head>
 <body>
+    <div id="background-img"></div>
     <div id="background">
         <div id="course-part-div">
             <div id="course-header">
@@ -53,6 +54,16 @@
                 <div id="lock-header">
                     您尚未购买该课程
                 </div>
+
+                <div id="price-div">
+                    <div id="price-label">
+                        价格：
+                    </div>
+                    <div id="price">
+                        价格
+                    </div>
+                </div>
+
                 <div id="unlock-btn-div">
                     <button id="unlock-btn">
                         购买
@@ -63,7 +74,7 @@
         <div id="comment-part-div">
             <div id="leave-comment-div">
                 <div id="write-comment-area">
-                    <label for="comment-input">发表评论:</label>
+                    <label for="comment-input" id="comment-input-label">发表评论:</label>
                     <input type="text" id="comment-input">
                     <button id="submit-comment-btn">发表</button>
                 </div>

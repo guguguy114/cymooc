@@ -1,6 +1,6 @@
 let properties = {
     currentPage : 1,
-    limitNum : 2
+    limitNum : 3
 }
 
 let uid
@@ -43,7 +43,7 @@ function switchPages (page) {
             })
 
             let courseTitle = $("<div class=\"course-title\">这是视频标题</div>")
-            courseTitle.text(courseInfo.courseName)
+            setTitle(courseTitle, courseInfo.courseName)
             courseTitle.on("click", function () {
                 toCoursePage(courseInfo.courseId, parent)
             })
@@ -69,6 +69,8 @@ function switchPages (page) {
     }
 
     let totalPurchaseNum
+
+
 
     $.ajax({
         url: baseUrl + "getPurchaseHistoryNum",
@@ -103,6 +105,9 @@ function getUserPurchaseHistory (uid, limitNum, page) {
         },
         success: function (res) {
             historyList = res.data
+            if (res.data.length === 0) {
+                historyList = undefined
+            }
         },
         error: function (res) {
             alert("server error!")

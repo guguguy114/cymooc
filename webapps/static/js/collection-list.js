@@ -61,8 +61,7 @@ function switchPages (page) {
             })
 
             let courseTitle = $("<div class='course-title'></div>")
-            let courseTitleText = course.courseName
-            courseTitle.text(courseTitleText)
+            setTitle(courseTitle, course.courseName)
 
             courseTitle.on("click", function () {
                 toCoursePage(courseId, parent)

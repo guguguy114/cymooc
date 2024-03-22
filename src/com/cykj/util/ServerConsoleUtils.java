@@ -11,15 +11,15 @@ public class ServerConsoleUtils {
     public static final String GREEN = "\33[32;1m";
     public static final String RED = "\33[31;1m";
 
-    public static void printOut(String message, String title, String color) {
-        System.out.print(color + "[" + title + "] " + message + "\33[0m" + "\n");
+    public static void printOut(Object message, String title, String color) {
+        System.out.print(color + "[" + title + "] " + message.toString() + "\33[0m" + "\n");
     }
 
-    public static void printOut(String message, String color) {
-        System.out.print(color + "[Server] " + message + "\33[0m" + "\n");
+    public static void printOut(Object message, String color) {
+        System.out.print(color + "[Server] " + message.toString() + "\33[0m" + "\n");
     }
 
-    public static void printOut(String message) {
-        printOut(message, GREEN);
+    public static void printOut(Object message) {
+        printOut(message.toString(), GREEN);
     }
 }

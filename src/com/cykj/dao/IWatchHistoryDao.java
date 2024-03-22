@@ -16,4 +16,5 @@ public interface IWatchHistoryDao {
     int getWatchHistoryNum(int uid);
     List<WatchHistory> getUserWatchHistories(int uid, int limit, int page);
     WatchHistory getNearestWatchHistory(int uid);
+    int getCoursePlayNum(int courseId);
 }

@@ -13,4 +13,5 @@ public interface WatchHistoryService {
     ResponseDto addWatchHistory(int uid, int courseId, int chapterId);
     ResponseDto getWatchHistoryNum(int uid);
     ResponseDto getUserWatchHistories(int uid, int limit, int page);
+    ResponseDto getCoursePlayNum(int courseId);
 }

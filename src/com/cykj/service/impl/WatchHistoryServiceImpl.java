@@ -48,4 +48,11 @@ public class WatchHistoryServiceImpl implements WatchHistoryService {
         }
         return dto;
     }
+
+    @Override
+    public ResponseDto getCoursePlayNum(int courseId) {
+        IWatchHistoryDao watchHistoryDao = WatchHistoryDao.getInstance();
+        int num = watchHistoryDao.getCoursePlayNum(courseId);
+        return new ResponseDto(1, "get playNum successfully", num);
+    }
 }

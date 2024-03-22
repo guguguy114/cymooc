@@ -4,7 +4,7 @@ let tik = 1; // 初始tik
 let maxBannerNum = 5; // 最大轮播图数量
 let maxShowVideoNum = 10;// 最大展示推荐视频数量
 function initial() {
-    setHeader($("#background"))
+    setHeader($("#header-background"))
 
     // 设置横幅播放
     setInterval(function () {
@@ -138,14 +138,14 @@ function getRecommendVideo (func) {
                 let videoImgDiv = $("<div class='video-img-div'></div>")
                 let videoImg = $("<img src='../static/images/upload/course-images/default_video_img.jpg' alt='video-img' class='video-img'> <hr>")
                 let titleId = "title" + i
-                let videoName = $("<div>this is title</div>")
+                let videoName = $("<div class='video-title'>this is title</div>")
 
                 videoName.attr("id", titleId);
                 videoImg.attr("id", imgId);
 
                 if (i <= data.length) {
                     let course = getCourseDetail(data[i - 1]);
-                    videoName.text(course.courseName)
+                    setTitle(videoName, course.courseName)
                     videoImg.attr("src", course.courseImg)
                 }
 
