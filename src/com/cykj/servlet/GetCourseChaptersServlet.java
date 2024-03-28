@@ -9,8 +9,8 @@ import com.cykj.service.ChapterService;
 import com.cykj.service.impl.ChapterServiceImpl;
 
 /**
- * Description: TODO
- *
+ * Description:
+ * 获取课程全部章节
  * @author Guguguy
  * @version 1.0
  * @since 2024/2/23 15:25

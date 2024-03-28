@@ -1,12 +1,12 @@
 package com.cykj.net;
 
 import com.alibaba.fastjson2.JSON;
-import com.cykj.servlet.BasicServlet;
+import com.cykj.servlet.*;
 import com.cykj.util.ServerConsoleUtils;
 import com.cykj.util.ServletUtils;
 
 /**
- * Description: TODO
+ * Description:
  * 任务对象，用于线程池的使用
  * @author Guguguy
  * @version 1.0
@@ -50,8 +50,9 @@ public class MyTask extends Thread{
                 servlet.service(httpRequest, httpResponse);
             }
         } catch (RuntimeException e) {
-            ServerConsoleUtils.printOut(e.getMessage(),"Server Error" , ServerConsoleUtils.RED);
             e.printStackTrace();
+            ServerConsoleUtils.printOut(e.getMessage(),"Server Error" , ServerConsoleUtils.RED);
+
             ResponseDto dto = new ResponseDto(404, "UnknownError!", null);
             httpResponse.write("text/html; charset:utf-8", JSON.toJSONBytes(dto));
         }

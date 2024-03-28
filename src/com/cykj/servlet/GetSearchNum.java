@@ -8,8 +8,8 @@ import com.cykj.service.CourseService;
 import com.cykj.service.impl.CourseServiceImpl;
 
 /**
- * Description: TODO
- *
+ * Description:
+ * 获取搜索记录数
  * @author Guguguy
  * @version 1.0
  * @since 2024/3/18 22:29

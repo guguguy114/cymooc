@@ -14,8 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Description: TODO
- *
+ * Description:
+ * 处理购买记录的数据库dao层
  * @author Guguguy
  * @version 1.0
  * @since 2024/2/26 23:15

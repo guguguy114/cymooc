@@ -336,6 +336,41 @@ body {
 
 
 
+/* 搜索信息部分 */
+#search-info-div {
+    background-color: rgba(128, 128, 128, 0.5);
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.25);
+    width: 1200px;
+    height: 50px;
+    position: relative;
+    top: 90px;
+    display: inline-block;
+    border-radius: 20px;
+}
+
+#total-search-num {
+    display: inline-block;
+    font-size: 20px;
+    margin-right: 20px;
+    margin-top: 10px;
+    color: black;
+}
+
+#current-course-num {
+    display: inline-block;
+    font-size: 20px;
+    margin-left: 20px;
+    color: black;
+    margin-top: 10px;
+}
+
+
+
+
+
+
+
+
 
 /* 搜索结果部分 */
 #search-result-list {
@@ -380,75 +415,94 @@ body {
     margin-top: 10px;
     font-size: 40px;
     float: left;
-    margin-left: 200px;
+    margin-left: 20px;
     cursor: pointer;
 }
 
+.description-label {
+    top: 65px;
+    left: 240px;
+    font-size: 20px;
+    position: absolute;
+}
+
+.course-description {
+    width: 700px;
+    top: 65px;
+    left: 350px;
+    font-size: 20px;
+    position: absolute;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+    white-space: nowrap;
+}
+
 .type-label {
-    top: 80px;
+    top: 100px;
     font-size: 20px;
     left: 240px;
     position: absolute;
 }
 
 .type {
-    top: 80px;
+    top: 100px;
     left: 300px;
     font-size: 20px;
     position: absolute;
 }
 
 .tag-label {
-    top: 80px;
+    top: 100px;
     font-size: 20px;
     left: 380px;
     position: absolute;
 }
 
 .tag {
-    top: 80px;
+    top: 100px;
     left: 440px;
     font-size: 20px;
     position: absolute;
 }
 
 .play-num-label {
-    top: 80px;
+    top: 100px;
     left: 600px;
     position: absolute;
     font-size: 20px;
 }
 
 .play-num {
-    top: 81px;
+    top: 101px;
     left: 680px;
     position: absolute;
     font-size: 20px;
 }
 
 .collect-num-label {
-    top: 80px;
+    top: 100px;
     left: 720px;
     position: absolute;
     font-size: 20px;
 }
 
 .collect-num {
-    top: 81px;
+    top: 101px;
     left: 800px;
     position: absolute;
     font-size: 20px;
 }
 
 .comment-num-label {
-    top: 80px;
+    top: 100px;
     left: 860px;
     position: absolute;
     font-size: 20px;
 }
 
 .comment-num {
-    top: 81px;
+    top: 101px;
     left: 940px;
     position: absolute;
     font-size: 20px;

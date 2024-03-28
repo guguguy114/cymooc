@@ -9,8 +9,8 @@ import com.cykj.service.CourseService;
 import com.cykj.service.impl.CourseServiceImpl;
 
 /**
- * Description: TODO
- *
+ * Description:
+ * 获取推荐视频
  * @author Guguguy
  * @version 1.0
  * @since 2024/2/21 17:00

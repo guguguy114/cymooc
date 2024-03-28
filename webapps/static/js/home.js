@@ -76,14 +76,7 @@ function displayChargeInputPage () {
     chargeNumInput.css("display", "inline-block")
 }
 
-function closeAttentionPan () {
-    let chargeNumInput = $("#charge-num-input")
-    let chargeConfirmBtn = $("#charge-confirm-btn")
-    chargeNumInput.val('')
-    chargeConfirmBtn.css("display", "none")
-    chargeNumInput.css("display", "none")
-    $("#attention-background").css("display", "none")
-}
+
 
 function displayFormPan (title = "", label1 = "", label2 = "", label3 = "", btn1 = "", btn2 = "") {
     let optBtn1 = $("#option-btn-1")
@@ -134,14 +127,4 @@ function closeFormPan () {
     $("#form-input-3").val()
 }
 
-function displayConfirmPan (title, text, func) {
-    closeAttentionPan()
-    let confirmBtn = $("#charge-confirm-btn")
-    confirmBtn.off("click")
-    confirmBtn.on("click", function () {
-        func()
-        closeAttentionPan()
-    })
-    confirmBtn.css("display", "inline-block")
-    displayAttention(title, text)
-}
+

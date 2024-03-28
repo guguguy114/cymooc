@@ -8,11 +8,9 @@ import com.cykj.net.ResponseDto;
 import com.cykj.service.ChapterService;
 import com.cykj.service.impl.ChapterServiceImpl;
 
-import javax.swing.*;
-
 /**
- * Description: TODO
- *
+ * Description:
+ * 获取课程中的某一章节
  * @author Guguguy
  * @version 1.0
  * @since 2024/3/12 22:27

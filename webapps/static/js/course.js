@@ -1,13 +1,18 @@
 let properties = {
     currentPage : 1,
-    limitNum : 2
-
+    limitNum : 2,
+    lockState: false,
+    chapterList: null
 }
 
 function initial () {
     addPageBtn($("#comment-part-div"))
     setHeader($("#background"))
 
+    let attentionPan = $("#attention-pan")
+    let chargeConfirmBtn = $("<button id='charge-confirm-btn'>确定</button>")
+
+    attentionPan.append(chargeConfirmBtn)
 
 
     let lockBackground = $("#lock-state-screen")
@@ -15,16 +20,6 @@ function initial () {
     let courseInfo = JSON.parse(sessionStorage.getItem("current_course"))
     $("#like-num").text(getLikeNum(courseInfo))
     $("#collect-num").text(getCollectNum(courseInfo))
-    if (user !== null){
-        let purchaseState = judgeCoursePurchaseState(user.uid, courseInfo.courseId);
-        if (purchaseState) {
-            lockBackground.css("display", "none")
-        } else {
-            lockBackground.css("display", "block")
-        }
-    } else {
-        lockBackground.css("display", "block")
-    }
     let collectBtn = $("#collect-btn-div")
     let likeState = getLikeState()
     let likeBtn = $("#like-btn-div")
@@ -36,27 +31,69 @@ function initial () {
         likeBtn.css("color", "black")
     }
 
-    let chapterList = getCourseChapters(courseInfo.courseId)
+    properties.chapterList = getCourseChapters(courseInfo.courseId)
     let currentChapter = JSON.parse(sessionStorage.getItem("current_chapter"))
+
+    let purchaseState;
+    if (user !== null){
+        purchaseState = judgeCoursePurchaseState(user.uid, courseInfo.courseId);
+        properties.lockState = purchaseState
+        if (purchaseState === 0 && currentChapter.chapterOrder !== 1) {
+            lockBackground.css("display", "block")
+        } else if (purchaseState === 1){
+            lockBackground.css("display", "none")
+            $("#lock-info-div").css("display", "none")
+            console.log("buy")
+        } else {
+            lockBackground.css("display", "none")
+        }
+    } else if (currentChapter.chapterOrder === 1){
+        lockBackground.css("display", "none")
+    } else {
+        lockBackground.css("display", "block")
+    }
+
+
+    $("#chapter-video").on("ended", function () {
+        if (properties.chapterList[currentChapter.chapterOrder] === undefined) {
+        } else {
+            sessionStorage.setItem("current_chapter", JSON.stringify(properties.chapterList[currentChapter.chapterOrder]))
+            let nextChapter = JSON.parse(sessionStorage.getItem("current_chapter"))
+            $("#video-source").attr("src", nextChapter.chapterVideo)
+            window.location.reload(true)
+        }
+    })
     $("#video-source").attr("src", currentChapter.chapterVideo)
     $("#course-title").text(courseInfo.courseName)
     $("#course-description").text(courseInfo.courseDescription)
     $("#price").text(courseInfo.coursePrice)
-    for (i = 0; i <= chapterList.length - 1; i++) {
-        let chapter = chapterList[i]
+    for (let i = 0; i <= properties.chapterList.length - 1; i++) {
+        let chapter = properties.chapterList[i]
         let chapterDivList = $("#chapter-list")
         let chapterLi = $("<li class='chapter-item'></li>")
+
         let chapterDiv = $("<div class='chapter-div'></div>")
+        if (currentChapter.chapterId === chapter.chapterId) {
+            chapterLi.css("background-color", "rgba(196, 97, 61, 0.75)")
+            chapterDiv.css("color", "white")
+        }
+        if (!purchaseState && i !== 0){
+            let lockImg = $("<img class='lock-icon' alt='lock-icon' src='../static/images/icons/lock.png'>")
+            chapterLi.append(lockImg)
+        }
         chapterDiv.text(chapter.chapterName)
+        chapterDiv.attr("title", chapter.chapterName)
         chapterDiv.on("click", function () {
             sessionStorage.setItem("current_chapter", JSON.stringify(chapter))
             let currentChapter = JSON.parse(sessionStorage.getItem("current_chapter"))
             $("#video-source").attr("src", currentChapter.chapterVideo)
             window.location.reload(true)
         })
+
         chapterLi.append(chapterDiv)
         chapterDivList.append(chapterLi)
     }
+
 
 
     likeBtn.on("mouseover", function () {
@@ -174,13 +211,7 @@ function initial () {
 
 
     $("#unlock-btn").on("click", function () {
-        let user = JSON.parse(sessionStorage.getItem("user"))
-
-        if (user == null) {
-            displayAttention("购买失败", "请先登录")
-        } else {
-            purchaseCourse();
-        }
+        purchaseCourse()
     })
 
     switchCommentPage(properties.currentPage)
@@ -246,6 +277,9 @@ function initial () {
         }
     }
 
+    $("#course-lock-img").on("click", function () {
+        purchaseCourse()
+    })
 }
 
 
@@ -313,34 +347,13 @@ function getCollectState () {
 
 
 function purchaseCourse () {
-    let course = JSON.parse(sessionStorage.getItem("current_course"))
-    let courseId = course.courseId
     let user = JSON.parse(sessionStorage.getItem("user"))
-    let uid = user.uid
-    let lockBackground = $("#lock-state-screen")
-
-    $.ajax({
-        url: baseUrl + "purchaseCourse",
-        method: "post",
-        data: {
-            uid: uid,
-            courseId: courseId
-        },
-        dataType: "json",
-        success: function (res) {
-            if (res.code === 1) {
-                lockBackground.css("display", "none")
-                displayAttention("购买成功", "")
-            } else if (res.code === 2) {
-                displayAttention("购买失败", "余额不足")
-            } else if (res.code === 3) {
-                displayAttention("购买失败", "你已购买此课程，请勿重复购买")
-            }
-        },
-        error: function (res) {
-            alert("server error!")
-        }
-    })
+    let course = JSON.parse(sessionStorage.getItem("current_course"))
+    if (user == null) {
+        displayAttention("购买失败", "请先登录")
+    } else {
+        displayConfirmPan("购买课程", "是否确定购买,价格为：" + course.coursePrice, purchase)
+    }
 }
 
 function switchCommentPage (page) {
@@ -377,7 +390,7 @@ function switchCommentPage (page) {
             commentTime.text(collectTimeS.toString())
 
             let userName = $("<div class='user-name'></div>")
-            userName.text(userInfo.nickname)
+            setTitle(userName, userInfo.nickname, 8)
 
 
             let currentUser = JSON.parse(sessionStorage.getItem("user"))
@@ -441,4 +454,37 @@ function switchCommentPage (page) {
     })
 
     setPageBtn(totalCommentNum, properties, switchCommentPage)
+}
+
+function purchase() {
+    let user = JSON.parse(sessionStorage.getItem("user"))
+    let course = JSON.parse(sessionStorage.getItem("current_course"))
+    let courseId = course.courseId
+    let uid = user.uid
+    let lockBackground = $("#lock-state-screen")
+    $.ajax({
+        url: baseUrl + "purchaseCourse",
+        method: "post",
+        data: {
+            uid: uid,
+            courseId: courseId
+        },
+        dataType: "json",
+        success: function (res) {
+            if (res.code === 1) {
+                lockBackground.css("display", "none")
+                displayAttention("购买成功", "购买成功2秒后刷新界面")
+                setTimeout(function () {
+                    location.reload(true)
+                }, 2000)
+            } else if (res.code === 2) {
+                displayAttention("购买失败", "余额不足")
+            } else if (res.code === 3) {
+                displayAttention("购买失败", "你已购买此课程，请勿重复购买")
+            }
+        },
+        error: function (res) {
+            alert("server error!")
+        }
+    })
 }

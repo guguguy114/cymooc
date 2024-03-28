@@ -2,7 +2,6 @@ package com.cykj.pojo;
 
 import com.cykj.annotation.DBField;
 import com.cykj.annotation.DBTable;
-import com.cykj.servlet.BasicServlet;
 
 import java.math.BigDecimal;
 

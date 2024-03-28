@@ -47,7 +47,7 @@ function switchWatchHistoryPage (page) {
 
             let chapterName = $("<div class=\"purchase-price\">这是章节名称</div>")
             let chapterNameText = chapterInfo.chapterName
-            chapterName.text(chapterNameText)
+            setTitle(chapterName, chapterNameText, 20)
 
             let watchTimeLabel = $("<div class=\"watch-time-label\">观看时间:</div>")
 

@@ -3,15 +3,14 @@ package com.cykj.dao.Impl;
 import com.cykj.annotation.DBTable;
 import com.cykj.dao.BaseDao;
 import com.cykj.dao.IWatchHistoryDao;
-import com.cykj.pojo.Comment;
 import com.cykj.pojo.WatchHistory;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Description: TODO
- *
+ * Description:
+ * 处理观看记录的数据库dao层
  * @author Guguguy
  * @version 1.0
  * @since 2024/3/12 21:51
@@ -29,8 +28,10 @@ public class WatchHistoryDao extends BaseDao implements IWatchHistoryDao {
     @Override
     public boolean addWatchHistory(int uid, int courseId, int chapterId) {
         WatchHistory history = getNearestWatchHistory(uid);
-        if (history.getChapterId() == chapterId) {
-            return false;
+        if (history != null) {
+            if (history.getChapterId() == chapterId) {
+                return false;
+            }
         }
         String sql = "insert into " + tableName + " (uid, course_id, chapter_id) values (?, ?, ?)";
         List<Object> params = new ArrayList<>();
@@ -75,7 +76,11 @@ public class WatchHistoryDao extends BaseDao implements IWatchHistoryDao {
         List<Object> params = new ArrayList<>();
         params.add(uid);
         List<Object> dataReturn = query(sql, params, watchHistoryPojoClass);
-        return (WatchHistory) dataReturn.get(0);
+        if (dataReturn.isEmpty()) {
+            return null;
+        } else {
+            return (WatchHistory) dataReturn.get(0);
+        }
     }
 
     @Override

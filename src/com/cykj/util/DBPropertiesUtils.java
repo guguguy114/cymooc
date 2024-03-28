@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 /**
- * Description: TODO
+ * Description:
  * 数据库配置文件解析工具类
  * @author Guguguy
  * @version 1.0

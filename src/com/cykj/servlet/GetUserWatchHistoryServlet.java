@@ -8,8 +8,8 @@ import com.cykj.service.WatchHistoryService;
 import com.cykj.service.impl.WatchHistoryServiceImpl;
 
 /**
- * Description: TODO
- *
+ * Description:
+ * 获取用户观看记录
  * @author Guguguy
  * @version 1.0
  * @since 2024/3/12 23:00

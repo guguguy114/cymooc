@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Description: TODO
+ * Description:
  * 本类为静态资源处理类实现对静态资源的处理
  * 该类中主要实现两个方法，分别是获取文件字节内容和获取文件类型
  * @author Guguguy
@@ -18,7 +18,7 @@ import java.util.Map;
  */
 public class StaticResourceHandler {
     /**
-     * Description: TODO
+     * Description:
      * 读取文件字节数组，返回文件字节数组
      * @return byte[]
      * @author Guguguy
@@ -49,7 +49,7 @@ public class StaticResourceHandler {
     }
 
     /**
-     * Description: TODO
+     * Description:
      * 读取输入文件的文件类型，并返回字符串
      * @return java.lang.String
      * @author Guguguy

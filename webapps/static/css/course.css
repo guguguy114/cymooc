@@ -65,6 +65,32 @@ body {
     position: relative;
 }
 
+#lock-info-div {
+    position: relative;
+    float: left;
+    top: 20px;
+    width: 500px;
+}
+
+#lock-info {
+    position: relative;
+    display: inline-block;
+    float: left;
+    margin-top: 40px;
+    margin-left: 20px;
+    font-size: 30px;
+}
+
+#course-lock-img {
+    width: 100px;
+    height: 100px;
+    cursor: pointer;
+    float: left;
+    margin-left: 50px;
+    position: relative;
+    display: inline-block;
+}
+
 #course-title {
     float: left;
     font-size: 50px;
@@ -134,11 +160,29 @@ body {
     padding: 0;
     width: 90%;
     height: 30px;
+    margin-top: 10px;
     background-color: rgba(255, 127, 80, 0.75);
-    border: #c4613d solid 2px;
+    border: rgba(133, 59, 33, 0.75) solid 2px;
     border-radius: 20px;
     cursor: pointer;
     font-size: 20px;
+}
+
+.lock-icon {
+    width: 20px;
+    height: 20px;
+    float: left;
+    position: relative;
+    left: 10px;
+    top: 5px;
+}
+
+.chapter-div {
+    overflow: hidden;
+    padding-left: 40px;
+    padding-right: 40px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .opt-icon {
@@ -560,3 +604,10 @@ body {
 
 
 
+#charge-confirm-btn {
+    width: 100px;
+    height: 30px;
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
+}

@@ -6,13 +6,10 @@ import com.cykj.net.HttpResponse;
 import com.cykj.net.ResponseDto;
 import com.cykj.service.CourseService;
 import com.cykj.service.impl.CourseServiceImpl;
-import com.cykj.util.ServerConsoleUtils;
-
-import java.util.Arrays;
 
 /**
- * Description: TODO
- *
+ * Description:
+ * 搜索课程
  * @author Guguguy
  * @version 1.0
  * @since 2024/3/17 14:49

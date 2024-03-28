@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.HashMap;
 
 /**
- * Description: TODO
+ * Description:
  * 连接工具类，获取数据库连接
  * @author Guguguy
  * @version 1.0
@@ -12,7 +12,7 @@ import java.util.HashMap;
  */
 public class DBConnectUtils {
     /**
-     * Description: TODO
+     * Description:
      * 用于获取数据库连接
      * @return java.sql.Connection 返回数据；连接
      * @author Guguguy
@@ -35,7 +35,7 @@ public class DBConnectUtils {
     }
 
     /**
-     * Description: TODO
+     * Description:
      * 用于释放数据库资源
      * @param preparedStatement 传入预编译对象
      * @param resultSet 传入结果集

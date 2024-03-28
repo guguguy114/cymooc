@@ -9,8 +9,8 @@ import com.cykj.service.CollectService;
 import com.cykj.service.impl.CollectServiceImpl;
 
 /**
- * Description: TODO
- *
+ * Description:
+ * 收藏操作
  * @author Guguguy
  * @version 1.0
  * @since 2024/2/26 20:53

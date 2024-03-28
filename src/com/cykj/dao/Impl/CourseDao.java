@@ -9,7 +9,7 @@ import com.cykj.pojo.Course;
 import java.util.*;
 
 /**
- * Description: TODO
+ * Description:
  * 处理各种课程相关的数据库操作
  * @author Guguguy
  * @version 1.0

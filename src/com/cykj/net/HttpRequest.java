@@ -2,14 +2,11 @@ package com.cykj.net;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Scanner;
 
 /**
- * Description: TODO
- *
+ * Description:
+ * http请求对象
  * @author Guguguy
  * @version 1.0
  * @since 2024/1/28 0:49

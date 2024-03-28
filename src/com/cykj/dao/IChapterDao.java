@@ -12,6 +12,20 @@ import java.util.List;
  * @since 2024/2/23 16:54
  */
 public interface IChapterDao {
+    /**
+     * Description: 获取视频的全部章节
+     * @param courseId 课程id
+     * @return java.util.List<com.cykj.pojo.Chapter>
+     * @author Guguguy
+     * @since 2024/3/28 15:30
+     */
     List<Chapter> getCourseChapters (int courseId);
+    /**
+     * Description: 获取课程的某一章节
+     * @param chapterId 章节id
+     * @return com.cykj.pojo.Chapter
+     * @author Guguguy
+     * @since 2024/3/28 15:30
+     */
     Chapter getCourseChapter(int chapterId);
 }

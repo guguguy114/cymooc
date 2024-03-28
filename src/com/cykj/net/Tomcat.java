@@ -11,8 +11,8 @@ import java.util.Iterator;
 import java.util.Set;
 
 /**
- * Description: TODO
- *
+ * Description:
+ * 服务器对象，负责接收请求和处理请求
  * @author Guguguy
  * @version 1.0
  * @since 2024/1/28 0:11

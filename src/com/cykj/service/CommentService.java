@@ -3,8 +3,8 @@ package com.cykj.service;
 import com.cykj.net.ResponseDto;
 
 /**
- * Description: TODO
- *
+ * Description:
+ * 评论service层接口
  * @author Guguguy
  * @version 1.0
  * @since 2024/3/1 20:26

@@ -7,11 +7,9 @@ import com.cykj.net.ResponseDto;
 import com.cykj.service.UserService;
 import com.cykj.service.impl.UserServiceImpl;
 
-import java.util.Map;
-
 /**
- * Description: TODO
- *
+ * Description:
+ * 上传头像
  * @author Guguguy
  * @version 1.0
  * @since 2024/3/10 16:23
