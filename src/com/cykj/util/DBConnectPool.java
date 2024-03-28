@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 
 /**
- * Description: TODO
+ * Description:
  * 这里是连接池
  * @author Guguguy
  * @version 1.0
@@ -24,7 +24,7 @@ public class DBConnectPool {
     }
 
     /**
-     * Description: TODO
+     * Description:
      * 取出连接，将连接从集合中取出并删除，这里需要同步锁，否则会出现大量报错
      * @return java.sql.Connection
      * @author Guguguy
@@ -49,7 +49,7 @@ public class DBConnectPool {
 
 
     /**
-     * Description: TODO
+     * Description:
      * 归还连接，将连接重新添加进集合里
      * @param conn 需要归还回来的连接
      * @author Guguguy

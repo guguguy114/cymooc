@@ -6,8 +6,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Description: TODO
- *
+ * Description:
+ * 数据库的表名
  * @author Guguguy
  * @version 1.0
  * @since 2024/1/25 22:14

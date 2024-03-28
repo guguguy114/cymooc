@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Description: TODO
- *
+ * Description:
+ * 处理评论的数据库工具
  * @author Guguguy
  * @version 1.0
  * @since 2024/3/1 20:29

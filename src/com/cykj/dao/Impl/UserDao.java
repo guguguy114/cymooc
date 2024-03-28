@@ -8,10 +8,8 @@ import com.cykj.dao.BaseDao;
 import com.cykj.dao.IUserDao;
 import com.cykj.pojo.User;
 
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.security.MessageDigest;

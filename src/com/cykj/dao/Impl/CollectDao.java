@@ -86,7 +86,6 @@ public class CollectDao extends BaseDao implements ICollectDao {
             long courseId = ((Collection) o).getCourseId();
             int collectionNum = getCourseCollectNum((int) courseId);
             courseCollectionMap.put(courseId, collectionNum);
-            // todo
         }
         List<Map.Entry<Long, Integer>> list = new ArrayList<>(courseCollectionMap.entrySet());
         list.sort(((o1, o2) -> o2.getValue().compareTo(o1.getValue())));

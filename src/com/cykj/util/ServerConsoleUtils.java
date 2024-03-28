@@ -1,8 +1,8 @@
 package com.cykj.util;
 
 /**
- * Description: TODO
- *
+ * Description:
+ * 服务器的日志美化
  * @author Guguguy
  * @version 1.0
  * @since 2024/1/28 0:35

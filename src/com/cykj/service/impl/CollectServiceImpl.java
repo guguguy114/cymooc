@@ -3,15 +3,14 @@ package com.cykj.service.impl;
 import com.cykj.dao.ICollectDao;
 import com.cykj.dao.Impl.CollectDao;
 import com.cykj.net.ResponseDto;
-import com.cykj.pojo.Collection;
 import com.cykj.pojo.Course;
 import com.cykj.service.CollectService;
 
 import java.util.List;
 
 /**
- * Description: TODO
- *
+ * Description:
+ * 评论Service层，返回dto
  * @author Guguguy
  * @version 1.0
  * @since 2024/2/26 20:25

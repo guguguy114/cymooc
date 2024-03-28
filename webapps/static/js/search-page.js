@@ -87,6 +87,11 @@ function switchPage(page) {
                 toCoursePage(course.courseId, window)
             })
 
+            let descriptionLabel = $("<div class='description-label'>课程简介：</div>")
+
+            let description = $("<div class='course-description'></div>")
+            description.text(course.courseDescription)
+
             let typeLabel = $("<div class=\"type-label\">类型:</div>")
 
             let type = $("<div class=\"type\">类型</div>")
@@ -119,6 +124,8 @@ function switchPage(page) {
 
             item.append(courseImg)
             item.append(courseTitle)
+            item.append(descriptionLabel)
+            item.append(description)
             item.append(typeLabel)
             item.append(type)
             item.append(tagLabel)
@@ -135,6 +142,9 @@ function switchPage(page) {
             list.append(item)
 
             let searchNum = getSearchNum(searchWord, typeList, tagList)
+
+            $("#total-search-num").text("本次共有 " + searchNum + " 条搜索结果")
+            $("#current-course-num").text("当前页面共有 " + searchResultList.length + " 条搜索结果")
 
             setPageBtn(searchNum, properties, switchPage)
         }

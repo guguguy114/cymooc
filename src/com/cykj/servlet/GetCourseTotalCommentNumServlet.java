@@ -9,8 +9,8 @@ import com.cykj.service.CommentService;
 import com.cykj.service.impl.CommentServiceImpl;
 
 /**
- * Description: TODO
- *
+ * Description:
+ * 获取课程评论总数
  * @author Guguguy
  * @version 1.0
  * @since 2024/3/9 23:11

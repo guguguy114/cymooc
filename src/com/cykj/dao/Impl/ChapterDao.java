@@ -35,7 +35,7 @@ public class ChapterDao extends BaseDao implements IChapterDao {
      */
     @Override
     public List<Chapter> getCourseChapters(int courseId) {
-        String sql = "select * from " + tableName + " where course_id = ?";
+        String sql = "select * from " + tableName + " where course_id = ? ORDER BY chapter_order ASC";
         List<Object> params = new ArrayList<>();
         params.add(courseId);
         List<Object> dataReturn = query(sql, params, chapterClass);

@@ -9,8 +9,8 @@ import com.cykj.service.PurchaseHistoryService;
 import com.cykj.service.impl.PurchaseHistoryServiceImpl;
 
 /**
- * Description: TODO
- *
+ * Description:
+ * 获取购买状态
  * @author Guguguy
  * @version 1.0
  * @since 2024/2/26 23:03

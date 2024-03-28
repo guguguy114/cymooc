@@ -6,8 +6,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Description: TODO
- *
+ * Description:
+ * servlet注解，用于创建servlet集合
  * @author Guguguy
  * @version 1.0
  * @since 2024/3/17 14:00

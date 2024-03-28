@@ -1,7 +1,7 @@
 package com.cykj.net;
 
 /**
- * Description: TODO
+ * Description:
  * 返回报文，主要用于处理请求后返回客户端统一报文格式，主要包含状态码（code）、解释信息（msg）和数据（data）
  * @author Guguguy
  * @version 1.0
@@ -13,7 +13,7 @@ public class ResponseDto {
     private final Object data;
 
     /**
-     * Description: TODO
+     * Description:
      * @param code 状态码
      * @param msg 需要传达的信息报文
      * @param data 需要传达的数据

@@ -5,14 +5,12 @@ import com.cykj.annotation.Servlet;
 import com.cykj.net.HttpRequest;
 import com.cykj.net.HttpResponse;
 import com.cykj.net.ResponseDto;
-import com.cykj.service.ChapterService;
 import com.cykj.service.CollectService;
-import com.cykj.service.impl.ChapterServiceImpl;
 import com.cykj.service.impl.CollectServiceImpl;
 
 /**
- * Description: TODO
- *
+ * Description:
+ * 获取课程收藏总数
  * @author Guguguy
  * @version 1.0
  * @since 2024/2/26 21:11

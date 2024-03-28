@@ -9,7 +9,10 @@ function createAttentionPan (background) {
     })
 }
 
-function displayAttention (title, text) {
+function displayAttention(title, text, mode = "clear") {
+    if (mode === "clear") {
+        closeAttentionPan()
+    }
     $("#attention-background").css("display", "inline-block")
     $("#attention-title").html(title)
     $("#attention-context").html(text)
@@ -227,6 +230,7 @@ function judgeCoursePurchaseState (uid, courseId) {
             alert("sever error!")
         }
     })
+    console.log(state)
     return state;
 }
 
@@ -668,11 +672,11 @@ function getSearchResultTags (searchWord) {
     return tagSet;
 }
 
-function setTitle(titleElem, title) {
-    if (title.length <= 15) {
+function setTitle(titleElem, title, length = 15) {
+    if (title.length <= length) {
         titleElem.text(title)
     } else {
-        titleElem.text(title.slice(0, 14) + "...")
+        titleElem.text(title.slice(0, length - 1) + "...")
     }
 }
 
@@ -758,4 +762,30 @@ function getCommentNum(course) {
         }
     })
     return num
+}
+
+function displayConfirmPan (title, text, func) {
+    let confirmBtn = $("#charge-confirm-btn")
+    confirmBtn.off("click")
+    confirmBtn.on("click", function () {
+        func()
+        closeAttentionPan()
+    })
+    confirmBtn.css("display", "inline-block")
+    displayAttention(title, text, "no_clear")
+}
+
+function closeAttentionPan () {
+    let chargeNumInput = $("#charge-num-input")
+    if (chargeNumInput !== undefined){
+        chargeNumInput.css("display", "none")
+        chargeNumInput.val('')
+    }
+
+    let chargeConfirmBtn = $("#charge-confirm-btn")
+    if (chargeConfirmBtn !== undefined){
+        chargeConfirmBtn.css("display", "none")
+    }
+    $("#attention-background").css("display", "none")
+    console.log("done")
 }
