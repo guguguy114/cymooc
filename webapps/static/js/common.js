@@ -108,6 +108,20 @@ function setLoginPan () {
         let acc = $("#account-input-r").val()
         let pwd = $("#password-input-r").val()
         let pwdConf = $("#password-confirm-input-r").val()
+        if (acc === '') {
+            displayAttention("注册失败", "账号不能为空")
+            return
+        }
+
+        if (pwd === '') {
+            displayAttention("注册失败", "密码不能为空")
+            return
+        }
+
+        if (pwdConf === '') {
+            displayAttention("注册失败", "未确认密码")
+            return
+        }
 
         if (pwd !== pwdConf) {
             displayAttention("注册失败", "两次密码输入不一致")

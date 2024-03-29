@@ -255,6 +255,7 @@ function initial () {
     courseInfo = JSON.parse(sessionStorage.getItem("current_course"))
     let chapterInfo = JSON.parse(sessionStorage.getItem("current_chapter"))
     if (user !== null && courseInfo !== null && chapterInfo !== null) {
+        console.log("watch")
         let uid = user.uid
         let courseId = courseInfo.courseId
         let chapterId = chapterInfo.chapterId
